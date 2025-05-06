@@ -95,8 +95,6 @@ export class AuthService {
       }
     })
 
-    console.log('user', user)
-
     if (!user) {
       throw new NotFoundException('User not found')
     }

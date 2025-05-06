@@ -17,7 +17,6 @@ export class AddressesController {
     @Body() createAddressDto: CreateAddressDto,
     @CurrentUser() user: User
   ) {
-    console.log('user', user)
     return this.addressesService.create(user.id, createAddressDto)
   }
 

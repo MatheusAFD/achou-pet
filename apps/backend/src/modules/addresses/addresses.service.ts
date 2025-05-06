@@ -19,7 +19,6 @@ export class AddressesService {
   ) {}
 
   async create(userId: string, createAddressDto: CreateAddressDto) {
-    console.log(userId)
     try {
       const [createdAddress] = await this.db
         .insert(addresses)
@@ -28,7 +27,6 @@ export class AddressesService {
 
       return createdAddress
     } catch (error) {
-      console.error('Error creating address:', error)
       throw new InternalServerErrorException(error)
     }
   }
