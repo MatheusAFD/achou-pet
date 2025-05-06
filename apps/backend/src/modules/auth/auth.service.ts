@@ -13,10 +13,15 @@ import { DrizzleAsyncProvider } from 'src/drizzle/drizzle.provider'
 
 import { DrizzleSchema } from '@db/drizzle/types'
 
+import { RoleEnum } from '@common/enums'
 import { compareEncryptValue } from '@common/lib'
 
 import { SigninDTO, RefreshTokenDTO } from './dto'
 
+interface GenerateJwtTokens {
+  id: string
+  role: keyof typeof RoleEnum
+}
 @Injectable()
 export class AuthService {
   constructor(
@@ -25,17 +30,19 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  private async generateJwtTokens(user: { id: string }) {
-    const jwtPayload = {
-      id: user.id
+  private async generateJwtTokens(user: GenerateJwtTokens) {
+    const jwtPayload: GenerateJwtTokens = {
+      id: user.id,
+      role: user.role
     }
+
     const accessToken = this.jwtService.sign(jwtPayload, {
       expiresIn: '1h',
       secret: env.JWT_SECRET
     })
 
     const refreshToken = this.jwtService.sign(jwtPayload, {
-      expiresIn: '2h',
+      expiresIn: '7d',
       secret: env.JWT_REFRESH_SECRET
     })
 
@@ -72,9 +79,11 @@ export class AuthService {
       if (err.name === 'JsonWebTokenError') {
         throw new UnauthorizedException('Invalid signature')
       }
+
       if (err.name === 'TokenExpiredError') {
         throw new UnauthorizedException('Token expired')
       }
+
       throw new UnauthorizedException(err.name)
     }
   }
@@ -85,6 +94,8 @@ export class AuthService {
         return eq(user.email, email)
       }
     })
+
+    console.log('user', user)
 
     if (!user) {
       throw new NotFoundException('User not found')
@@ -97,7 +108,8 @@ export class AuthService {
     }
 
     const { accessToken, refreshToken } = await this.generateJwtTokens({
-      id: user.id
+      id: user.id,
+      role: user.role
     })
 
     return {
@@ -111,7 +123,8 @@ export class AuthService {
 
     const { accessToken, refreshToken: newRefreshToken } =
       await this.generateJwtTokens({
-        id: user.id
+        id: user.id,
+        role: user.role
       })
 
     return {

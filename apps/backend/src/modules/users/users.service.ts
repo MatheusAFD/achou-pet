@@ -1,25 +1,56 @@
-import { Injectable, Inject } from '@nestjs/common'
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException
+} from '@nestjs/common'
 
-import { eq } from 'drizzle-orm'
+import { plainToClass } from 'class-transformer'
 
-import { DRIZZLE, DrizzleProvider } from './drizzle.provider'
-import { users } from './users.schema'
+import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
+import { RoleEnum, users } from '@db/drizzle/schema'
+import { DrizzleSchema } from '@db/drizzle/types'
+
+import { encryptData } from '@common/lib'
+
+import { CreateUserDto } from './dto/create-user.dto'
+import { UpdateUserDto } from './dto/update-user.dto'
+import { User } from './entities/user.entity'
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject(DRIZZLE) private readonly drizzleProvider: DrizzleProvider
+    @Inject(DrizzleAsyncProvider)
+    private readonly db: DrizzleSchema
   ) {}
 
-  async findByEmail(email: string) {
-    const db = this.drizzleProvider.client
-    const result = await db.select().from(users).where(eq(users.email, email))
-    return result[0] || null
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    try {
+      const hashedPassword = await encryptData(createUserDto.password)
+
+      const [createdUser] = await this.db
+        .insert(users)
+        .values({
+          ...createUserDto,
+          password: hashedPassword,
+          role: RoleEnum.USER
+        })
+        .returning()
+
+      return plainToClass(User, createdUser)
+    } catch (error) {
+      throw new InternalServerErrorException(error)
+    }
   }
 
-  async createUser(data: any) {
-    const db = this.drizzleProvider.client
-    const [user] = await db.insert(users).values(data).returning()
-    return user
+  findAll() {
+    return `This action returns all users`
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} user`
+  }
+
+  update(id: number, updateUserDto: UpdateUserDto) {
+    return `This action updates a #${id} user ${JSON.stringify(updateUserDto)}`
   }
 }

@@ -6,16 +6,16 @@ import path from 'path'
 import pg from 'pg'
 import { exit } from 'process'
 
-import * as allSchema from './schema'
+import * as schema from './schema'
 
 void (async () => {
   const pool = new pg.Pool({
     connectionString: env.DATABASE_URL
   })
-  let db: NodePgDatabase<typeof allSchema> | null = null
+  let db: NodePgDatabase<typeof schema> | null = null
   db = drizzle(pool, {
     schema: {
-      ...allSchema
+      ...schema
     }
   })
 

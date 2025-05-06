@@ -1,11 +1,11 @@
 {
-  "id": "c228540b-59c5-49a9-b55c-9a4049adf839",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "005a546f-c643-4214-aa0e-280a146297e6",
+  "prevId": "c228540b-59c5-49a9-b55c-9a4049adf839",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.address": {
-      "name": "address",
+    "public.addresses": {
+      "name": "addresses",
       "schema": "",
       "columns": {
         "id": {
@@ -103,9 +103,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "address_user_id_users_id_fk": {
-          "name": "address_user_id_users_id_fk",
-          "tableFrom": "address",
+        "addresses_user_id_users_id_fk": {
+          "name": "addresses_user_id_users_id_fk",
+          "tableFrom": "addresses",
           "tableTo": "users",
           "columnsFrom": [
             "user_id"

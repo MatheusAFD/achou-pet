@@ -1,11 +1,11 @@
 {
-  "id": "c228540b-59c5-49a9-b55c-9a4049adf839",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "c7470ae4-4112-4ba3-b80c-388c0908b5ab",
+  "prevId": "005a546f-c643-4214-aa0e-280a146297e6",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.address": {
-      "name": "address",
+    "public.addresses": {
+      "name": "addresses",
       "schema": "",
       "columns": {
         "id": {
@@ -37,7 +37,7 @@
           "name": "complement",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "neighborhood": {
           "name": "neighborhood",
@@ -49,7 +49,7 @@
           "name": "reference",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "city": {
           "name": "city",
@@ -103,9 +103,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "address_user_id_users_id_fk": {
-          "name": "address_user_id_users_id_fk",
-          "tableFrom": "address",
+        "addresses_user_id_users_id_fk": {
+          "name": "addresses_user_id_users_id_fk",
+          "tableFrom": "addresses",
           "tableTo": "users",
           "columnsFrom": [
             "user_id"
