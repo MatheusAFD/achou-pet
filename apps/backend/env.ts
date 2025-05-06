@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 const envSchema = z.object({
   NEST_API_PORT: z.coerce.number().min(1000),
+  BCRYPT_ROUNDS: z.coerce.number().min(1),
   CORS_ALLOWED_ORIGINS: z.array(z.string()),
   JWT_SECRET: z.string(),
   JWT_REFRESH_SECRET: z.string(),
