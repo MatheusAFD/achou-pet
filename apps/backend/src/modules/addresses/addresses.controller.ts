@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common'
 
 import { User } from '@modules/users/entities/user.entity'
 
+import { Roles } from '@common/decorators/auth'
 import { CurrentUser } from '@common/decorators/user'
+import { RoleEnum } from '@common/enums'
 
 import { AddressesService } from './addresses.service'
 import { CreateAddressDto } from './dto/create-address.dto'
@@ -13,6 +15,7 @@ export class AddressesController {
   constructor(private readonly addressesService: AddressesService) {}
 
   @Post()
+  @Roles(RoleEnum.USER)
   create(
     @Body() createAddressDto: CreateAddressDto,
     @CurrentUser() user: User
@@ -21,11 +24,13 @@ export class AddressesController {
   }
 
   @Get(':id')
+  @Roles(RoleEnum.USER)
   findOne(@Param('id') id: string) {
-    return this.addressesService.findOne(+id)
+    return this.addressesService.findByUserId(+id)
   }
 
   @Patch(':id')
+  @Roles(RoleEnum.USER)
   update(@Param('id') id: string, @Body() updateAddressDto: UpdateAddressDto) {
     return this.addressesService.update(+id, updateAddressDto)
   }

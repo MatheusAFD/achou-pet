@@ -31,7 +31,7 @@ export class AddressesService {
     }
   }
 
-  findOne(id: number) {
+  findByUserId(id: number) {
     return `This action returns a #${id} address`
   }
 
