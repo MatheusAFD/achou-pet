@@ -10,11 +10,11 @@ import { SigninDTO } from './dto/'
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Post('sign-in')
   @Public()
   @ApiBody({ type: SigninDTO })
   @ApiResponse({ status: 404, description: 'User not found' })
   @ApiResponse({ status: 201, description: 'OK' })
-  @Post('sign-in')
   create(@Body() { email, password }: SigninDTO) {
     return this.authService.signin({ email, password })
   }

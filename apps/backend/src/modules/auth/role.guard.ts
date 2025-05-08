@@ -9,6 +9,8 @@ import { AuthGuard } from '@nestjs/passport'
 import { IS_PUBLIC_KEY, ROLES_KEY } from '@common/decorators/auth/'
 import { RoleEnum } from '@common/enums'
 
+import { AuthUser } from './entities/auth.entity'
+
 @Injectable()
 export class RolesGuard extends AuthGuard('jwt') {
   constructor(private reflector: Reflector) {
@@ -25,7 +27,7 @@ export class RolesGuard extends AuthGuard('jwt') {
       return true
     }
 
-    const { user } = context.switchToHttp().getRequest()
+    const { user }: { user: AuthUser } = context.switchToHttp().getRequest()
 
     const requiredRoles = this.reflector.getAllAndOverride<(typeof RoleEnum)[]>(
       ROLES_KEY,
@@ -36,9 +38,7 @@ export class RolesGuard extends AuthGuard('jwt') {
       return true
     }
 
-    const hasRequiredRole = requiredRoles.some(
-      (role) => user?.role?.type === role
-    )
+    const hasRequiredRole = requiredRoles.some((role) => user?.role === role)
 
     if (!hasRequiredRole) {
       throw new UnauthorizedException(
