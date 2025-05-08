@@ -1,0 +1,1 @@
+ALTER TABLE "credentials" ADD COLUMN "pet_name" text;

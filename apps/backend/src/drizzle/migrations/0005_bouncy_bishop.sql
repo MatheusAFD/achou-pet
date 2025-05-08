@@ -1,0 +1,1 @@
+ALTER TABLE "credentials" ADD COLUMN "activated_at" timestamp;
