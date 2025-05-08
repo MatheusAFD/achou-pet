@@ -9,15 +9,14 @@ export class User implements UserSelect {
   name: string
   lastName: string
   email: string
-
-  @Exclude()
-  password: string
-
   phone: string
   role: keyof typeof RoleEnum
-
+  canDisplayAddress: boolean
   lastLogin: Date | null
   updatedAt: Date | null
   createdAt: Date
   deletedAt: Date | null
+
+  @Exclude()
+  password: string
 }
