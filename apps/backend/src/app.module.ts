@@ -10,8 +10,10 @@ import { DrizzleModule } from '@modules/drizzle/drizzle.module'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { AddressesModule } from './modules/addresses/addresses.module'
+import { BatchesModule } from './modules/batches/batches.module'
+import { CredentialsModule } from './modules/credentials/credentials.module'
 import { UsersModule } from './modules/users/users.module'
-import { AddressesModule } from './modules/addresses/addresses.module';
 
 @Module({
   imports: [
@@ -19,7 +21,9 @@ import { AddressesModule } from './modules/addresses/addresses.module';
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
-    AddressesModule
+    AddressesModule,
+    CredentialsModule,
+    BatchesModule
   ],
   controllers: [AppController],
   providers: [
