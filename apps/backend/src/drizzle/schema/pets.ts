@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm'
 import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
-import { pgPetGenderEnum } from '@common/enums'
+import { pgPetGenderEnum, pgPetSizeEnum } from '@common/enums'
 import { createCustomId } from '@common/lib'
 import { timestamps } from '@common/utils'
 
@@ -16,11 +16,11 @@ export const pets = pgTable('pets', {
   birthDate: timestamp('birth_date'),
   species: text('species').notNull(),
   breed: text('breed'),
-  size: text('size'),
+  size: pgPetSizeEnum('size').notNull(),
   color: text('color'),
-  isVaccinated: boolean('is_vaccinated').default(false),
-  hasAllergies: boolean('has_allergies').default(false),
-  needsMedication: boolean('needs_medication').default(false),
+  isVaccinated: boolean('is_vaccinated').default(false).notNull(),
+  hasAllergies: boolean('has_allergies').default(false).notNull(),
+  needsMedication: boolean('needs_medication').default(false).notNull(),
   medicationDescription: text('medication_description'),
   photoUrl: text('photo_url'),
   credentialId: text('credential_id')

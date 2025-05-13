@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
+import { Transform } from 'class-transformer'
 import {
   IsString,
   IsOptional,
@@ -8,16 +9,12 @@ import {
   IsDateString
 } from 'class-validator'
 
-import { pgPetGenderEnum } from '@common/enums'
+import { PetSizeEnum, pgPetGenderEnum } from '@common/enums'
 
 export class CreatePetDto {
   @ApiProperty()
   @IsString()
   name: string
-
-  @ApiProperty({ enum: pgPetGenderEnum })
-  @IsEnum(pgPetGenderEnum)
-  gender: keyof typeof pgPetGenderEnum
 
   @ApiProperty({ required: false })
   @IsOptional()
@@ -33,10 +30,15 @@ export class CreatePetDto {
   @IsString()
   breed?: string
 
-  @ApiProperty({ required: false })
-  @IsOptional()
-  @IsString()
-  size?: string
+  @ApiProperty({ enum: PetSizeEnum })
+  @IsEnum(PetSizeEnum)
+  @Transform(({ value }) => String(value).toUpperCase())
+  size?: keyof typeof PetSizeEnum
+
+  @ApiProperty({ enum: pgPetGenderEnum })
+  @IsEnum(pgPetGenderEnum)
+  @Transform(({ value }) => String(value).toUpperCase())
+  gender: keyof typeof pgPetGenderEnum
 
   @ApiProperty({ required: false })
   @IsOptional()
@@ -44,17 +46,14 @@ export class CreatePetDto {
   color?: string
 
   @ApiProperty({ required: false })
-  @IsOptional()
   @IsBoolean()
   isVaccinated?: boolean
 
   @ApiProperty({ required: false })
-  @IsOptional()
   @IsBoolean()
   hasAllergies?: boolean
 
   @ApiProperty({ required: false })
-  @IsOptional()
   @IsBoolean()
   needsMedication?: boolean
 

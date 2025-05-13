@@ -1,0 +1,1 @@
+CREATE TYPE "public"."pet_size" AS ENUM('SMALL', 'MEDIUM', 'LARGE');
