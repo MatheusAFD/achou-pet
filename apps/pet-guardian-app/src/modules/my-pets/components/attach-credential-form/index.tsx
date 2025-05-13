@@ -47,13 +47,16 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
     resolver: zodResolver(attachCredentialFormSchema)
   })
 
+  console.log(isSubmitting)
+
   const onSubmit = async (data: AttachCredentialFormData) => {
     const [error] = await attatchCredential({
       ...data,
-      credentialId: '01JTQTY8AXAGKPAXVD29NKH8Y5'
+      credentialId: '01JTQTY8AXG8841XVQ5RP63PDX'
     })
 
     if (error) {
+      console.error('Error attaching credential', error)
       toast.error('Erro!', {
         description: 'Ocorreu um erro ao cadastrar o pet.'
       })
@@ -97,7 +100,6 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
           label="Raça"
           placeholder="Informe a raça do animal"
           errorMessage={errors.breed?.message}
-          required
         />
 
         <SelectedField
@@ -124,7 +126,6 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
           label="Cor"
           placeholder="Ex: Preto com manchas brancas"
           errorMessage={errors.color?.message}
-          required
         />
 
         <div className="flex flex-col md:flex-row col-span-2 gap-4">

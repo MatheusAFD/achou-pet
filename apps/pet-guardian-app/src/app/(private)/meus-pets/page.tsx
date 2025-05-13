@@ -16,12 +16,9 @@ export default async function MyPetsPage() {
       </AttachCredentialModal>
 
       <section className="mt-8">
-        <PetCard
-          pet={{
-            petName: 'Rex',
-            createdAt: new Date().toISOString()
-          }}
-        />
+        {data?.map((pet) => {
+          return <PetCard key={pet.id} pet={pet} />
+        })}
       </section>
     </Container>
   )
