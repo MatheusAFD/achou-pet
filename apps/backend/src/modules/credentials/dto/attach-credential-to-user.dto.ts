@@ -4,4 +4,7 @@ export class AttachCredentialToUserDto {
   @MinLength(1)
   @IsString()
   petName: string
+
+  @IsString()
+  description: string | null
 }

@@ -31,7 +31,7 @@ export class AttachCredentialToUserUseCase {
     payload: AttachCredentialToUserDto
   ) {
     const { credentialId, userId } = relations
-    const { petName } = payload
+    const { petName, description } = payload
 
     const [credential] = await this.db
       .select()
@@ -58,6 +58,7 @@ export class AttachCredentialToUserUseCase {
       .set({
         userId,
         petName,
+        description,
         status: CredentialsStatusEnum.ACTIVE,
         activatedAt: new Date()
       })

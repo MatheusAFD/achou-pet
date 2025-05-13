@@ -1,8 +1,11 @@
 import {
   Inject,
   Injectable,
-  InternalServerErrorException
+  InternalServerErrorException,
+  NotFoundException
 } from '@nestjs/common'
+
+import { eq } from 'drizzle-orm'
 
 import { plainToClass } from 'class-transformer'
 
@@ -46,8 +49,14 @@ export class UsersService {
     return `This action returns all users`
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`
+  async findOne(id: string) {
+    const [user] = await this.db.select().from(users).where(eq(users.id, id))
+
+    if (!user) {
+      throw new NotFoundException('User not found')
+    }
+
+    return plainToClass(User, user)
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
