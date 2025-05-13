@@ -31,13 +31,13 @@ export class CreatePetDto {
   breed?: string
 
   @ApiProperty({ enum: PetSizeEnum })
-  @IsEnum(PetSizeEnum)
   @Transform(({ value }) => String(value).toUpperCase())
+  @IsEnum(PetSizeEnum)
   size: keyof typeof PetSizeEnum
 
   @ApiProperty({ enum: PetGenderEnum })
-  @IsEnum(PetGenderEnum)
   @Transform(({ value }) => String(value).toUpperCase())
+  @IsEnum(PetGenderEnum)
   gender: keyof typeof PetGenderEnum
 
   @ApiProperty({ required: false })
@@ -66,8 +66,4 @@ export class CreatePetDto {
   @IsOptional()
   @IsString()
   photoUrl?: string
-
-  @ApiProperty()
-  @IsString()
-  credentialId: string
 }

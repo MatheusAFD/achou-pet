@@ -15,7 +15,6 @@ import { pets } from '@db/drizzle/schema/pets'
 import { CredentialsStatusEnum } from '@common/enums'
 
 import { CreatePetDto } from '../../pets/dto/create-pet.dto'
-import { AttachCredentialToUserDto } from '../dto/attach-credential-to-user.dto'
 
 interface AttachCredentialToUser {
   userId: string
@@ -28,12 +27,22 @@ export class AttachCredentialToUserUseCase {
     private readonly db: DrizzleSchema
   ) {}
 
-  async execute(
-    relations: AttachCredentialToUser,
-    payload: AttachCredentialToUserDto & { pet: CreatePetDto }
-  ) {
-    const { credentialId, userId } = relations
-    const { description, pet } = payload
+  async execute(relations: AttachCredentialToUser, payload: CreatePetDto) {
+    const { userId, credentialId } = relations
+    const {
+      gender,
+      name,
+      size,
+      species,
+      birthDate,
+      breed,
+      color,
+      hasAllergies,
+      isVaccinated,
+      medicationDescription,
+      needsMedication,
+      photoUrl
+    } = payload
 
     const [credential] = await this.db
       .select()
@@ -56,26 +65,26 @@ export class AttachCredentialToUserUseCase {
     }
 
     const petData = {
-      ...pet,
+      ...payload,
       credentialId
     }
 
     const [createdPet] = await this.db
       .insert(pets)
       .values({
-        gender: pet.gender,
-        name: pet.name,
-        birthDate: pet.birthDate ?? null,
-        species: pet.species,
-        breed: pet.breed,
-        size: pet.size,
-        color: pet.color,
-        isVaccinated: pet.isVaccinated,
-        hasAllergies: pet.hasAllergies,
-        medicationDescription: pet.medicationDescription,
-        photoUrl: pet.photoUrl,
+        gender: gender,
+        name: name,
+        birthDate: birthDate ?? null,
+        species: species,
+        breed: breed,
+        size: size,
+        color: color,
+        isVaccinated: isVaccinated,
+        hasAllergies: hasAllergies,
+        medicationDescription: medicationDescription,
+        photoUrl: photoUrl,
         credentialId: petData.credentialId,
-        needsMedication: pet.needsMedication
+        needsMedication: needsMedication
       })
       .returning()
 
@@ -83,7 +92,6 @@ export class AttachCredentialToUserUseCase {
       .update(credentials)
       .set({
         userId,
-        description,
         status: CredentialsStatusEnum.ACTIVE,
         activatedAt: new Date()
       })

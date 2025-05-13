@@ -8,7 +8,7 @@ import { RoleEnum } from '@common/enums'
 
 import { CreatePetDto } from '../pets/dto/create-pet.dto'
 import { CredentialsService } from './credentials.service'
-import { AttachCredentialToUserDto, CreateCredentialDto } from './dto/'
+import { CreateCredentialDto } from './dto/'
 import {
   GetCredentialDetailsUseCase,
   AttachCredentialToUserUseCase,
@@ -47,7 +47,7 @@ export class CredentialsController {
   update(
     @Param('id') id: string,
     @Body()
-    attachCredentialDto: AttachCredentialToUserDto & { pet: CreatePetDto },
+    attachCredentialDto: CreatePetDto,
     @CurrentUser() user: AuthUser
   ) {
     return this.attachCredentialToUserUseCase.execute(
