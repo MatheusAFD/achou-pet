@@ -17,8 +17,9 @@ export const attatchCredential = async (
     url: `/credentials/${data.credentialId}`,
     method: 'PATCH',
     data: {
-      petName: data.name,
-      description: data.description
+      pet: {
+        ...data
+      }
     }
   })
 

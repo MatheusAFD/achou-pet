@@ -4,12 +4,12 @@ import { ErrorResponse } from '@user-app/modules/@shared/types'
 
 import { GetMyPetsResponse } from './types'
 
-export const getMyPets = async (): Promise<
+export const getPets = async (): Promise<
   [ErrorResponse | null, GetMyPetsResponse | null]
 > => {
   const [error, data] = await httpClientFetch<GetMyPetsResponse, ErrorResponse>(
     {
-      url: '/users/me/credentials',
+      url: '/pets/me',
       method: 'GET',
       next: {
         tags: ['credentials'],

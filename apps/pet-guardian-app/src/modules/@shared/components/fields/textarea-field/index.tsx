@@ -4,21 +4,26 @@ import { CircleX } from 'lucide-react'
 
 import { cn } from '@user-app/modules/@shared/utils/index'
 
+import { Conditional } from '../../conditional'
 import { Label } from '../../ui'
 
 interface TextareaProps extends React.ComponentProps<'textarea'> {
-  label: string
+  label?: string
   errorMessage?: string
 }
 
 export const TextareaField = (props: TextareaProps) => {
   const { label, errorMessage, className, required, id, ...rest } = props
 
+  const hasLabel = Boolean(label)
+
   return (
     <fieldset>
-      <Label htmlFor={`data-test-id-${id}`} className="mb-2">
-        {label}: {required && '*'}
-      </Label>
+      <Conditional condition={hasLabel}>
+        <Label htmlFor={`data-test-id-${id}`} className="mb-2">
+          {label}: {required && '*'}
+        </Label>
+      </Conditional>
       <textarea
         data-slot="textarea"
         className={cn(

@@ -3,6 +3,7 @@ import React, { PropsWithChildren, isValidElement, cloneElement } from 'react'
 interface ConditionalProps {
   condition: boolean
   withFadeRender?: boolean
+  className?: string
 }
 
 export const Conditional = (props: PropsWithChildren<ConditionalProps>) => {
@@ -18,10 +19,7 @@ export const Conditional = (props: PropsWithChildren<ConditionalProps>) => {
       if (isValidElement(child)) {
         const childElement = child as React.ReactElement<{ className?: string }>
         return cloneElement(childElement, {
-          className: [
-            childElement.props.className || '',
-            'animate-fade-in-render'
-          ]
+          className: [childElement.props.className || '', 'animate-fade-render']
             .filter(Boolean)
             .join(' ')
         })

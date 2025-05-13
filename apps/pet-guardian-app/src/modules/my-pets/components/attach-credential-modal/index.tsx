@@ -29,6 +29,7 @@ export const AttachCredentialModal = (props: PropsWithChildren) => {
             Informe as características e informações do seu animal.
           </DialogDescription>
         </DialogHeader>
+
         <AttachCredentialForm onSuccess={() => onOpenChange(false)} />
       </DialogContent>
     </Dialog>
