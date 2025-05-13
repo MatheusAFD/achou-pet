@@ -4,7 +4,7 @@ import { getAuthToken } from '../utils'
 
 export type RequestConfig<TData = unknown> = {
   baseURL?: string
-  url?: string
+  url: string
   method: 'GET' | 'PUT' | 'PATCH' | 'POST' | 'DELETE'
   params?: Record<string, unknown>
   data?: TData | FormData
@@ -42,7 +42,7 @@ export const httpClientFetch = async <
     headers: {
       ...config.headers,
       'Content-Type': 'application/json',
-      Atuhorization: `Bearer ${token}`
+      Authorization: `Bearer ${token?.value}`
     },
     cache: config.cache,
     next: config.next

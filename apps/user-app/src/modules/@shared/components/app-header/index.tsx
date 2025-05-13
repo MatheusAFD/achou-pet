@@ -17,7 +17,7 @@ export const AppHeader = () => {
             <Bell />
           </Button>
 
-          <Avatar className="size-10">
+          <Avatar className="size-10 outline-2 outline-tertiary">
             <AvatarFallback>MF</AvatarFallback>
           </Avatar>
         </div>

@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import Link from 'next/link'
+
 import { Headset } from 'lucide-react'
 
 import { sidebarMenuItems } from '../../constants/sidebar-menu-items'
@@ -16,10 +19,17 @@ import {
 export const AppSidebar = () => {
   return (
     <Sidebar>
-      <SidebarHeader className="px-6 py-5 h-[72px]  border-b border-sidebar-border">
-        <Button size="sm" className="w-24 bg-black self-start">
-          Logo
-        </Button>
+      <SidebarHeader className="h-[72px]  border-b border-sidebar-border">
+        <Link href="/meus-pets">
+          <Image
+            src="/logo.png"
+            width={64}
+            height={64}
+            quality={100}
+            alt="Logo de um animal com a face metade gato e metade cachorro."
+            className="mx-4"
+          />
+        </Link>
       </SidebarHeader>
       <SidebarContent className="p-4">
         <SidebarGroup className="p-0">

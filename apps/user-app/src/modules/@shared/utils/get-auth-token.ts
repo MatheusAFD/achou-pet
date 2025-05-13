@@ -7,8 +7,8 @@ import { jwtDecode } from 'jwt-decode'
 export const getAuthToken = async () => {
   const cookieService = await cookies()
 
-  const token = cookieService.get('mcare-token')
-  const refreshToken = cookieService.get('mcare-refresh-token')
+  const token = cookieService.get('achou-pet-token')
+  const refreshToken = cookieService.get('achou-pet-refresh-token')
 
   const decodedToken = token && jwtDecode(token?.value ?? '')
 
