@@ -4,7 +4,7 @@ import { InputHTMLAttributes, useState } from 'react'
 
 import { Eye, EyeClosed } from 'lucide-react'
 
-import { TextField } from '../'
+import { TextField } from '..'
 import { Button } from '../../ui'
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
