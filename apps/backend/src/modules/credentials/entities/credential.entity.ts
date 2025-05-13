@@ -7,7 +7,6 @@ type CredentialType = typeof credentials.$inferSelect
 export class Credential implements CredentialType {
   id: string
   shortId: string
-  petName: string | null
   status: keyof typeof CredentialsStatusEnum | null
   batchId: string
   description: string | null

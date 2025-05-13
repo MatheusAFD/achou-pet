@@ -6,13 +6,14 @@ import { createCustomId } from '@common/lib'
 import { timestamps } from '@common/utils'
 
 import { batches, users } from './'
+import { pets } from './pets'
 
 export const credentials = pgTable('credentials', {
   id: text('id')
     .primaryKey()
     .$default(() => createCustomId()),
   shortId: text('short_id').notNull().unique(),
-  petName: text('pet_name'),
+
   status: pgCredentialsStatusEnum().default(CredentialsStatusEnum.INACTIVE),
   description: text('description'),
   hasLifetimeAccess: boolean('is_foverer').default(true),
@@ -33,5 +34,9 @@ export const credentialsRelations = relations(credentials, ({ one }) => ({
   batch: one(batches, {
     fields: [credentials.batchId],
     references: [batches.id]
+  }),
+  pet: one(pets, {
+    fields: [credentials.id],
+    references: [pets.credentialId]
   })
 }))

@@ -1,10 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common'
 
-import { AuthUser } from '@modules/auth/entities/auth.entity'
-
-import { Public, Roles } from '@common/decorators/auth'
-import { CurrentUser } from '@common/decorators/user'
-import { RoleEnum } from '@common/enums'
+import { Public } from '@common/decorators/auth'
 
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -27,12 +23,6 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll()
-  }
-
-  @Get('/me/credentials')
-  @Roles(RoleEnum.USER)
-  findAllByUser(@CurrentUser() user: AuthUser) {
-    return this.getUserCredentialsUseCase.execute(user.id)
   }
 
   @Patch(':id')

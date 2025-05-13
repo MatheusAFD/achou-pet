@@ -13,6 +13,7 @@ import { AppService } from './app.service'
 import { AddressesModule } from './modules/addresses/addresses.module'
 import { BatchesModule } from './modules/batches/batches.module'
 import { CredentialsModule } from './modules/credentials/credentials.module'
+import { PetsModule } from './modules/pets/pets.module'
 import { UsersModule } from './modules/users/users.module'
 
 @Module({
@@ -23,7 +24,8 @@ import { UsersModule } from './modules/users/users.module'
     UsersModule,
     AddressesModule,
     CredentialsModule,
-    BatchesModule
+    BatchesModule,
+    PetsModule
   ],
   controllers: [AppController],
   providers: [
