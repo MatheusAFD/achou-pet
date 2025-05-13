@@ -13,7 +13,6 @@ export const credentials = pgTable('credentials', {
     .primaryKey()
     .$default(() => createCustomId()),
   shortId: text('short_id').notNull().unique(),
-
   status: pgCredentialsStatusEnum().default(CredentialsStatusEnum.INACTIVE),
   description: text('description'),
   hasLifetimeAccess: boolean('is_foverer').default(true),
