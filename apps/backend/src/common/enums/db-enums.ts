@@ -13,11 +13,7 @@ export const pgAddressTypeEnum = pgEnum('address_type', [
   'SECONDARY'
 ])
 
-export const pgPetGenderEnum = pgEnum('pet_gender', [
-  'MALE',
-  'FEMALE',
-  'UNKNOWN'
-])
+export const pgPetGenderEnum = pgEnum('pet_gender', ['MALE', 'FEMALE'])
 
 export const pgPetSizeEnum = pgEnum('pet_size', ['SMALL', 'MEDIUM', 'LARGE'])
 

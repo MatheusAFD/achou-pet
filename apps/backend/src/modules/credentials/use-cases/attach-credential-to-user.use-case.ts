@@ -63,7 +63,7 @@ export class AttachCredentialToUserUseCase {
     const [createdPet] = await this.db
       .insert(pets)
       .values({
-        gender: pet.gender as 'MALE' | 'FEMALE' | 'UNKNOWN',
+        gender: pet.gender,
         name: pet.name,
         birthDate: pet.birthDate ?? null,
         species: pet.species,

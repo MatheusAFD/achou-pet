@@ -120,6 +120,20 @@
       "when": 1747155514853,
       "tag": "0016_heavy_nocturne",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1747156749359,
+      "tag": "0017_oval_alex_power",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1747156994172,
+      "tag": "0018_common_azazel",
+      "breakpoints": true
     }
   ]
 }

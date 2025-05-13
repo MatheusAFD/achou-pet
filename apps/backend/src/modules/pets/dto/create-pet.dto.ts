@@ -9,7 +9,7 @@ import {
   IsDateString
 } from 'class-validator'
 
-import { PetSizeEnum, pgPetGenderEnum } from '@common/enums'
+import { PetGenderEnum, PetSizeEnum } from '@common/enums'
 
 export class CreatePetDto {
   @ApiProperty()
@@ -33,12 +33,12 @@ export class CreatePetDto {
   @ApiProperty({ enum: PetSizeEnum })
   @IsEnum(PetSizeEnum)
   @Transform(({ value }) => String(value).toUpperCase())
-  size?: keyof typeof PetSizeEnum
+  size: keyof typeof PetSizeEnum
 
-  @ApiProperty({ enum: pgPetGenderEnum })
-  @IsEnum(pgPetGenderEnum)
+  @ApiProperty({ enum: PetGenderEnum })
+  @IsEnum(PetGenderEnum)
   @Transform(({ value }) => String(value).toUpperCase())
-  gender: keyof typeof pgPetGenderEnum
+  gender: keyof typeof PetGenderEnum
 
   @ApiProperty({ required: false })
   @IsOptional()
