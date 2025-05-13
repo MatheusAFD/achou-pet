@@ -10,17 +10,15 @@ import { AttachCredentialBody, AttachCredentialResponse } from './types'
 export const attatchCredential = async (
   data: AttachCredentialBody
 ): Promise<[ErrorResponse | null, AttachCredentialResponse | null]> => {
+  const { credentialId, ...dataWithoutCredentialId } = data
+
   const [error, response] = await httpClientFetch<
     AttachCredentialResponse,
     ErrorResponse
   >({
-    url: `/credentials/${data.credentialId}`,
+    url: `/credentials/${credentialId}`,
     method: 'PATCH',
-    data: {
-      pet: {
-        ...data
-      }
-    }
+    data: dataWithoutCredentialId
   })
 
   if (error) {
