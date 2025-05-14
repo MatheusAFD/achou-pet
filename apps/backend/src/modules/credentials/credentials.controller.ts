@@ -37,6 +37,12 @@ export class CredentialsController {
   }
 
   @Get(':id')
+  @Roles(RoleEnum.USER)
+  async getOne(@Param('id') id: string) {
+    return this.credentialsService.findOne(id)
+  }
+
+  @Get('details/:id')
   @Public()
   async getCredentialDetails(@Param('id') id: string) {
     return this.getCredentialDetailsUseCase.execute(id)
