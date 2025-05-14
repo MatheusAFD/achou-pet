@@ -28,8 +28,6 @@ export const EditPetModal = (props: EditPetModalProps) => {
 
   const [isFetching, setIsFetching] = useState(false)
 
-  console.log('isFetching', isFetching)
-
   const onSubmit = async (data: PetFormData) => {
     const [error] = await updatePet({
       petId: petId!,
@@ -98,6 +96,7 @@ export const EditPetModal = (props: EditPetModalProps) => {
           actionText="Editar"
           defaultValues={defaultValues}
           onSubmit={onSubmit}
+          isFetchingDefaultValues={isFetching}
         />
       </DialogContent>
     </Dialog>

@@ -18,7 +18,7 @@ import { PetFormData, PetFormSchema } from './types'
 
 interface AttachCredentialFormProps {
   actionText?: string
-  isFetching?: boolean
+  isFetchingDefaultValues?: boolean
   onSubmit: (data: PetFormData) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValues?: Partial<PetFormData> | any
@@ -27,7 +27,7 @@ interface AttachCredentialFormProps {
 export const PetForm = (props: AttachCredentialFormProps) => {
   const {
     actionText = 'Cadastrar',
-    isFetching,
+    isFetchingDefaultValues: isFetching,
     defaultValues,
     onSubmit
   } = props
