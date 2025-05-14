@@ -2,6 +2,8 @@ import { lazy } from 'react'
 
 import { Metadata } from 'next'
 
+import { PawPrint } from 'lucide-react'
+
 import { Button, Container } from '@user-app/modules/@shared/components'
 import { StepsProvider } from '@user-app/modules/@shared/contexts'
 import { PetsList } from '@user-app/modules/my-pets/components'
@@ -26,7 +28,10 @@ export default async function MyPetsPage() {
     <Container>
       <StepsProvider initialStep={AttachCredentialFormSteps.ScanQrCode}>
         <AttachCredentialModal>
-          <Button className="w-fit ">Cadastrar novo</Button>
+          <Button className="w-fit ">
+            {' '}
+            <PawPrint /> Cadastrar novo
+          </Button>
         </AttachCredentialModal>
       </StepsProvider>
 
