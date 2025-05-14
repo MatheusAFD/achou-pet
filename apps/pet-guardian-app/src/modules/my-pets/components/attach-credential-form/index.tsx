@@ -47,8 +47,6 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
     resolver: zodResolver(attachCredentialFormSchema)
   })
 
-  console.log(isSubmitting)
-
   const onSubmit = async (data: AttachCredentialFormData) => {
     const [error] = await attatchCredential({
       ...data,
@@ -131,7 +129,7 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
           errorMessage={errors.color?.message}
         />
 
-        <div className="flex flex-col md:flex-row col-span-1 gap-4">
+        <div className="flex flex-col md:flex-row col-span-1 md:col-span-2 gap-4">
           <CheckboxField
             control={control}
             id="isVaccinated"

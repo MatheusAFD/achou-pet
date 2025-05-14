@@ -1,9 +1,15 @@
+import { Metadata } from 'next'
+
 import { Button, Container } from '@user-app/modules/@shared/components'
 import { StepsProvider } from '@user-app/modules/@shared/contexts'
 import { AttachCredentialModal } from '@user-app/modules/my-pets/components'
 import { PetCard } from '@user-app/modules/my-pets/components/pet-card'
 import { getPets } from '@user-app/modules/my-pets/services/get-pets'
 import { AttachCredentialFormSteps } from '@user-app/modules/my-pets/types'
+
+export const metadata: Metadata = {
+  title: 'Meus Pets'
+}
 
 export default async function MyPetsPage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

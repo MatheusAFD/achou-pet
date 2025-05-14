@@ -15,5 +15,7 @@ export const getAuthToken = async () => {
   const tokenHasExpired =
     decodedToken?.exp && Math.floor(Date.now() / 1000) >= decodedToken.exp
 
-  return { token, tokenHasExpired, refreshToken }
+  const tokenExpirationTime = decodedToken?.exp
+
+  return { token, tokenExpirationTime, tokenHasExpired, refreshToken }
 }

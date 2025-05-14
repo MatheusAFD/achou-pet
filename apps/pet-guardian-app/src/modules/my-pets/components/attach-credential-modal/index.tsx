@@ -21,7 +21,7 @@ export const AttachCredentialModal = (props: PropsWithChildren) => {
 
   const { isOpen, onOpenChange } = useDisclosure()
 
-  const { formStep } = useSteps<AttachCredentialFormSteps>()
+  const { formStep, updateFormStep } = useSteps<AttachCredentialFormSteps>()
 
   const componentByStep = {
     [AttachCredentialFormSteps.ScanQrCode]: ScanPetCredential,
@@ -30,15 +30,26 @@ export const AttachCredentialModal = (props: PropsWithChildren) => {
 
   const CurrentStepComponent = componentByStep[formStep]
 
+  const descriptionByStep = {
+    [AttachCredentialFormSteps.ScanQrCode]: '1. Escanear Tag',
+    [AttachCredentialFormSteps.PetData]: 'Informe os dados do seu pet'
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          updateFormStep(AttachCredentialFormSteps.ScanQrCode)
+        }
+        return onOpenChange(open)
+      }}
+    >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="min-w-full h-full flex flex-col justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
         <DialogHeader className="h-fit">
           <DialogTitle>Novo Pet</DialogTitle>
-          <DialogDescription>
-            Informe as características e informações do seu animal.
-          </DialogDescription>
+          <DialogDescription>{descriptionByStep[formStep]}</DialogDescription>
         </DialogHeader>
 
         <CurrentStepComponent onSuccess={() => onOpenChange(false)} />

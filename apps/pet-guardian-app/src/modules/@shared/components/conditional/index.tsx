@@ -7,7 +7,7 @@ interface ConditionalProps {
 }
 
 export const Conditional = (props: PropsWithChildren<ConditionalProps>) => {
-  const { condition, withFadeRender = true, children } = props
+  const { condition, withFadeRender = false, children } = props
 
   if (!condition) {
     return
