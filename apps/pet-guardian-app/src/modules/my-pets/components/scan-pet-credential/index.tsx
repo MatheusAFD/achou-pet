@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import { Button, Conditional } from '@user-app/modules/@shared/components'
 import { useSteps } from '@user-app/modules/@shared/hooks'
 
+import { getPetCredential } from '../../services'
 import { AttachCredentialFormSteps } from '../../types'
 
 export const ScanPetCredential = () => {
@@ -26,6 +27,11 @@ export const ScanPetCredential = () => {
     let scanner: QrScanner | null = null
     const localVideoRef = videoRef.current
 
+    const handleCloseCamera = () => {
+      scanner?.stop()
+      setScanning(false)
+    }
+
     const initializeCameraStream = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -37,21 +43,45 @@ export const ScanPetCredential = () => {
             localVideoRef.play()
           }
         }
-        scanner = new QrScanner(localVideoRef!, (result) => {
+        scanner = new QrScanner(localVideoRef!, async (result) => {
           if (
             result &&
             (typeof result === 'string' ||
               (typeof result === 'object' && 'data' in result))
           ) {
-            console.log('QR Code result:', result)
-            toast.success('QR Code escaneado com sucesso')
-            updateFormStep(AttachCredentialFormSteps.PetData)
-          } else {
-            toast.warning('QR Code não reconhecido')
-          }
-          setScanning(false)
+            const url = typeof result === 'string' ? result : null
 
-          scanner?.stop()
+            const param = url?.substring(url.lastIndexOf('/') + 1)
+
+            const [error, response] = await getPetCredential(param as string)
+
+            if (error) {
+              toast.error('Erro ao buscar Tag')
+
+              handleCloseCamera()
+
+              return
+            }
+
+            if (response?.status === 'ACTIVE') {
+              toast.warning('Tag já vínculada a um pet.')
+
+              handleCloseCamera()
+
+              return
+            }
+
+            toast.success('QR Code escaneado com sucesso')
+
+            handleCloseCamera()
+
+            updateFormStep(AttachCredentialFormSteps.PetData)
+
+            return
+          }
+          toast.warning('QR Code não reconhecido')
+
+          handleCloseCamera()
 
           if (localVideoRef && localVideoRef.srcObject) {
             const tracks = (localVideoRef.srcObject as MediaStream).getTracks()
