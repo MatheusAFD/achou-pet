@@ -30,12 +30,6 @@ export class CredentialsController {
     return this.generateBatchCredentialsUseCase.execute(createCredentiaslDto)
   }
 
-  @Get()
-  @Roles(RoleEnum.ADMIN, RoleEnum.SUPER_ADMIN)
-  findAll() {
-    return this.credentialsService.findAll()
-  }
-
   @Get(':id')
   @Roles(RoleEnum.USER)
   async getOne(@Param('id') id: string) {
