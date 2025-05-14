@@ -14,16 +14,23 @@ import {
 } from '@user-app/modules/@shared/components/fields'
 
 import { animalGenderOptions, animalSizeOptions } from '../../constants'
-import { AttachCredentialFormData, attachCredentialFormSchema } from './types'
+import { PetFormData, PetFormSchema } from './types'
 
 interface AttachCredentialFormProps {
-  onSubmit: (data: AttachCredentialFormData) => void
+  actionText?: string
+  isFetching?: boolean
+  onSubmit: (data: PetFormData) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  defaultValues?: Partial<AttachCredentialFormData> | any
+  defaultValues?: Partial<PetFormData> | any
 }
 
 export const PetForm = (props: AttachCredentialFormProps) => {
-  const { defaultValues, onSubmit } = props
+  const {
+    actionText = 'Cadastrar',
+    isFetching,
+    defaultValues,
+    onSubmit
+  } = props
 
   const defaultFormValues =
     defaultValues ||
@@ -36,7 +43,7 @@ export const PetForm = (props: AttachCredentialFormProps) => {
       hasAllergies: false,
       needsMedication: false,
       medicationDescription: ''
-    } as AttachCredentialFormData)
+    } as PetFormData)
 
   const {
     register,
@@ -44,11 +51,14 @@ export const PetForm = (props: AttachCredentialFormProps) => {
     handleSubmit,
     watch,
     formState: { errors, isSubmitting, isValid }
-  } = useForm<AttachCredentialFormData>({
+  } = useForm<PetFormData>({
     defaultValues: defaultFormValues,
     mode: 'onTouched',
     reValidateMode: 'onChange',
-    resolver: zodResolver(attachCredentialFormSchema)
+    resetOptions: {
+      keepErrors: true
+    },
+    resolver: zodResolver(PetFormSchema)
   })
 
   const needsMedication = watch('needsMedication') || watch('hasAllergies')
@@ -56,7 +66,7 @@ export const PetForm = (props: AttachCredentialFormProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-between h-full gap-4 "
+      className="flex flex-col justify-between h-full gap-4"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextField
@@ -145,12 +155,14 @@ export const PetForm = (props: AttachCredentialFormProps) => {
       </div>
       <footer className="flex flex-col-reverse md:flex-row justify-end gap-2 mt-4">
         <DialogClose asChild>
-          <Button variant="outline" type="submit">
-            Cancelar
-          </Button>
+          <Button variant="outline">Cancelar</Button>
         </DialogClose>
-        <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
-          Cadastrar
+        <Button
+          type="submit"
+          disabled={!isValid || isFetching}
+          isLoading={isSubmitting}
+        >
+          {actionText}
         </Button>
       </footer>
     </form>

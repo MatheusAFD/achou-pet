@@ -17,7 +17,7 @@ import { useDisclosure, useSteps } from '@user-app/modules/@shared/hooks'
 import { attatchCredential } from '../../services'
 import { AttachCredentialFormSteps } from '../../types'
 import { PetForm } from '../pet-form'
-import { AttachCredentialFormData } from '../pet-form/types'
+import { PetFormData } from '../pet-form/types'
 import { ScanPetCredential } from '../scan-pet-credential'
 
 const AttachCredentialModal = (props: PropsWithChildren) => {
@@ -31,7 +31,7 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
     null
   )
 
-  const onSubmit = async (data: AttachCredentialFormData) => {
+  const onSubmit = async (data: PetFormData) => {
     const [error] = await attatchCredential({
       ...data,
       credentialId: String(scannedCredentialId)
@@ -65,7 +65,8 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
 
   const descriptionByStep = {
     [AttachCredentialFormSteps.ScanQrCode]: '1. Escanear Tag',
-    [AttachCredentialFormSteps.PetData]: 'Informe os dados do seu pet'
+    [AttachCredentialFormSteps.PetData]:
+      'Campos marcados com (*) são obrigatórios'
   }
 
   return (
@@ -82,7 +83,9 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
       <DialogContent className="min-w-full h-full flex flex-col justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
         <DialogHeader className="h-fit">
           <DialogTitle>Cadastrar novo Pet</DialogTitle>
-          <DialogDescription>{descriptionByStep[formStep]}</DialogDescription>
+          <DialogDescription className="text-xs">
+            {descriptionByStep[formStep]}
+          </DialogDescription>
         </DialogHeader>
 
         {CurrentStepComponent}

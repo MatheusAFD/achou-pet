@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const attachCredentialFormSchema = z
+export const PetFormSchema = z
   .object({
     name: z.string().nonempty({ message: 'Nome é obrigatório' }),
     gender: z.enum(['male', 'female']).nullable(),
@@ -23,6 +23,4 @@ export const attachCredentialFormSchema = z
     }
   })
 
-export type AttachCredentialFormData = z.infer<
-  typeof attachCredentialFormSchema
->
+export type PetFormData = z.infer<typeof PetFormSchema>

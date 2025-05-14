@@ -20,5 +20,11 @@ export const getPet = async (
     return [error, null]
   }
 
-  return [null, data]
+  const formattedData = {
+    ...data,
+    size: data.size.toLocaleLowerCase(),
+    gender: data.gender.toLowerCase()
+  } as Pet
+
+  return [null, formattedData]
 }
