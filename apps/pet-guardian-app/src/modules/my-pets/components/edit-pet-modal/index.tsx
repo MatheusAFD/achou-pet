@@ -9,7 +9,8 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
+  LineBadge
 } from '@user-app/modules/@shared/components'
 import { DialogProps } from '@user-app/modules/@shared/types'
 
@@ -86,6 +87,7 @@ export const EditPetModal = (props: EditPetModalProps) => {
     >
       <DialogContent className="min-w-full h-full flex flex-col justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
         <DialogHeader className="h-fit">
+          <LineBadge hideOnMobile />
           <DialogTitle>Editar pet</DialogTitle>
           <DialogDescription className="text-xs">
             Campos marcados com (*) são obrigatórios

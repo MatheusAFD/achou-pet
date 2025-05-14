@@ -10,7 +10,8 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
+  LineBadge
 } from '@user-app/modules/@shared/components'
 import { useDisclosure, useSteps } from '@user-app/modules/@shared/hooks'
 
@@ -82,6 +83,7 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="min-w-full h-full flex flex-col justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
         <DialogHeader className="h-fit">
+          <LineBadge hideOnMobile />
           <DialogTitle>Cadastrar novo Pet</DialogTitle>
           <DialogDescription className="text-xs">
             {descriptionByStep[formStep]}
