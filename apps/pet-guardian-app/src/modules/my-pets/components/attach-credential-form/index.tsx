@@ -74,7 +74,10 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
   const needsMedication = watch('needsMedication')
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col justify-between h-full gap-4 "
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextField
           {...register('name')}
@@ -128,7 +131,7 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
           errorMessage={errors.color?.message}
         />
 
-        <div className="flex flex-col md:flex-row col-span-2 gap-4">
+        <div className="flex flex-col md:flex-row col-span-1 gap-4">
           <CheckboxField
             control={control}
             id="isVaccinated"
@@ -160,7 +163,7 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
           </div>
         </Conditional>
       </div>
-      <footer className="flex flex-col-reverse md:flex-row justify-end gap-2 mt-4 ">
+      <footer className="flex flex-col-reverse md:flex-row justify-end gap-2 mt-4">
         <DialogClose asChild>
           <Button variant="outline" type="submit">
             Cancelar
