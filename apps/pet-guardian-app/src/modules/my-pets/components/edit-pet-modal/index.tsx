@@ -93,7 +93,7 @@ export const EditPetModal = (props: EditPetModalProps) => {
         </DialogHeader>
 
         <PetForm
-          actionText="Editar"
+          actionText="Salvar"
           defaultValues={defaultValues}
           onSubmit={onSubmit}
           isFetchingDefaultValues={isFetching}
