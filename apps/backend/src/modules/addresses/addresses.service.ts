@@ -1,8 +1,11 @@
 import {
   Inject,
   Injectable,
-  InternalServerErrorException
+  InternalServerErrorException,
+  NotFoundException
 } from '@nestjs/common'
+
+import { eq } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { addresses } from '@db/drizzle/schema'
@@ -10,6 +13,7 @@ import { DrizzleSchema } from '@db/drizzle/types'
 
 import { CreateAddressDto } from './dto/create-address.dto'
 import { UpdateAddressDto } from './dto/update-address.dto'
+import { Address } from './entities/address.entity'
 
 @Injectable()
 export class AddressesService {
@@ -27,15 +31,46 @@ export class AddressesService {
 
       return createdAddress
     } catch (error) {
-      throw new InternalServerErrorException(error)
+      throw new InternalServerErrorException(error.message)
     }
   }
 
-  findByUserId(id: number) {
-    return `This action returns a #${id} address`
+  async findOne(id: string): Promise<Address> {
+    const [address] = await this.db
+      .select()
+      .from(addresses)
+      .where(eq(addresses.id, id))
+      .limit(1)
+
+    if (!address) {
+      throw new NotFoundException('Address not found')
+    }
+
+    return address
   }
 
-  update(id: number, updateAddressDto: UpdateAddressDto) {
-    return `This action updates a #${id} address ${updateAddressDto}`
+  async update(
+    id: string,
+    updateAddressDto: UpdateAddressDto
+  ): Promise<Address> {
+    const address = await this.findOne(id)
+
+    const [updatedAddress] = await this.db
+      .update(addresses)
+      .set({
+        address: updateAddressDto.address ?? address.address,
+        city: updateAddressDto.city ?? address.city,
+        state: updateAddressDto.state ?? address.state,
+        country: updateAddressDto.country ?? address.country,
+        zipCode: updateAddressDto.zipCode ?? address.zipCode,
+        neighborhood: updateAddressDto.neighborhood ?? address.neighborhood,
+        number: updateAddressDto.number ?? address.number,
+        complement: updateAddressDto.complement ?? address.complement,
+        reference: updateAddressDto.reference ?? address.reference
+      })
+      .where(eq(addresses.id, id))
+      .returning()
+
+    return updatedAddress
   }
 }

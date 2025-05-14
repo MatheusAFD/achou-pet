@@ -51,11 +51,7 @@ export class PetsService {
   }
 
   async update(id: string, data: UpdatePetDto): Promise<Pet> {
-    const [pet] = await this.db
-      .select()
-      .from(pets)
-      .where(eq(pets.id, id))
-      .limit(1)
+    const pet = await this.findOne(id)
 
     if (!pet) {
       throw new NotFoundException('Pet not found')

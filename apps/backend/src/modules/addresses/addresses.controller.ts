@@ -9,6 +9,7 @@ import { RoleEnum } from '@common/enums'
 import { AddressesService } from './addresses.service'
 import { CreateAddressDto } from './dto/create-address.dto'
 import { UpdateAddressDto } from './dto/update-address.dto'
+import { Address } from './entities/address.entity'
 
 @Controller('addresses')
 export class AddressesController {
@@ -25,13 +26,16 @@ export class AddressesController {
 
   @Get(':id')
   @Roles(RoleEnum.USER)
-  findOne(@Param('id') id: string) {
-    return this.addressesService.findByUserId(+id)
+  findOne(@Param('id') id: string): Promise<Address> {
+    return this.addressesService.findOne(id)
   }
 
   @Patch(':id')
   @Roles(RoleEnum.USER)
-  update(@Param('id') id: string, @Body() updateAddressDto: UpdateAddressDto) {
-    return this.addressesService.update(+id, updateAddressDto)
+  update(
+    @Param('id') id: string,
+    @Body() updateAddressDto: UpdateAddressDto
+  ): Promise<Address> {
+    return this.addressesService.update(id, updateAddressDto)
   }
 }
