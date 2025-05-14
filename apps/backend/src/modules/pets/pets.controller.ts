@@ -18,4 +18,10 @@ export class PetsController {
   async findAllByUser(@CurrentUser() user: AuthUser): Promise<Pet[]> {
     return this.petsService.findAllByUser(user.id)
   }
+
+  @Get(':id')
+  @Roles(RoleEnum.USER)
+  async findOne(@Param('id') id: string): Promise<Pet> {
+    return this.petsService.findOne(id)
+  }
 }

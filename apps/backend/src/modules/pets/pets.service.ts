@@ -28,5 +28,20 @@ export class PetsService {
 
     return data
   }
+
+  async findOne(id: string): Promise<Pet> {
+    const [pet] = await this.db
+      .select()
+      .from(pets)
+      .where(eq(pets.id, id))
+      .limit(1)
+
+    if (!pet) {
+      throw new NotFoundException('Pet not found')
+    }
+
+    return pet
+  }
+
   }
 }
