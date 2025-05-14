@@ -18,18 +18,22 @@ export const ScanPetCredential = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
   const [cameraError, setCameraError] = useState<string | null>(null)
-  const [scanning, setScanning] = useState(false)
+  const [isScanning, setIsScanning] = useState(false)
 
   const { updateFormStep } = useSteps<AttachCredentialFormSteps>()
 
   useEffect(() => {
-    if (!scanning) return
+    if (!isScanning) {
+      return
+    }
+
     let scanner: QrScanner | null = null
     const localVideoRef = videoRef.current
+    let handled = false
 
     const handleCloseCamera = () => {
       scanner?.stop()
-      setScanning(false)
+      setIsScanning(false)
     }
 
     const initializeCameraStream = async () => {
@@ -44,6 +48,11 @@ export const ScanPetCredential = () => {
           }
         }
         scanner = new QrScanner(localVideoRef!, async (result) => {
+          if (handled) {
+            return
+          }
+
+          handled = true
           if (
             result &&
             (typeof result === 'string' ||
@@ -102,7 +111,7 @@ export const ScanPetCredential = () => {
         } else {
           setCameraError('Permissão da câmera negada ou não disponível')
         }
-        setScanning(false)
+        setIsScanning(false)
       }
     }
 
@@ -116,7 +125,7 @@ export const ScanPetCredential = () => {
         localVideoRef.srcObject = null
       }
     }
-  }, [scanning, updateFormStep])
+  }, [isScanning, updateFormStep])
 
   return (
     <div className="relative w-full flex flex-col gap-8 justify-center items-center">
@@ -129,14 +138,14 @@ export const ScanPetCredential = () => {
       <Button
         onClick={() => {
           setCameraError(null)
-          setScanning(true)
+          setIsScanning(true)
         }}
         className="mt-8"
-        disabled={scanning}
+        disabled={isScanning}
         size="lg"
       >
         <ScanQrCode />
-        {scanning ? 'Escaneando...' : 'Escanear QR Code'}
+        {isScanning ? 'Escaneando...' : 'Escanear QR Code'}
       </Button>
 
       <Conditional condition={!!cameraError}>
@@ -145,7 +154,7 @@ export const ScanPetCredential = () => {
         </div>
       </Conditional>
 
-      <Conditional condition={scanning && !cameraError}>
+      <Conditional condition={isScanning && !cameraError}>
         <div className="w-full fixed inset-0 top-14 flex justify-center items-center">
           <div className="relative">
             <div className=" w-full max-w-md">
@@ -155,7 +164,7 @@ export const ScanPetCredential = () => {
             <Button
               className="absolute top-2 right-2"
               size="icon"
-              onClick={() => setScanning(false)}
+              onClick={() => setIsScanning(false)}
             >
               <CameraOff />
             </Button>
