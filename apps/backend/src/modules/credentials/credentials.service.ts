@@ -16,10 +16,6 @@ export class CredentialsService {
     private readonly db: DrizzleSchema
   ) {}
 
-  findAll() {
-    return `This action returns all credentials`
-  }
-
   async findOne(id: string): Promise<Credential> {
     const [credential] = await this.db
       .select()
