@@ -29,7 +29,6 @@ export default async function MyPetsPage() {
       <StepsProvider initialStep={AttachCredentialFormSteps.ScanQrCode}>
         <AttachCredentialModal>
           <Button className="w-fit ">
-            {' '}
             <PawPrint /> Cadastrar novo
           </Button>
         </AttachCredentialModal>
