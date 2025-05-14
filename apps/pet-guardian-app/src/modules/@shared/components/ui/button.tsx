@@ -58,11 +58,12 @@ function Button({
       data-slot="button"
       type={type}
       className={cn(buttonVariants({ variant, size, className }))}
+      {...Object.fromEntries(
+        Object.entries(props).filter(([k]) => k !== 'disabled')
+      )}
       disabled={isLoading || props.disabled}
-      {...props}
     >
       {isLoading && <Loader2 className="animate-spin" size={14} />}
-
       {children}
     </Comp>
   )
