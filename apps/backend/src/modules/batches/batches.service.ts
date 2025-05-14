@@ -28,19 +28,19 @@ export class BatchesService {
   async create(createBatchDto: CreateBatchDto): Promise<Batch> {
     const { description, totalCredentialsGenerated } = createBatchDto
 
-    const [createdBatch] = await this.db
-      .insert(batches)
-      .values({
-        description,
-        totalCredentialsGenerated: String(totalCredentialsGenerated)
-      })
-      .returning()
+    try {
+      const [createdBatch] = await this.db
+        .insert(batches)
+        .values({
+          description,
+          totalCredentialsGenerated: String(totalCredentialsGenerated)
+        })
+        .returning()
 
-    if (!createdBatch) {
-      throw new InternalServerErrorException('Error creating batch')
+      return createdBatch
+    } catch (error) {
+      throw new InternalServerErrorException(error.message)
     }
-
-    return createdBatch
   }
 
   async findAll(
