@@ -5,7 +5,7 @@ import {
   NotFoundException
 } from '@nestjs/common'
 
-import { eq, getTableColumns } from 'drizzle-orm'
+import { desc, eq, getTableColumns } from 'drizzle-orm'
 
 import { DrizzleSchema } from 'src/drizzle/types'
 
@@ -31,6 +31,7 @@ export class PetsService {
       .from(pets)
       .leftJoin(credentials, eq(pets.credentialId, credentials.id))
       .where(eq(credentials.userId, userId))
+      .orderBy(desc(pets.createdAt))
 
     return data
   }
@@ -68,6 +69,7 @@ export class PetsService {
         breed: data.breed ?? pet.breed,
         size: data.size ?? pet.size,
         color: data.color ?? pet.color,
+        gender: data.gender ?? pet.gender,
         birthDate: data.birthDate ?? pet.birthDate,
         isVaccinated: data.isVaccinated ?? pet.isVaccinated,
         hasAllergies: data.hasAllergies ?? pet.hasAllergies,
