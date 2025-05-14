@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common'
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common'
 
 import { AuthUser } from '@modules/auth/entities/auth.entity'
 
@@ -6,6 +6,7 @@ import { Roles } from '@common/decorators/auth'
 import { CurrentUser } from '@common/decorators/user'
 import { RoleEnum } from '@common/enums'
 
+import { UpdatePetDto } from './dto/update-pet.dto'
 import { Pet } from './entities/pet.entity'
 import { PetsService } from './pets.service'
 
@@ -23,5 +24,14 @@ export class PetsController {
   @Roles(RoleEnum.USER)
   async findOne(@Param('id') id: string): Promise<Pet> {
     return this.petsService.findOne(id)
+  }
+
+  @Patch(':id')
+  @Roles(RoleEnum.USER)
+  async update(
+    @Param('id') id: string,
+    @Body() updatePetDto: UpdatePetDto
+  ): Promise<Pet> {
+    return this.petsService.update(id, updatePetDto)
   }
 }
