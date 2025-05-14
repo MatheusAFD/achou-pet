@@ -1,11 +1,18 @@
+import { lazy } from 'react'
+
 import { Metadata } from 'next'
 
 import { Button, Container } from '@user-app/modules/@shared/components'
 import { StepsProvider } from '@user-app/modules/@shared/contexts'
-import { AttachCredentialModal } from '@user-app/modules/my-pets/components'
-import { PetCard } from '@user-app/modules/my-pets/components/pet-card'
+import { PetsList } from '@user-app/modules/my-pets/components'
 import { getPets } from '@user-app/modules/my-pets/services/get-pets'
 import { AttachCredentialFormSteps } from '@user-app/modules/my-pets/types'
+
+const AttachCredentialModal = lazy(() =>
+  import('@user-app/modules/my-pets/components').then((mod) => ({
+    default: mod.AttachCredentialModal
+  }))
+)
 
 export const metadata: Metadata = {
   title: 'Meus Pets'
@@ -23,11 +30,7 @@ export default async function MyPetsPage() {
         </AttachCredentialModal>
       </StepsProvider>
 
-      <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
-        {data?.map((pet) => {
-          return <PetCard key={pet.id} pet={pet} />
-        })}
-      </section>
+      <PetsList data={data} />
     </Container>
   )
 }

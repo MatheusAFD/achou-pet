@@ -12,7 +12,7 @@ export const getPets = async (): Promise<
       url: '/pets/me',
       method: 'GET',
       next: {
-        tags: ['credentials'],
+        tags: ['pets'],
         revalidate: ONE_HOUR_IN_SECONDS
       }
     }

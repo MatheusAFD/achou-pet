@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
-import { toast } from 'sonner'
 
 import { Button, Conditional } from '@user-app/modules/@shared/components'
 import {
@@ -15,15 +14,29 @@ import {
 } from '@user-app/modules/@shared/components/fields'
 
 import { animalGenderOptions, animalSizeOptions } from '../../constants'
-import { attatchCredential } from '../../services'
 import { AttachCredentialFormData, attachCredentialFormSchema } from './types'
 
 interface AttachCredentialFormProps {
-  onSuccess?: VoidFunction
+  onSubmit: (data: AttachCredentialFormData) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: Partial<AttachCredentialFormData> | any
 }
 
-export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
-  const { onSuccess } = props
+export const PetForm = (props: AttachCredentialFormProps) => {
+  const { defaultValues, onSubmit } = props
+
+  const defaultFormValues =
+    defaultValues ||
+    ({
+      name: '',
+      species: '',
+      breed: '',
+      color: '',
+      isVaccinated: false,
+      hasAllergies: false,
+      needsMedication: false,
+      medicationDescription: ''
+    } as AttachCredentialFormData)
 
   const {
     register,
@@ -32,44 +45,13 @@ export const AttachCredentialForm = (props: AttachCredentialFormProps) => {
     watch,
     formState: { errors, isSubmitting, isValid }
   } = useForm<AttachCredentialFormData>({
-    defaultValues: {
-      name: '',
-      species: '',
-      breed: '',
-      color: '',
-      isVaccinated: false,
-      hasAllergies: false,
-      needsMedication: false,
-      medicationDescription: null
-    },
+    defaultValues: defaultFormValues,
     mode: 'onTouched',
     reValidateMode: 'onChange',
     resolver: zodResolver(attachCredentialFormSchema)
   })
 
-  const onSubmit = async (data: AttachCredentialFormData) => {
-    const [error] = await attatchCredential({
-      ...data,
-      credentialId: '01JTQTY8AXG8841XVQ5RP63PDX'
-    })
-
-    if (error) {
-      console.error('Error attaching credential', error)
-      toast.error('Erro!', {
-        description: 'Ocorreu um erro ao cadastrar o pet.'
-      })
-
-      return
-    }
-
-    onSuccess?.()
-
-    toast.success('Sucesso!', {
-      description: 'Pet cadastrado com sucesso!'
-    })
-  }
-
-  const needsMedication = watch('needsMedication')
+  const needsMedication = watch('needsMedication') || watch('hasAllergies')
 
   return (
     <form

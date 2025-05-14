@@ -14,7 +14,13 @@ import { useSteps } from '@user-app/modules/@shared/hooks'
 import { getPetCredential } from '../../services'
 import { AttachCredentialFormSteps } from '../../types'
 
-export const ScanPetCredential = () => {
+interface ScanPetCredentialProps {
+  onFindCredential: (credentialId: string | null) => void
+}
+
+export const ScanPetCredential = (props: ScanPetCredentialProps) => {
+  const { onFindCredential } = props
+
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
   const [cameraError, setCameraError] = useState<string | null>(null)
@@ -80,6 +86,8 @@ export const ScanPetCredential = () => {
               return
             }
 
+            onFindCredential(param as string)
+
             toast.success('QR Code escaneado com sucesso')
 
             handleCloseCamera()
@@ -129,7 +137,7 @@ export const ScanPetCredential = () => {
 
   return (
     <div className="relative w-full flex flex-col gap-8 justify-center items-center">
-      <h1 className="text-lg font-semibold">
+      <h1 className="text-gray-600 text-lg font-semibold">
         1. Aponte a câmera para o QR Code
       </h1>
 

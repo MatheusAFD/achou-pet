@@ -25,7 +25,7 @@ export const attatchCredential = async (
     return [error, null]
   }
 
-  revalidateTag('credentials')
+  revalidateTag('pets')
 
   return [null, response]
 }

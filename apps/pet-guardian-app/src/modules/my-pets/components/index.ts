@@ -1,4 +1,5 @@
-export * from './attach-credential-modal'
-export * from './attach-credential-form'
+export { default as AttachCredentialModal } from './attach-credential-modal'
+export * from './pet-form'
 export * from './pet-card'
 export * from './scan-pet-credential'
+export * from './pets-list'

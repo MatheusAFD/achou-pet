@@ -12,13 +12,14 @@ import {
   CustomCard
 } from '@user-app/modules/@shared/components'
 
-import { Pet } from '../../services/get-pets/types'
+import { Pet } from '../../services/get-pet/types'
 
 interface PetCardProps {
   pet: Pet
+  onEdit?: VoidFunction
 }
 
-export const PetCard = ({ pet }: PetCardProps) => {
+export const PetCard = ({ pet, onEdit }: PetCardProps) => {
   const {
     name,
     gender,
@@ -89,6 +90,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
           variant="outline"
           size="icon"
           className="absolute top-3 right-3 border-tertiary hover:bg-tertiary/10"
+          onClick={onEdit}
         >
           <Edit size={15} className="text-tertiary" />
         </Button>
