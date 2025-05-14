@@ -18,15 +18,15 @@ export class PetsService {
   ) {}
 
   async findAllByUser(userId: string): Promise<Pet[]> {
-    const result = await this.db
-      .select()
+    const data = await this.db
+      .select({
+        ...getTableColumns(pets)
+      })
       .from(pets)
       .leftJoin(credentials, eq(pets.credentialId, credentials.id))
       .where(eq(credentials.userId, userId))
 
-    return result.map(({ pets: pet }) => ({
-      ...pet,
-      gender: pet.gender as keyof typeof import('@common/enums').pgPetGenderEnum
-    })) as Pet[]
+    return data
+  }
   }
 }

@@ -1,20 +1,23 @@
-import { pgPetGenderEnum } from '@common/enums'
+import { PetGenderEnum, pets, PetSizeEnum } from '@db/drizzle/schema'
 
-export class Pet {
+type PetType = typeof pets.$inferSelect
+
+export class Pet implements PetType {
   id: string
   name: string
-  gender: keyof typeof pgPetGenderEnum
-  birthDate?: Date
+  gender: keyof typeof PetGenderEnum
+  birthDate: Date | null
   species: string
-  breed?: string
-  size?: string
-  color?: string
+  breed: string | null
+  size: keyof typeof PetSizeEnum
+  color: string | null
   isVaccinated: boolean
   hasAllergies: boolean
   needsMedication: boolean
-  medicationDescription?: string
-  photoUrl?: string
-  credentialId: string
+  medicationDescription: string | null
+  photoUrl: string | null
+  updatedAt: Date | null
   createdAt: Date
-  updatedAt: Date
+  deletedAt: Date | null
+  credentialId: string | null
 }
