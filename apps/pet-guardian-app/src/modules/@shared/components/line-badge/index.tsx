@@ -21,17 +21,22 @@ const badgeVariants = cva('rounded-lg mb-1', {
 })
 
 type BadgeProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof badgeVariants>
+  VariantProps<typeof badgeVariants> & {
+    hideOnMobile?: boolean
+  }
 
 export const LineBadge = ({
   size,
   variant,
   className,
+  hideOnMobile = false,
   ...props
 }: BadgeProps) => {
   return (
     <div
-      className={cn(badgeVariants({ variant, size, className }))}
+      className={cn(badgeVariants({ variant, size, className }), {
+        'hidden md:block': hideOnMobile
+      })}
       {...props}
     />
   )
