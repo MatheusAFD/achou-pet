@@ -10,8 +10,7 @@ export const PetsContainer = async () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, data] = await getPets()
 
-  // const hasData = Boolean(data?.length)
-  const hasData = false
+  const hasData = Boolean(data?.length)
 
   return (
     <>
