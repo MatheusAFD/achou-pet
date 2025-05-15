@@ -26,7 +26,7 @@ export class CreateAddressDto implements CreateAddressInsert {
   @IsString()
   city: string
 
-  @MinLength(3)
+  @MinLength(2)
   @IsString()
   state: string
 
