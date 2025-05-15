@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import { Edit, Settings2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 import {
   Badge,
@@ -11,6 +12,7 @@ import {
 } from '@user-app/modules/@shared/components'
 import { zipCodeMask } from '@user-app/modules/@shared/utils'
 
+import { setPrimaryAddress } from '../../services'
 import { Address } from '../../services/get-address/types'
 
 interface AddressCardProps {
@@ -20,6 +22,7 @@ interface AddressCardProps {
 
 export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
   const {
+    id,
     address: street,
     number,
     neighborhood,
@@ -29,6 +32,22 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
   } = address
 
   const isPrimary = address.type === 'PRIMARY'
+
+  const handleSetPrimaryAddress = async () => {
+    const [error] = await setPrimaryAddress(id)
+
+    if (error) {
+      toast.error('Erro!', {
+        description: 'Não foi possível tornar o endereço padrão.'
+      })
+
+      return
+    }
+
+    toast.success('Sucesso!', {
+      description: 'Endereço padrão atualizado com sucesso!'
+    })
+  }
 
   return (
     <CustomCard
@@ -61,7 +80,7 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
               </Button>
             </ChildTooltip>
             <Conditional condition={!isPrimary}>
-              <Button variant="outline">
+              <Button variant="outline" onClick={handleSetPrimaryAddress}>
                 <Settings2 /> Tornar padrão
               </Button>
             </Conditional>
