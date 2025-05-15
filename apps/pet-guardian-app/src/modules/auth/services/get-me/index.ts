@@ -13,9 +13,5 @@ export const getMe = async (): Promise<[ErrorResponse | null, User | null]> => {
     }
   })
 
-  if (error) {
-    return [error, null]
-  }
-
-  return [null, data]
+  return [error, data]
 }

@@ -18,9 +18,5 @@ export const getPets = async (): Promise<
     }
   )
 
-  if (error) {
-    return [error, null]
-  }
-
-  return [null, data]
+  return [error, data]
 }

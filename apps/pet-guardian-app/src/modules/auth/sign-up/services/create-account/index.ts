@@ -22,9 +22,5 @@ export const createAccount = async (
     }
   })
 
-  if (error) {
-    return [error, null]
-  }
-
   return [error, data]
 }

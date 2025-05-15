@@ -21,11 +21,9 @@ export const attatchCredential = async (
     data: dataWithoutCredentialId
   })
 
-  if (error) {
-    return [error, null]
+  if (!error) {
+    revalidateTag('pets')
   }
 
-  revalidateTag('pets')
-
-  return [null, response]
+  return [error, response]
 }

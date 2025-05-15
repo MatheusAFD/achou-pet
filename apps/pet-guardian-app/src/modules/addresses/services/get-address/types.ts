@@ -1,6 +1,6 @@
 export interface Address {
   id: string
-  type: string
+  type: 'PRIMNARY' | 'SECONDARY'
   address: string
   number: string
   complement: string | null
@@ -8,7 +8,6 @@ export interface Address {
   reference: string
   city: string
   state: string
-  country: string
   zipCode: string
   userId: string
   updatedAt: string | Date | null

@@ -4,7 +4,11 @@ import { Metadata } from 'next'
 
 import { PawPrint } from 'lucide-react'
 
-import { Button, Container } from '@user-app/modules/@shared/components'
+import {
+  Button,
+  Container,
+  LineBadge
+} from '@user-app/modules/@shared/components'
 import { StepsProvider } from '@user-app/modules/@shared/contexts'
 import { PetsList } from '@user-app/modules/my-pets/components'
 import { getPets } from '@user-app/modules/my-pets/services/get-pets'
@@ -26,9 +30,11 @@ export default async function MyPetsPage() {
 
   return (
     <Container>
+      <LineBadge />
+      <h1 className="text-3xl">Meus pets</h1>
       <StepsProvider initialStep={AttachCredentialFormSteps.ScanQrCode}>
         <AttachCredentialModal>
-          <Button className="w-fit ">
+          <Button className="w-fit mt-4">
             <PawPrint /> Cadastrar novo
           </Button>
         </AttachCredentialModal>

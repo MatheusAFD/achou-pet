@@ -19,12 +19,10 @@ export const updatePet = async (
     data: rest
   })
 
-  if (error) {
-    return [error, null]
+  if (!error) {
+    revalidateTag('pet')
+    revalidateTag('pets')
   }
 
-  revalidateTag('pet')
-  revalidateTag('pets')
-
-  return [null, response]
+  return [error, response]
 }
