@@ -25,7 +25,7 @@ export class SetPrimaryAddressUseCase {
         .limit(1)
 
       if (!addressToSet) {
-        throw new NotFoundException('Endereço não encontrado para este usuário')
+        throw new NotFoundException('User address not found')
       }
 
       await tx
