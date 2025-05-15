@@ -5,11 +5,13 @@ import {
   NotFoundException
 } from '@nestjs/common'
 
-import { asc, eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { addresses } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
+
+import { AddressTypeEnum } from '@common/enums/db-enums'
 
 import { CreateAddressDto } from './dto/create-address.dto'
 import { UpdateAddressDto } from './dto/update-address.dto'
@@ -24,9 +26,24 @@ export class AddressesService {
 
   async create(userId: string, createAddressDto: CreateAddressDto) {
     try {
+      const [primaryAddress] = await this.db
+        .select()
+        .from(addresses)
+        .where(
+          and(
+            eq(addresses.userId, userId),
+            eq(addresses.type, AddressTypeEnum.PRIMARY)
+          )
+        )
+        .limit(1)
+
+      const type = primaryAddress
+        ? AddressTypeEnum.SECONDARY
+        : AddressTypeEnum.PRIMARY
+
       const [createdAddress] = await this.db
         .insert(addresses)
-        .values({ ...createAddressDto, userId })
+        .values({ ...createAddressDto, userId, type })
         .returning()
 
       return createdAddress
@@ -40,7 +57,6 @@ export class AddressesService {
       .select()
       .from(addresses)
       .where(eq(addresses.userId, userId))
-      .orderBy(asc(addresses.type))
 
     return addressesData
   }

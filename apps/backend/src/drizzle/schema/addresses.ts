@@ -11,7 +11,7 @@ export const addresses = pgTable('addresses', {
   id: text('id')
     .primaryKey()
     .$default(() => createCustomId()),
-  type: pgAddressTypeEnum().notNull(),
+  type: pgAddressTypeEnum('type').notNull().default('PRIMARY'),
   address: text('address').notNull(),
   number: text('number').notNull(),
   complement: text('complement'),

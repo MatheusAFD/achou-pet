@@ -141,6 +141,13 @@
       "when": 1747315601839,
       "tag": "0019_military_millenium_guard",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1747327297497,
+      "tag": "0020_noisy_risque",
+      "breakpoints": true
     }
   ]
 }

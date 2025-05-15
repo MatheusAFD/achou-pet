@@ -1,12 +1,6 @@
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MinLength
-} from 'class-validator'
+import { IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator'
 
-import { addresses, AddressTypeEnum } from '@db/drizzle/schema'
+import { addresses } from '@db/drizzle/schema'
 
 type CreateAddressInsert = Omit<typeof addresses.$inferInsert, 'userId'>
 
@@ -34,11 +28,6 @@ export class CreateAddressDto implements CreateAddressInsert {
   @IsString()
   @MinLength(8)
   zipCode: string
-
-  @IsNotEmpty()
-  @IsString()
-  @IsEnum(AddressTypeEnum)
-  type: keyof typeof AddressTypeEnum
 
   @IsString()
   reference: string
