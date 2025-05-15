@@ -40,7 +40,7 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
           src="/address-map.svg"
           width={256}
           height={256}
-          alt="Imagem no estilo desenho de um mapa com o endereço"
+          alt="Imagem ilustrada de uma carta com icone de localização."
         />
 
         <div className="flex flex-col items-center gap-4 w-full">

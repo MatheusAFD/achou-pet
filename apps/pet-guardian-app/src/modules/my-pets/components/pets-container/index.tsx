@@ -23,7 +23,7 @@ export const PetsContainer = async () => {
         <NoDataBackground
           src="/add-something.svg"
           text="Você ainda não um tem pet cadastrado!"
-          alt="Imagem em formato de desenho de uma pessoa com um quadro contendo um símbolo de cor laranja com um icone de soma ao centro"
+          alt="Imagem ilustrada de uma pessoa com um quadro branco a direita."
           className="mt-10"
         />
       </Conditional>

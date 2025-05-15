@@ -22,7 +22,7 @@ export const AddressesContainer = async () => {
         <NoDataBackground
           src="/searching-house.svg"
           text="Você ainda não um tem endereço cadastrado!"
-          alt="Imagem de um mapa com um casa com uma lupa"
+          alt="Imagem ilustrada de uma casa com uma lupa."
           className="mt-10"
         />
       </Conditional>
