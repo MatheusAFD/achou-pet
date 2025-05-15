@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common'
+import { SkipThrottle } from '@nestjs/throttler'
 
 import { AuthUser } from '@modules/auth/entities/auth.entity'
 
@@ -38,6 +39,7 @@ export class CredentialsController {
 
   @Get('details/:id')
   @Public()
+  @SkipThrottle()
   async getCredentialDetails(@Param('id') id: string) {
     return this.getCredentialDetailsUseCase.execute(id)
   }
