@@ -48,7 +48,7 @@ export const httpClientFetch = async <
     next: config.next
   })
 
-  const data = await response.json()
+  const data = response != null ? await response.json() : null
 
   if (!response.ok) {
     return [data as TError, null]
