@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common'
-import { SkipThrottle } from '@nestjs/throttler'
 
 import { Public } from '@common/decorators/auth'
 
@@ -17,7 +16,6 @@ export class UsersController {
 
   @Post()
   @Public()
-  @SkipThrottle()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto)
   }

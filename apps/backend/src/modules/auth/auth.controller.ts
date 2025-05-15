@@ -1,6 +1,5 @@
 import { Controller, Post, Body, Get } from '@nestjs/common'
 import { ApiBody, ApiResponse } from '@nestjs/swagger'
-import { SkipThrottle } from '@nestjs/throttler'
 
 import { UsersService } from '@modules/users/users.service'
 
@@ -20,7 +19,6 @@ export class AuthController {
 
   @Post('sign-in')
   @Public()
-  @SkipThrottle()
   @ApiBody({ type: SigninDTO })
   @ApiResponse({ status: 404, description: 'User not found' })
   @ApiResponse({ status: 201, description: 'OK' })
