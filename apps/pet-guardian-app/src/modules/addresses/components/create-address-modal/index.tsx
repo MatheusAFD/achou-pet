@@ -23,6 +23,7 @@ export const CreateAddressModal = (props: PropsWithChildren) => {
     const [error] = await createAddress(data)
 
     if (error) {
+      console.log(error)
       toast.error('Erro!', {
         description: 'Ocorrreu um erro ao cadastrar o endereço'
       })

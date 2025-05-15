@@ -1,3 +1,7 @@
+'use server'
+
+import { revalidateTag } from 'next/cache'
+
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
 import { ErrorResponse } from '@user-app/modules/@shared/types'
 
@@ -12,6 +16,10 @@ export const createAddress = async (
     method: 'POST',
     data
   })
+
+  if (!error) {
+    revalidateTag('addresses')
+  }
 
   return [error, response]
 }

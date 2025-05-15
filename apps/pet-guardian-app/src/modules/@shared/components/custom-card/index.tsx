@@ -1,13 +1,18 @@
-import { HTMLAttributes, PropsWithChildren } from 'react'
+import React, { HTMLAttributes, PropsWithChildren } from 'react'
 
 import { cn } from '../../utils'
 
+interface CustomCardProps extends HTMLAttributes<HTMLDivElement> {
+  as?: React.ElementType
+}
+
 export const CustomCard = ({
   children,
+  as: Component = 'div',
   ...props
-}: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) => {
+}: PropsWithChildren<CustomCardProps>) => {
   return (
-    <div
+    <Component
       {...props}
       className={cn(
         'w-auto p-4 shadow-md rounded-lg bg-background',
@@ -15,6 +20,6 @@ export const CustomCard = ({
       )}
     >
       {children}
-    </div>
+    </Component>
   )
 }

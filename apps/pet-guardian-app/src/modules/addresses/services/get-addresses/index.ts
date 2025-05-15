@@ -8,7 +8,11 @@ export const getAddresses = async (): Promise<
 > => {
   const [error, data] = await httpClientFetch<Address[], ErrorResponse>({
     url: '/addresses',
-    method: 'GET'
+    method: 'GET',
+    next: {
+      tags: ['addresses'],
+      revalidate: 60 * 60
+    }
   })
 
   return [error, data]

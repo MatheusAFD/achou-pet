@@ -28,10 +28,12 @@ export const addressFormSchema = z.object({
   city: z
     .string()
     .nonempty('Cidade é obrigatória')
+    .min(3, 'Cidade deve ter no mínimo 3 letras')
     .regex(lettersAndSpacesRegex, 'O campo deve conter apenas letras'),
   state: z
     .string()
     .nonempty('Estado é obrigatório')
+    .min(2, 'Estado deve ter no mínimo 2 letras')
     .regex(lettersAndSpacesRegex, 'O campo deve conter apenas letras')
 })
 

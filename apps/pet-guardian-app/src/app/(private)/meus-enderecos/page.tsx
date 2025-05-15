@@ -7,7 +7,10 @@ import {
   Container,
   LineBadge
 } from '@user-app/modules/@shared/components'
-import { CreateAddressModal } from '@user-app/modules/addresses/components'
+import {
+  AddressesList,
+  CreateAddressModal
+} from '@user-app/modules/addresses/components'
 
 export const metadata: Metadata = {
   title: 'Meus Endereços'
@@ -23,6 +26,8 @@ export default function MyAddressesPage() {
           <MapPinHouse /> Cadastrar novo
         </Button>
       </CreateAddressModal>
+
+      <AddressesList />
     </Container>
   )
 }
