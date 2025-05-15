@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common'
 
+import { AuthUser } from '@modules/auth/entities/auth.entity'
 import { User } from '@modules/users/entities/user.entity'
 
 import { Roles } from '@common/decorators/auth'
@@ -22,6 +23,12 @@ export class AddressesController {
     @CurrentUser() user: User
   ) {
     return this.addressesService.create(user.id, createAddressDto)
+  }
+
+  @Get()
+  @Roles(RoleEnum.USER)
+  findAll(@CurrentUser() user: AuthUser): Promise<Address[]> {
+    return this.addressesService.findAll(user.id)
   }
 
   @Get(':id')

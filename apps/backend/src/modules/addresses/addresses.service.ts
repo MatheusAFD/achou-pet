@@ -5,7 +5,7 @@ import {
   NotFoundException
 } from '@nestjs/common'
 
-import { eq } from 'drizzle-orm'
+import { asc, eq } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { addresses } from '@db/drizzle/schema'
@@ -33,6 +33,16 @@ export class AddressesService {
     } catch (error) {
       throw new InternalServerErrorException(error.message)
     }
+  }
+
+  async findAll(userId: string): Promise<Address[]> {
+    const addressesData = await this.db
+      .select()
+      .from(addresses)
+      .where(eq(addresses.userId, userId))
+      .orderBy(asc(addresses.type))
+
+    return addressesData
   }
 
   async findOne(id: string): Promise<Address> {
