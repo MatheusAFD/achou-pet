@@ -11,10 +11,14 @@ import { AddressesService } from './addresses.service'
 import { CreateAddressDto } from './dto/create-address.dto'
 import { UpdateAddressDto } from './dto/update-address.dto'
 import { Address } from './entities/address.entity'
+import { SetPrimaryAddressUseCase } from './use-cases/set-primary-address.use-case'
 
 @Controller('addresses')
 export class AddressesController {
-  constructor(private readonly addressesService: AddressesService) {}
+  constructor(
+    private readonly addressesService: AddressesService,
+    private readonly setPrimaryAddressUseCase: SetPrimaryAddressUseCase
+  ) {}
 
   @Post()
   @Roles(RoleEnum.USER)
@@ -44,5 +48,14 @@ export class AddressesController {
     @Body() updateAddressDto: UpdateAddressDto
   ): Promise<Address> {
     return this.addressesService.update(id, updateAddressDto)
+  }
+
+  @Patch('set-primary/:id')
+  @Roles(RoleEnum.USER)
+  async setPrimary(
+    @Param('id') id: string,
+    @CurrentUser() user: User
+  ): Promise<Address> {
+    return this.setPrimaryAddressUseCase.execute(user.id, id)
   }
 }
