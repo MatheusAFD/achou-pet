@@ -2,6 +2,8 @@
 
 import { PropsWithChildren } from 'react'
 
+import { toast } from 'sonner'
+
 import {
   Dialog,
   DialogContent,
@@ -12,9 +14,27 @@ import {
   LineBadge
 } from '@user-app/modules/@shared/components'
 
+import { createAddress } from '../../services'
 import { AddressForm } from '../address-form'
+import { AddressFormData } from '../address-form/types'
 
 export const CreateAddressModal = (props: PropsWithChildren) => {
+  const onSubmit = async (data: AddressFormData) => {
+    const [error] = await createAddress(data)
+
+    if (error) {
+      toast.error('Erro!', {
+        description: 'Ocorrreu um erro ao cadastrar o endereço'
+      })
+
+      return
+    }
+
+    toast.success('Sucesso!', {
+      description: 'Endereço cadastrado com sucesso!'
+    })
+  }
+
   const { children } = props
   return (
     <Dialog>
@@ -27,7 +47,7 @@ export const CreateAddressModal = (props: PropsWithChildren) => {
             Campos marcados com (*) são obrigatórios
           </DialogDescription>
         </DialogHeader>
-        <AddressForm onSubmit={(data) => console.log(data)} />
+        <AddressForm onSubmit={onSubmit} />
       </DialogContent>
     </Dialog>
   )
