@@ -19,16 +19,15 @@ export const CreateAddressModal = (props: PropsWithChildren) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="min-w-full h-full flex flex-col justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
-        <DialogHeader className="h-fit">
+      <DialogContent className="min-w-full h-full flex flex-col gap-4 justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
+        <DialogHeader>
           <LineBadge hideOnMobile />
           <DialogTitle>Cadastrar novo endereço</DialogTitle>
           <DialogDescription className="text-xs">
             Campos marcados com (*) são obrigatórios
           </DialogDescription>
-
-          <AddressForm onSubmit={(data) => console.log(data)} />
         </DialogHeader>
+        <AddressForm onSubmit={(data) => console.log(data)} />
       </DialogContent>
     </Dialog>
   )
