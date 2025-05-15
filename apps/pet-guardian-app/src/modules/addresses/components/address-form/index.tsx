@@ -4,6 +4,7 @@ import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 
 import { Button, DialogClose } from '@user-app/modules/@shared/components'
 import {
@@ -60,12 +61,25 @@ export const AddressForm = (props: AddressFormProps) => {
           inputMode="numeric"
           placeholder="Ex: 00000-000"
           errorMessage={errors.zipCode?.message}
+          isLoading={isLoading}
           required
           onValidate={(value) => {
             startTransition(async () => {
               const [error, response] = await getAddressByCep(value)
 
               if (error) {
+                toast.info('Ateção', {
+                  description:
+                    'Não foi possível encontrar o endereço, preencha os dados manualmente.'
+                })
+
+                reset({
+                  address: '',
+                  neighborhood: '',
+                  city: '',
+                  state: '',
+                  zipCode: value
+                })
                 return
               }
 
@@ -122,19 +136,19 @@ export const AddressForm = (props: AddressFormProps) => {
         />
 
         <TextField
-          {...register('city')}
-          label="Cidade"
-          placeholder="Ex: Fortaleza"
-          errorMessage={errors.city?.message}
+          {...register('state')}
+          label="Estado"
+          placeholder="Ex: CE"
+          errorMessage={errors.state?.message}
           disabled={isLoading}
           required
         />
 
         <TextField
-          {...register('state')}
-          label="Estado"
-          placeholder="Ex: CE"
-          errorMessage={errors.state?.message}
+          {...register('city')}
+          label="Cidade"
+          placeholder="Ex: Fortaleza"
+          errorMessage={errors.city?.message}
           disabled={isLoading}
           required
         />
