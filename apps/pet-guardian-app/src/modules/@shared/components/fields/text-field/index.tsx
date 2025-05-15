@@ -10,6 +10,7 @@ import { Input, Label } from '../../ui'
 export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   errorMessage?: string
+  isLoading?: boolean
 }
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -22,6 +23,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       className,
       id,
       required,
+      isLoading = false,
       ...props
     },
     ref
@@ -29,7 +31,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const hasLabel = Boolean(label)
 
     return (
-      <fieldset className="w-full flex flex-col font-medium transition-all">
+      <fieldset
+        className={cn('w-full flex flex-col font-medium transition-all', {
+          'animate-pulse duration-75 pointer-events-none': isLoading
+        })}
+      >
         {hasLabel && (
           <Label htmlFor={`data-test-id-${id}`} className="mb-2">
             {label}: {required && '*'}
