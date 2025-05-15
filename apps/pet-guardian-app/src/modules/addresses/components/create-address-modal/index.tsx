@@ -13,12 +13,15 @@ import {
   DialogTrigger,
   LineBadge
 } from '@user-app/modules/@shared/components'
+import { useDisclosure } from '@user-app/modules/@shared/hooks'
 
 import { createAddress } from '../../services'
 import { AddressForm } from '../address-form'
 import { AddressFormData } from '../address-form/types'
 
 export const CreateAddressModal = (props: PropsWithChildren) => {
+  const { isOpen, onOpenChange } = useDisclosure()
+
   const onSubmit = async (data: AddressFormData) => {
     const [error] = await createAddress(data)
 
@@ -31,6 +34,8 @@ export const CreateAddressModal = (props: PropsWithChildren) => {
       return
     }
 
+    onOpenChange(false)
+
     toast.success('Sucesso!', {
       description: 'Endereço cadastrado com sucesso!'
     })
@@ -38,7 +43,7 @@ export const CreateAddressModal = (props: PropsWithChildren) => {
 
   const { children } = props
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="min-w-full h-full flex flex-col gap-4 justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
         <DialogHeader>
