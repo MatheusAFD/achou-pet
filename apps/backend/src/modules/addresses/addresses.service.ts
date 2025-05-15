@@ -5,7 +5,7 @@ import {
   NotFoundException
 } from '@nestjs/common'
 
-import { and, eq } from 'drizzle-orm'
+import { and, eq, asc, desc } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { addresses } from '@db/drizzle/schema'
@@ -37,7 +37,9 @@ export class AddressesService {
         )
         .limit(1)
 
-      const type = primaryAddress
+      const hasPrimaryAddress = !!primaryAddress
+
+      const type = hasPrimaryAddress
         ? AddressTypeEnum.SECONDARY
         : AddressTypeEnum.PRIMARY
 
@@ -57,6 +59,7 @@ export class AddressesService {
       .select()
       .from(addresses)
       .where(eq(addresses.userId, userId))
+      .orderBy(asc(addresses.type), desc(addresses.createdAt))
 
     return addressesData
   }
