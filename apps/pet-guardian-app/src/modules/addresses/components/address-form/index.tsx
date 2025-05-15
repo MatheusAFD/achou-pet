@@ -1,5 +1,6 @@
 'use client'
 
+import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,20 +10,29 @@ import {
   MaskField,
   TextField
 } from '@user-app/modules/@shared/components/fields'
+import { getAddressByCep } from '@user-app/modules/@shared/services'
 
 import { AddressFormData, AddressFormProps, addressFormSchema } from './types'
 
 export const AddressForm = (props: AddressFormProps) => {
   const { onSubmit } = props
 
+  const [isLoading, startTransition] = useTransition()
+
   const {
     register,
     control,
+    setFocus,
     handleSubmit,
+    reset,
     formState: { isValid, errors, isSubmitting }
   } = useForm<AddressFormData>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
+    resetOptions: {
+      keepDefaultValues: true,
+      keepValues: true
+    },
     resolver: zodResolver(addressFormSchema),
     defaultValues: {
       address: '',
@@ -51,6 +61,25 @@ export const AddressForm = (props: AddressFormProps) => {
           placeholder="Ex: 00000-000"
           errorMessage={errors.zipCode?.message}
           required
+          onValidate={(value) => {
+            startTransition(async () => {
+              const [error, response] = await getAddressByCep(value)
+
+              if (error) {
+                return
+              }
+
+              reset({
+                address: response?.address,
+                neighborhood: response?.neighborhood,
+                city: response?.city,
+                state: response?.state,
+                zipCode: value
+              })
+
+              setFocus('number')
+            })
+          }}
         />
 
         <TextField
@@ -97,6 +126,7 @@ export const AddressForm = (props: AddressFormProps) => {
           label="Cidade"
           placeholder="Ex: Fortaleza"
           errorMessage={errors.city?.message}
+          disabled={isLoading}
           required
         />
 
@@ -105,6 +135,7 @@ export const AddressForm = (props: AddressFormProps) => {
           label="Estado"
           placeholder="Ex: CE"
           errorMessage={errors.state?.message}
+          disabled={isLoading}
           required
         />
       </div>
@@ -114,7 +145,11 @@ export const AddressForm = (props: AddressFormProps) => {
           <Button variant="outline">Cancelar</Button>
         </DialogClose>
 
-        <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
+        <Button
+          type="submit"
+          disabled={!isValid}
+          isLoading={isSubmitting || isLoading}
+        >
           Cadastrar
         </Button>
       </footer>
