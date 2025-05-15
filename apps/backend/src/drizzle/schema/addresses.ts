@@ -19,7 +19,6 @@ export const addresses = pgTable('addresses', {
   reference: text('reference'),
   city: text('city').notNull(),
   state: text('state').notNull(),
-  country: text('country').notNull(),
   zipCode: text('zip_code').notNull(),
   userId: text('user_id')
     .notNull()

@@ -12,7 +12,6 @@ export class Address implements AddressType {
   reference: string | null
   city: string
   state: string
-  country: string
   zipCode: string
   updatedAt: Date | null
   createdAt: Date

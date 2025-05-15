@@ -134,6 +134,13 @@
       "when": 1747156994172,
       "tag": "0018_common_azazel",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1747315601839,
+      "tag": "0019_military_millenium_guard",
+      "breakpoints": true
     }
   ]
 }

@@ -71,7 +71,6 @@ export class AddressesService {
         address: updateAddressDto.address ?? address.address,
         city: updateAddressDto.city ?? address.city,
         state: updateAddressDto.state ?? address.state,
-        country: updateAddressDto.country ?? address.country,
         zipCode: updateAddressDto.zipCode ?? address.zipCode,
         neighborhood: updateAddressDto.neighborhood ?? address.neighborhood,
         number: updateAddressDto.number ?? address.number,
