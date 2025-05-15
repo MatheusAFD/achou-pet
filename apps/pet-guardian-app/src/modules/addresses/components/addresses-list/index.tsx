@@ -8,7 +8,7 @@ export const AddressesList = async () => {
   console.log(error)
 
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+    <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-items-center lg:place-items-start gap-8 mt-8">
       {data?.map((address: Address) => {
         return <AddressCard key={address.id} address={address} />
       })}
