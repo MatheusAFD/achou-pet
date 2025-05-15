@@ -18,19 +18,14 @@ import { PetFormData, PetFormSchema } from './types'
 
 interface AttachCredentialFormProps {
   actionText?: string
-  isFetchingDefaultValues?: boolean
+
   onSubmit: (data: PetFormData) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValues?: Partial<PetFormData> | any
 }
 
 export const PetForm = (props: AttachCredentialFormProps) => {
-  const {
-    actionText = 'Cadastrar',
-    isFetchingDefaultValues: isFetching,
-    defaultValues,
-    onSubmit
-  } = props
+  const { actionText = 'Cadastrar', defaultValues, onSubmit } = props
 
   const defaultFormValues =
     defaultValues ||
@@ -50,7 +45,7 @@ export const PetForm = (props: AttachCredentialFormProps) => {
     control,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting, isValid }
+    formState: { errors, isSubmitting, isValid, isLoading }
   } = useForm<PetFormData>({
     defaultValues: defaultFormValues,
     mode: 'onTouched',
@@ -159,7 +154,7 @@ export const PetForm = (props: AttachCredentialFormProps) => {
         </DialogClose>
         <Button
           type="submit"
-          disabled={!isValid || isFetching}
+          disabled={!isValid || isLoading}
           isLoading={isSubmitting}
         >
           {actionText}

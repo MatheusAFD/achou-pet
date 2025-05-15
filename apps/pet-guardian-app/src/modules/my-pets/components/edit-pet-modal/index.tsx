@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-
 import { toast } from 'sonner'
 
 import {
@@ -26,8 +24,6 @@ interface EditPetModalProps extends DialogProps {
 
 export const EditPetModal = (props: EditPetModalProps) => {
   const { petId, isOpen, onOpenChange, onClose } = props
-
-  const [isFetching, setIsFetching] = useState(false)
 
   const onSubmit = async (data: PetFormData) => {
     const [error] = await updatePet({
@@ -55,8 +51,6 @@ export const EditPetModal = (props: EditPetModalProps) => {
       return
     }
 
-    setIsFetching(true)
-
     const [error, pet] = await getPet(petId)
 
     if (error) {
@@ -64,12 +58,8 @@ export const EditPetModal = (props: EditPetModalProps) => {
         description: 'Erro ao buscar pet.'
       })
 
-      setIsFetching(false)
-
       return
     }
-
-    setIsFetching(false)
 
     return pet
   }
@@ -98,7 +88,6 @@ export const EditPetModal = (props: EditPetModalProps) => {
           actionText="Salvar"
           defaultValues={defaultValues}
           onSubmit={onSubmit}
-          isFetchingDefaultValues={isFetching}
         />
       </DialogContent>
     </Dialog>
