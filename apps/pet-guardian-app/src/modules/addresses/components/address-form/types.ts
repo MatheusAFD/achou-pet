@@ -3,7 +3,10 @@ import { z } from 'zod'
 import { lettersAndSpacesRegex } from '@user-app/modules/@shared/validators'
 
 export interface AddressFormProps {
+  actionText?: string
   onSubmit: (data: AddressFormData) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: Partial<AddressFormData> | any
 }
 
 export const addressFormSchema = z.object({
@@ -24,7 +27,7 @@ export const addressFormSchema = z.object({
     .string()
     .nonempty('Ponto de referência é obrigatório')
     .regex(lettersAndSpacesRegex, 'O campo deve conter apenas letras'),
-  complement: z.string().optional(),
+  complement: z.string().optional().nullable(),
   city: z
     .string()
     .nonempty('Cidade é obrigatória')

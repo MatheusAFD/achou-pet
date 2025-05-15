@@ -8,7 +8,7 @@ import {
   LineBadge
 } from '@user-app/modules/@shared/components'
 import {
-  AddressesList,
+  AddressesContainer,
   CreateAddressModal
 } from '@user-app/modules/addresses/components'
 
@@ -27,7 +27,7 @@ export default function MyAddressesPage() {
         </Button>
       </CreateAddressModal>
 
-      <AddressesList />
+      <AddressesContainer />
     </Container>
   )
 }

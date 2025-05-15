@@ -1,6 +1,6 @@
 export interface Address {
   id: string
-  type: 'PRIMNARY' | 'SECONDARY'
+  type: 'PRIMARY' | 'SECONDARY'
   address: string
   number: string
   complement: string | null

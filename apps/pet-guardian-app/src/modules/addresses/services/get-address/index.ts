@@ -1,13 +1,19 @@
+import { ONE_HOUR_IN_SECONDS } from '@user-app/modules/@shared/constants'
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
 import { ErrorResponse } from '@user-app/modules/@shared/types'
-import { Pet } from '@user-app/modules/my-pets/services/get-pet/types'
+
+import { Address } from './types'
 
 export const getAddress = async (
   id: string
-): Promise<[ErrorResponse | null, Pet | null]> => {
-  const [error, data] = await httpClientFetch<Pet, ErrorResponse>({
+): Promise<[ErrorResponse | null, Address | null]> => {
+  const [error, data] = await httpClientFetch<Address, ErrorResponse>({
     url: `/addresses/${id}`,
-    method: 'GET'
+    method: 'GET',
+    next: {
+      tags: ['addresses'],
+      revalidate: ONE_HOUR_IN_SECONDS
+    }
   })
 
   return [error, data]

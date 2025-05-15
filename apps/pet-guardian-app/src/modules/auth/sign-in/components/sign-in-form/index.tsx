@@ -66,7 +66,12 @@ export const SignInForm = () => {
       />
 
       <footer className="flex flex-col gap-2 mt-5">
-        <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={!isValid}
+          isLoading={isSubmitting}
+        >
           Entrar
         </Button>
 

@@ -14,17 +14,9 @@ import {
 } from '@user-app/modules/@shared/components/fields'
 
 import { animalGenderOptions, animalSizeOptions } from '../../constants'
-import { PetFormData, PetFormSchema } from './types'
+import { PetFormData, PetFormProps, PetFormSchema } from './types'
 
-interface AttachCredentialFormProps {
-  actionText?: string
-
-  onSubmit: (data: PetFormData) => void
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  defaultValues?: Partial<PetFormData> | any
-}
-
-export const PetForm = (props: AttachCredentialFormProps) => {
+export const PetForm = (props: PetFormProps) => {
   const { actionText = 'Cadastrar', defaultValues, onSubmit } = props
 
   const defaultFormValues =
@@ -47,13 +39,13 @@ export const PetForm = (props: AttachCredentialFormProps) => {
     watch,
     formState: { errors, isSubmitting, isValid, isLoading }
   } = useForm<PetFormData>({
-    defaultValues: defaultFormValues,
     mode: 'onTouched',
     reValidateMode: 'onChange',
+    defaultValues: defaultFormValues,
+    resolver: zodResolver(PetFormSchema),
     resetOptions: {
       keepErrors: true
-    },
-    resolver: zodResolver(PetFormSchema)
+    }
   })
 
   const needsMedication = watch('needsMedication') || watch('hasAllergies')
@@ -150,7 +142,9 @@ export const PetForm = (props: AttachCredentialFormProps) => {
       </div>
       <footer className="flex flex-col-reverse md:flex-row justify-end gap-2 mt-4">
         <DialogClose asChild>
-          <Button variant="outline">Cancelar</Button>
+          <Button variant="outline" size="lg">
+            Cancelar
+          </Button>
         </DialogClose>
         <Button
           type="submit"

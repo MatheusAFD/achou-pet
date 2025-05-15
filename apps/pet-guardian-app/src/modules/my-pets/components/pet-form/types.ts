@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+export interface PetFormProps {
+  actionText?: string
+
+  onSubmit: (data: PetFormData) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: Partial<PetFormData> | any
+}
+
 export const PetFormSchema = z
   .object({
     name: z.string().nonempty({ message: 'Nome é obrigatório' }),
@@ -7,7 +15,7 @@ export const PetFormSchema = z
     species: z.string().nonempty({ message: 'Espécie é obrigatória' }),
     breed: z.string().nullable(),
     size: z.enum(['small', 'medium', 'large']),
-    color: z.string().nullable(),
+    color: z.string().optional().nullable(),
     isVaccinated: z.boolean(),
     hasAllergies: z.boolean(),
     needsMedication: z.boolean(),

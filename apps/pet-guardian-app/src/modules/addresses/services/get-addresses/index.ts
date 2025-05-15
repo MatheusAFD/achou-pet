@@ -1,3 +1,4 @@
+import { ONE_HOUR_IN_SECONDS } from '@user-app/modules/@shared/constants'
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
 import { ErrorResponse } from '@user-app/modules/@shared/types'
 
@@ -11,7 +12,7 @@ export const getAddresses = async (): Promise<
     method: 'GET',
     next: {
       tags: ['addresses'],
-      revalidate: 60 * 60
+      revalidate: ONE_HOUR_IN_SECONDS
     }
   })
 

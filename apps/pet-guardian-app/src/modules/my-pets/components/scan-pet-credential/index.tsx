@@ -133,6 +133,8 @@ export const ScanPetCredential = (props: ScanPetCredentialProps) => {
         localVideoRef.srcObject = null
       }
     }
+    // TODO: Fix eslint warning
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScanning, updateFormStep])
 
   return (

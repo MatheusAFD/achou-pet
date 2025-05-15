@@ -16,26 +16,13 @@ import { getAddressByCep } from '@user-app/modules/@shared/services'
 import { AddressFormData, AddressFormProps, addressFormSchema } from './types'
 
 export const AddressForm = (props: AddressFormProps) => {
-  const { onSubmit } = props
+  const { actionText = 'Cadastrar', onSubmit, defaultValues } = props
 
-  const [isLoading, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
-  const {
-    register,
-    control,
-    setFocus,
-    handleSubmit,
-    reset,
-    formState: { isValid, errors, isSubmitting }
-  } = useForm<AddressFormData>({
-    mode: 'onTouched',
-    reValidateMode: 'onChange',
-    resetOptions: {
-      keepDefaultValues: true,
-      keepValues: true
-    },
-    resolver: zodResolver(addressFormSchema),
-    defaultValues: {
+  const defaultFormValues =
+    defaultValues ||
+    ({
       address: '',
       number: '',
       neighborhood: '',
@@ -44,8 +31,26 @@ export const AddressForm = (props: AddressFormProps) => {
       zipCode: '',
       complement: '',
       reference: ''
+    } as AddressFormData)
+
+  const {
+    register,
+    control,
+    setFocus,
+    handleSubmit,
+    reset,
+    formState: { isValid, errors, isSubmitting, isLoading }
+  } = useForm<AddressFormData>({
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+    defaultValues: defaultFormValues,
+    resolver: zodResolver(addressFormSchema),
+    resetOptions: {
+      keepErrors: true
     }
   })
+
+  console.log(isValid, isLoading)
 
   return (
     <form
@@ -61,7 +66,7 @@ export const AddressForm = (props: AddressFormProps) => {
           inputMode="numeric"
           placeholder="Ex: 00000-000"
           errorMessage={errors.zipCode?.message}
-          isLoading={isLoading}
+          isLoading={isPending || isLoading}
           required
           onValidate={(value) => {
             startTransition(async () => {
@@ -100,6 +105,7 @@ export const AddressForm = (props: AddressFormProps) => {
           {...register('address')}
           label="Endereço"
           placeholder="Ex: Rua Chico da Silva"
+          isLoading={isLoading}
           errorMessage={errors.address?.message}
           required
         />
@@ -116,6 +122,7 @@ export const AddressForm = (props: AddressFormProps) => {
           {...register('neighborhood')}
           label="Bairro"
           placeholder="Bairro"
+          isLoading={isLoading}
           errorMessage={errors.neighborhood?.message}
           required
         />
@@ -124,6 +131,7 @@ export const AddressForm = (props: AddressFormProps) => {
           {...register('reference')}
           label="Ponto de referência"
           placeholder="Ex: Próximo ao mercado"
+          isLoading={isLoading}
           errorMessage={errors.reference?.message}
           required
         />
@@ -132,6 +140,7 @@ export const AddressForm = (props: AddressFormProps) => {
           {...register('complement')}
           label="Complemento"
           placeholder="Ex: Apartamento 101"
+          isLoading={isLoading}
           errorMessage={errors.complement?.message}
         />
 
@@ -139,8 +148,9 @@ export const AddressForm = (props: AddressFormProps) => {
           {...register('state')}
           label="Estado"
           placeholder="Ex: CE"
+          isLoading={isLoading}
           errorMessage={errors.state?.message}
-          disabled={isLoading}
+          disabled={isPending}
           required
         />
 
@@ -148,23 +158,27 @@ export const AddressForm = (props: AddressFormProps) => {
           {...register('city')}
           label="Cidade"
           placeholder="Ex: Fortaleza"
+          isLoading={isLoading}
           errorMessage={errors.city?.message}
-          disabled={isLoading}
+          disabled={isPending}
           required
         />
       </div>
 
       <footer className="flex flex-col-reverse md:flex-row justify-end gap-2 mt-4">
         <DialogClose asChild>
-          <Button variant="outline">Cancelar</Button>
+          <Button variant="outline" size="lg">
+            Cancelar
+          </Button>
         </DialogClose>
 
         <Button
           type="submit"
+          size="lg"
           disabled={!isValid}
-          isLoading={isSubmitting || isLoading}
+          isLoading={isSubmitting || isPending || isLoading}
         >
-          Cadastrar
+          {actionText}
         </Button>
       </footer>
     </form>
