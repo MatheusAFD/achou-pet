@@ -1,1 +1,1 @@
-export const lettersAndSpacesRegex = /^[a-zA-Z\s]*$/
+export const lettersAndSpacesRegex = /^[a-zA-ZÀ-ÿ\s]*$/
