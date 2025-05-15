@@ -22,7 +22,7 @@ export const RegisterUserForm = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors, isValid, isSubmitting, isSubmitSuccessful }
+    formState: { errors, isValid, isSubmitting }
   } = useForm<RegisterUserFormData>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
@@ -129,7 +129,7 @@ export const RegisterUserForm = () => {
 
           <Button
             type="submit"
-            disabled={!isValid || isSubmitting || isSubmitSuccessful}
+            disabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           >
             Criar conta

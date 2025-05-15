@@ -24,7 +24,7 @@ export const SignInForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors, isSubmitting, isSubmitSuccessful }
+    formState: { isValid, errors, isSubmitting }
   } = useForm<SignInUserFormData>({
     resolver: zodResolver(signInUserSchema)
   })
@@ -66,11 +66,7 @@ export const SignInForm = () => {
       />
 
       <footer className="flex flex-col gap-2 mt-5">
-        <Button
-          type="submit"
-          disabled={!isValid || isSubmitSuccessful}
-          isLoading={isSubmitting}
-        >
+        <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
           Entrar
         </Button>
 
