@@ -10,8 +10,7 @@ import {
   LineBadge
 } from '@user-app/modules/@shared/components'
 import { StepsProvider } from '@user-app/modules/@shared/contexts'
-import { PetsList } from '@user-app/modules/my-pets/components'
-import { getPets } from '@user-app/modules/my-pets/services/get-pets'
+import { PetsContainer } from '@user-app/modules/my-pets/components'
 import { AttachCredentialFormSteps } from '@user-app/modules/my-pets/types'
 
 const AttachCredentialModal = lazy(() =>
@@ -25,9 +24,6 @@ export const metadata: Metadata = {
 }
 
 export default async function MyPetsPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, data] = await getPets()
-
   return (
     <Container>
       <LineBadge />
@@ -40,7 +36,7 @@ export default async function MyPetsPage() {
         </AttachCredentialModal>
       </StepsProvider>
 
-      <PetsList data={data} />
+      <PetsContainer />
     </Container>
   )
 }
