@@ -50,8 +50,6 @@ export const AddressForm = (props: AddressFormProps) => {
     }
   })
 
-  console.log(isValid, isLoading)
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
