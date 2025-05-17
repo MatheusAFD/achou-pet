@@ -9,14 +9,15 @@ import { Pet } from '../get-pet/types'
 import { UpdatePetParams } from './types'
 
 export const updatePet = async (
-  data: UpdatePetParams
+  params: UpdatePetParams
 ): Promise<[ErrorResponse | null, Pet | null]> => {
-  const { petId, ...rest } = data
+  const { petId, data } = params
 
   const [error, response] = await httpClientFetch<Pet, ErrorResponse>({
     url: `/pets/${petId}`,
     method: 'PATCH',
-    data: rest
+    headers: { 'Content-Type': 'multipart/form-data' },
+    data
   })
 
   if (!error) {

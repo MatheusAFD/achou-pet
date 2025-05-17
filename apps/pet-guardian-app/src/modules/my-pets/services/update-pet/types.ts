@@ -1,5 +1,4 @@
-import { PetFormData } from '../../components/pet-form/types'
-
-export interface UpdatePetParams extends PetFormData {
+export interface UpdatePetParams {
   petId: string
+  data: FormData
 }

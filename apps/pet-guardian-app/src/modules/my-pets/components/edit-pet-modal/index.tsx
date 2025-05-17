@@ -25,17 +25,17 @@ interface EditPetModalProps extends DialogProps {
 export const EditPetModal = (props: EditPetModalProps) => {
   const { petId, isOpen, onOpenChange, onClose } = props
 
-  const onSubmit = async (data: PetFormData) => {
+  const onSubmit = async (formData: PetFormData) => {
     const [error] = await updatePet({
       petId: petId!,
-      ...data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: formData as any
     })
 
     if (error) {
       toast.error('Erro!', {
         description: 'Ocorreu um erro ao atualizar o pet.'
       })
-
       return
     }
 

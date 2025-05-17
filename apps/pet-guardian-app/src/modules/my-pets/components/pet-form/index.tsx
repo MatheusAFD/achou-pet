@@ -10,7 +10,8 @@ import {
   CheckboxField,
   SelectedField,
   TextareaField,
-  TextField
+  TextField,
+  ImageField
 } from '@user-app/modules/@shared/components/fields'
 
 import { animalGenderOptions, animalSizeOptions } from '../../constants'
@@ -50,12 +51,41 @@ export const PetForm = (props: PetFormProps) => {
 
   const needsMedication = watch('needsMedication') || watch('hasAllergies')
 
+  function handleFormSubmit(data: PetFormData) {
+    const formData = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+      if (key === 'photo' && value instanceof File) {
+        formData.append('photo', value)
+      } else if (value !== undefined && value !== null) {
+        formData.append(key, String(value))
+      }
+    })
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onSubmit(formData as any)
+  }
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
       className="flex flex-col justify-between h-full gap-4"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="col-span-2 flex justify-center">
+          <ImageField
+            name="photo"
+            control={control}
+            label="Inserir foto"
+            errorMessage={
+              typeof errors.photo?.message === 'string'
+                ? errors.photo.message
+                : undefined
+            }
+            required
+            accept="image/png, image/jpeg, image/jpg"
+            maxSizeMB={5}
+          />
+        </div>
         <TextField
           {...register('name')}
           id="name"

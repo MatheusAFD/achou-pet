@@ -1,11 +1,10 @@
 'use client'
 
-import Image from 'next/image'
-
 import { Edit, Mars, Venus, Syringe, Pill, BeanOff } from 'lucide-react'
 
 import {
   Avatar,
+  AvatarImage,
   Button,
   ChildTooltip,
   Conditional,
@@ -39,11 +38,10 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
     >
       <div className="flex flex-col items-center ">
         <Avatar className="size-28 border-2 border-primary shadow-md">
-          <Image
+          <AvatarImage
             src={photoUrl || '/logo.png'}
             width={112}
             height={112}
-            quality={100}
             alt="Imagem de perfil do pet"
             className="object-cover"
           />
