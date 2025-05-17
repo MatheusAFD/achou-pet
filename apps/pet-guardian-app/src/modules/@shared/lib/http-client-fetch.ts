@@ -35,15 +35,50 @@ export const httpClientFetch = async <
 }: RequestConfig<TVariables>): Promise<ResponseConfig<TData, TError>> => {
   const { token } = await getAuthToken()
 
+  const isFormData = config.data instanceof FormData
+
+  let headers: Record<string, string> = {
+    Authorization: `Bearer ${token?.value}`
+  }
+
+  if (config.headers) {
+    if (config.headers instanceof Headers) {
+      config.headers.forEach((value, key) => {
+        headers[key] = value
+      })
+    } else if (Array.isArray(config.headers)) {
+      config.headers.forEach(([key, value]) => {
+        headers[key] = value
+      })
+    } else {
+      headers = { ...headers, ...config.headers }
+    }
+  }
+
+  if (!headers['Content-Type']) {
+    headers['Content-Type'] = isFormData ? undefined! : 'application/json'
+  }
+
+  if (isFormData && headers['Content-Type']) {
+    delete headers['Content-Type']
+  }
+
+  let body: BodyInit | undefined
+  if (config.data) {
+    if (isFormData) {
+      body = config.data as FormData
+    } else if (typeof config.data === 'string') {
+      body = config.data
+    } else {
+      body = JSON.stringify(config.data)
+    }
+  }
+
   const response = await fetch(`${baseURL}${config.url}`, {
     method: config.method.toUpperCase(),
-    body: config.data ? JSON.stringify(config.data) : undefined,
+    body,
     signal: config.signal,
-    headers: {
-      ...config.headers,
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token?.value}`
-    },
+    headers,
     cache: config.cache,
     next: config.next
   })
