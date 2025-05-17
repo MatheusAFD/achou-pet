@@ -5,7 +5,7 @@ import {
   PutObjectCommand,
   DeleteObjectCommand
 } from '@aws-sdk/client-s3'
-import sharp from 'sharp'
+import * as sharp from 'sharp'
 
 import { env } from '../../../env'
 
@@ -31,6 +31,7 @@ export class StorageService {
       uploadBuffer = optimized
       uploadMime = 'image/jpeg'
     }
+
     await this.s3.send(
       new PutObjectCommand({
         Bucket: env.R2_BUCKET_NAME,
@@ -39,11 +40,13 @@ export class StorageService {
         ContentType: uploadMime
       })
     )
-    return this.getPublicUrl(key)
+    return this.getPublicUrl(`${env.R2_BUCKET_NAME}/${key}`)
   }
 
   getPublicUrl(key: string) {
-    return `${env.R2_ENDPOINT}/${env.R2_BUCKET_NAME}/${key}`
+    const publicEndpoint = process.env.R2_PUBLIC_ENDPOINT
+
+    return `${publicEndpoint}/${key}`
   }
 
   async deleteFile(key: string) {

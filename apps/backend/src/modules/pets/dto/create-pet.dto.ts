@@ -46,14 +46,17 @@ export class CreatePetDto {
   color?: string
 
   @ApiProperty({ required: false })
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   isVaccinated?: boolean
 
   @ApiProperty({ required: false })
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   hasAllergies?: boolean
 
   @ApiProperty({ required: false })
+  @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
   needsMedication?: boolean
 

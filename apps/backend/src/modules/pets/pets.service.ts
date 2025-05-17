@@ -51,28 +51,32 @@ export class PetsService {
   }
 
   async create(data: CreatePetDto, photo?: any): Promise<Pet> {
-    let photoUrl = data.photoUrl ?? null
-    if (photo && photo.buffer && photo.mimetype) {
-      const buffer: Buffer = Buffer.isBuffer(photo.buffer)
-        ? photo.buffer
-        : Buffer.from(photo.buffer)
-      photoUrl = await this.storageService.uploadFile(
-        buffer,
-        `pets/${Date.now()}.jpeg`,
-        String(photo.mimetype)
-      )
+    try {
+      let photoUrl = data.photoUrl ?? null
+      if (photo && photo.buffer && photo.mimetype) {
+        const buffer: Buffer = Buffer.isBuffer(photo.buffer)
+          ? photo.buffer
+          : Buffer.from(photo.buffer)
+        photoUrl = await this.storageService.uploadFile(
+          buffer,
+          `pets/${Date.now()}.jpeg`,
+          String(photo.mimetype)
+        )
+      }
+      const [createdPet] = await this.db
+        .insert(pets)
+        .values({
+          ...data,
+          photoUrl
+        })
+        .returning()
+      if (!createdPet) {
+        throw new InternalServerErrorException('Error creating pet')
+      }
+      return createdPet
+    } catch (error) {
+      throw new InternalServerErrorException(error.message)
     }
-    const [createdPet] = await this.db
-      .insert(pets)
-      .values({
-        ...data,
-        photoUrl
-      })
-      .returning()
-    if (!createdPet) {
-      throw new InternalServerErrorException('Error creating pet')
-    }
-    return createdPet
   }
 
   async update(id: string, data: UpdatePetDto, photo?: any): Promise<Pet> {
