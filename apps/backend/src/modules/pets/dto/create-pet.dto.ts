@@ -66,4 +66,8 @@ export class CreatePetDto {
   @IsOptional()
   @IsString()
   photoUrl?: string
+
+  @ApiProperty({ required: false, type: 'string', format: 'binary' })
+  @IsOptional()
+  photo?: any
 }

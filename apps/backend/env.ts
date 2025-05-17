@@ -7,6 +7,11 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   POSTGRES_PASSWORD: z.string(),
+  R2_ACCESS_KEY_ID: z.string(),
+  R2_SECRET_ACCESS_KEY: z.string(),
+  R2_BUCKET_NAME: z.string(),
+  R2_ENDPOINT: z.string().url(),
+  R2_REGION: z.string(),
   POSTGRES_USER: z.string(),
   POSTGRES_DB: z.string(),
   DATABASE_URL: z.string().url()

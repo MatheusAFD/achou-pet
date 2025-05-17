@@ -16,6 +16,7 @@ import { AddressesModule } from './modules/addresses/addresses.module'
 import { BatchesModule } from './modules/batches/batches.module'
 import { CredentialsModule } from './modules/credentials/credentials.module'
 import { PetsModule } from './modules/pets/pets.module'
+import { StorageModule } from './modules/storage/storage.module'
 import { UsersModule } from './modules/users/users.module'
 
 const ONE_MINUTE_IN_MS = 60 * 1000
@@ -37,7 +38,8 @@ const ONE_MINUTE_IN_MS = 60 * 1000
     AddressesModule,
     CredentialsModule,
     BatchesModule,
-    PetsModule
+    PetsModule,
+    StorageModule
   ],
   controllers: [AppController],
   providers: [
