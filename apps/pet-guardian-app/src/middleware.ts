@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { jwtDecode } from 'jwt-decode'
 
 import { publicRoutes } from './modules/@shared/constants'
+import { isPublicRoute } from './modules/auth/utils'
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/auth/sign-in'
 const REDIRECT_WHEN_TOKEN_INVALID = '/auth/logout'
@@ -16,7 +17,10 @@ const handleRedirect = (request: NextRequest, pathname: string) => {
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
-  const publicRoute = publicRoutes.find((route) => route.path === path)
+  const publicRoute =
+    publicRoutes.find((route) => path === route.path) ||
+    (isPublicRoute(path) ? { whenAuthenticated: 'keep' } : undefined)
+
   const token = request.cookies.get('achou-pet-token')?.value
 
   if (token && publicRoute && publicRoute.whenAuthenticated === 'redirect') {
