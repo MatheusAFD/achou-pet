@@ -13,6 +13,7 @@ import {
 } from '@user-app/modules/@shared/components'
 
 import { Pet } from '../../services/get-pet/types'
+import { petSizeParser } from '../../utils'
 
 interface PetCardProps {
   pet: Pet
@@ -30,12 +31,6 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
     hasAllergies,
     photoUrl
   } = pet
-
-  const dogSize = {
-    SMALL: 'Pequeno',
-    MEDIUM: 'Médio',
-    LARGE: 'Grande'
-  }
 
   return (
     <CustomCard
@@ -82,8 +77,8 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
 
         <div className="flex items-center gap-2">
           <span className="text-xs text-gray-500 font-medium">Porte:</span>
-          <ChildTooltip content={`${dogSize[size]} porte`} side="bottom">
-            <p className="text-sm text-gray-700">{dogSize[size]}</p>
+          <ChildTooltip content={`${petSizeParser[size]} porte`} side="bottom">
+            <p className="text-sm text-gray-700">{petSizeParser[size]}</p>
           </ChildTooltip>
         </div>
       </div>
