@@ -23,6 +23,7 @@ export class StorageService {
   async uploadFile(buffer: Buffer, key: string, mimetype: string) {
     let uploadBuffer = buffer
     let uploadMime = mimetype
+
     if (mimetype.startsWith('image/')) {
       const optimized = await sharp(buffer)
         .resize(800, 800, { fit: 'inside' })

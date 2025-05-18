@@ -72,5 +72,5 @@ export class CreatePetDto {
 
   @ApiProperty({ required: false, type: 'string', format: 'binary' })
   @IsOptional()
-  photo?: any
+  photo?: File
 }
