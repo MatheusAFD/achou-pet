@@ -38,8 +38,8 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
       as="li"
       className="relative flex items-center gap-6 p-4 border border-border/80 hover:border-primary/50 transition-all duration-200 ease-in-out"
     >
-      <div className="flex flex-col items-center ">
-        <Avatar className="size-28 border-2 border-primary shadow-md">
+      <div className="flex flex-col items-center p-2">
+        <Avatar className="size-24 border-2 border-primary shadow-md">
           <AvatarImage
             src={photoUrl || '/logo.png'}
             width={112}
