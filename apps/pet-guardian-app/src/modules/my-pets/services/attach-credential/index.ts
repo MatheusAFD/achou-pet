@@ -18,6 +18,7 @@ export const attatchCredential = async (
   >({
     url: `/credentials/${credentialId}`,
     method: 'PATCH',
+    contentType: 'multipart/form-data',
     data: dataWithoutCredentialId
   })
 

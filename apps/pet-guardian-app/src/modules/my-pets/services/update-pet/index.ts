@@ -17,6 +17,7 @@ export const updatePet = async (
     url: `/pets/${petId}`,
     method: 'PATCH',
     headers: { 'Content-Type': 'multipart/form-data' },
+    contentType: 'multipart/form-data',
     data
   })
 
