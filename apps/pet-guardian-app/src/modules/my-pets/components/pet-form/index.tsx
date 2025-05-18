@@ -174,6 +174,7 @@ export const PetForm = (props: PetFormProps) => {
         </DialogClose>
         <Button
           type="submit"
+          size="lg"
           disabled={!isValid || isLoading}
           isLoading={isSubmitting}
         >
