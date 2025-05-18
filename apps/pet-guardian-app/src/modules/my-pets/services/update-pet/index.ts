@@ -16,7 +16,6 @@ export const updatePet = async (
   const [error, response] = await httpClientFetch<Pet, ErrorResponse>({
     url: `/pets/${petId}`,
     method: 'PATCH',
-    headers: { 'Content-Type': 'multipart/form-data' },
     contentType: 'multipart/form-data',
     data
   })
