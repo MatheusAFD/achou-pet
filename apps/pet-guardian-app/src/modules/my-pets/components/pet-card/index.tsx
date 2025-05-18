@@ -4,11 +4,13 @@ import { Edit, Mars, Venus, Syringe, Pill, BeanOff } from 'lucide-react'
 
 import {
   Avatar,
+  AvatarFallback,
   AvatarImage,
   Button,
   ChildTooltip,
   Conditional,
-  CustomCard
+  CustomCard,
+  Skeleton
 } from '@user-app/modules/@shared/components'
 
 import { Pet } from '../../services/get-pet/types'
@@ -45,7 +47,11 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
             alt="Imagem de perfil do pet"
             className="object-cover"
           />
+          <AvatarFallback>
+            <Skeleton className="size-28" />
+          </AvatarFallback>
         </Avatar>
+
         <span className="mt-2 text-base font-medium text-tertiary text-center tracking-wide">
           {name}
         </span>
