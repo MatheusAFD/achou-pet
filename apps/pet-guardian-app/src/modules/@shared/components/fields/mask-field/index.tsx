@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { Controller } from 'react-hook-form'
-import type { FieldValues } from 'react-hook-form'
+import type { Control, FieldValues } from 'react-hook-form'
 
 import IMask from 'imask'
 
@@ -15,8 +15,7 @@ interface MaskFieldProps extends TextFieldProps {
   pattern: string
   errorMessage?: string
   isValid?: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: FieldValues | any
+  control: Control<FieldValues>
   onValidate?: (value: string) => void | Promise<void>
 }
 

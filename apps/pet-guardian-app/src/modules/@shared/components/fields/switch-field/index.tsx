@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { Controller } from 'react-hook-form'
-import type { Control } from 'react-hook-form'
+import type { Control, FieldValues } from 'react-hook-form'
 
 import { Switch } from '../../ui'
 import type { SwitchFieldProps } from './types'
@@ -10,8 +10,8 @@ import type { SwitchFieldProps } from './types'
 interface SwitchProps extends SwitchFieldProps {
   name: string
   description?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control?: Control<any>
+
+  control?: Control<FieldValues>
 }
 
 export const SwitchField = (props: SwitchProps) => {

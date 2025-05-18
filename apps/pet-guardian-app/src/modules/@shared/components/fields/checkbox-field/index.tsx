@@ -2,14 +2,13 @@
 
 import { useRef } from 'react'
 import { Controller } from 'react-hook-form'
-import type { Control } from 'react-hook-form'
+import type { Control, FieldValues } from 'react-hook-form'
 
 import { Checkbox, Label } from '../../ui'
 
-interface CheckboxFieldProps {
+type CheckboxFieldProps = {
   name: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<any>
+  control: Control<FieldValues>
   label: string
   id?: string
   className?: string

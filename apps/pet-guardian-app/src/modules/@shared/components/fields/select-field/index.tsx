@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Controller, Control } from 'react-hook-form'
+import { Controller, Control, FieldValues } from 'react-hook-form'
 
 import { SelectProps } from '@radix-ui/react-select'
 import { CircleX } from 'lucide-react'
@@ -17,8 +17,7 @@ import {
 
 interface SelectFieldProps extends SelectProps {
   name: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<any>
+  control: Control<FieldValues>
   placeholder?: string
   label?: string
   options: {
