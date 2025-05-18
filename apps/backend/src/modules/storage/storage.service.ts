@@ -40,13 +40,13 @@ export class StorageService {
         ContentType: uploadMime
       })
     )
-    return this.getPublicUrl(`${env.R2_BUCKET_NAME}/${key}`)
+    return this.getPublicUrl(key)
   }
 
   getPublicUrl(key: string) {
     const publicEndpoint = process.env.R2_PUBLIC_ENDPOINT
 
-    return `${publicEndpoint}/${key}`
+    return `/${env.R2_BUCKET_NAME}/${publicEndpoint}/${key}`
   }
 
   async deleteFile(key: string) {
