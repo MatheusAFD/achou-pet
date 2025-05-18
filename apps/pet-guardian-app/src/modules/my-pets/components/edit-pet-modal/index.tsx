@@ -61,7 +61,10 @@ export const EditPetModal = (props: EditPetModalProps) => {
       return
     }
 
-    return pet
+    return {
+      ...pet,
+      photo: pet?.photoUrl
+    }
   }
 
   return (
