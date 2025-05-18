@@ -70,7 +70,7 @@ export function ImageField<T extends FieldValues>({
         onChange={handleFileChange}
         data-testid={`image-upload-${name}`}
       />
-      {errorMessage && (
+      {!!errorMessage && (
         <span className="text-xs text-red-500">{errorMessage}</span>
       )}
     </div>
