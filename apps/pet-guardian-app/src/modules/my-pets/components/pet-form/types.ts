@@ -24,7 +24,8 @@ export const PetFormSchema = z
       .refine(
         (file) => {
           if (!file) return true
-          if (!(file instanceof File)) return false
+          if (typeof file === 'string') return true
+          if (!(file instanceof File)) return true
           return file.size <= 5 * 1024 * 1024
         },
         { message: 'O arquivo deve ter no máximo 5MB', path: ['photo'] }
@@ -32,7 +33,8 @@ export const PetFormSchema = z
       .refine(
         (file) => {
           if (!file) return true
-          if (!(file instanceof File)) return false
+          if (typeof file === 'string') return true
+          if (!(file instanceof File)) return true
           return ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)
         },
         { message: 'Apenas imagens JPG ou PNG são permitidas', path: ['photo'] }

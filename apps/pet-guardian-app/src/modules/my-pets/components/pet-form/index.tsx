@@ -38,6 +38,7 @@ export const PetForm = (props: PetFormProps) => {
     control,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isSubmitting, isValid, isLoading }
   } = useForm<PetFormData>({
     mode: 'onTouched',
@@ -54,12 +55,16 @@ export const PetForm = (props: PetFormProps) => {
   const handleFormSubmit = async (data: PetFormData) => {
     const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => {
+      if (key === 'photo') return
       formData.append(key, String(value))
-
-      if (data.photo) {
-        formData.append('photo', value)
-      }
     })
+    if (data.photo instanceof File) {
+      formData.append('photo', data.photo)
+    }
+
+    if (typeof data.photo === 'string' && data.photo) {
+      formData.append('photo', data.photo)
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await onSubmit(formData as any)
@@ -80,6 +85,9 @@ export const PetForm = (props: PetFormProps) => {
             required
             accept="image/png, image/jpeg, image/jpg"
             maxSizeMB={5}
+            onDelete={() => {
+              setValue('photo', null)
+            }}
           />
         </div>
         <TextField

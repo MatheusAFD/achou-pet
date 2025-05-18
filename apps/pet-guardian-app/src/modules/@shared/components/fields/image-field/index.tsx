@@ -18,6 +18,7 @@ export interface ImageFieldProps<T extends FieldValues> {
   required?: boolean
   accept?: string
   maxSizeMB?: number
+  onDelete?: VoidFunction
 }
 
 export function ImageField<T extends FieldValues>({
@@ -26,7 +27,8 @@ export function ImageField<T extends FieldValues>({
   label = '',
   errorMessage,
   accept = 'image/*',
-  maxSizeMB = 5
+  maxSizeMB = 5,
+  onDelete
 }: ImageFieldProps<T>) {
   const inputRef = useRef<HTMLInputElement>(null)
   const {
@@ -46,7 +48,13 @@ export function ImageField<T extends FieldValues>({
 
   function handleDelete() {
     onChange(undefined)
-    if (inputRef.current) inputRef.current.value = ''
+    if (inputRef.current) {
+      inputRef.current.value = ''
+    }
+
+    if (onDelete) {
+      onDelete()
+    }
   }
 
   function isFile(v: unknown): v is File {
@@ -61,6 +69,7 @@ export function ImageField<T extends FieldValues>({
     if (typeof value === 'string' && value) {
       return value
     }
+
     return null
   }
 
