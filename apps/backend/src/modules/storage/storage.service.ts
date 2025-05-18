@@ -46,7 +46,7 @@ export class StorageService {
   getPublicUrl(key: string) {
     const publicEndpoint = process.env.R2_PUBLIC_ENDPOINT
 
-    return `/${env.R2_BUCKET_NAME}/${publicEndpoint}/${key}`
+    return `${publicEndpoint}/${env.R2_BUCKET_NAME}/${key}`
   }
 
   async deleteFile(key: string) {
