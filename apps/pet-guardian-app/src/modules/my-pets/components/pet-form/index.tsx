@@ -51,18 +51,18 @@ export const PetForm = (props: PetFormProps) => {
 
   const needsMedication = watch('needsMedication') || watch('hasAllergies')
 
-  function handleFormSubmit(data: PetFormData) {
+  const handleFormSubmit = async (data: PetFormData) => {
     const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => {
-      if (key === 'photo' && value instanceof File) {
+      formData.append(key, String(value))
+
+      if (data.photo) {
         formData.append('photo', value)
-      } else if (value !== undefined && value !== null) {
-        formData.append(key, String(value))
       }
     })
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onSubmit(formData as any)
+    await onSubmit(formData as any)
   }
 
   return (
@@ -76,11 +76,7 @@ export const PetForm = (props: PetFormProps) => {
             name="photo"
             control={control}
             label="Inserir foto"
-            errorMessage={
-              typeof errors.photo?.message === 'string'
-                ? errors.photo.message
-                : undefined
-            }
+            errorMessage={errors.photo?.message as string}
             required
             accept="image/png, image/jpeg, image/jpg"
             maxSizeMB={5}
