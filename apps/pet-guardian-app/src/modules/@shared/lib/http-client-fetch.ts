@@ -32,20 +32,34 @@ export const httpClientFetch = async <
   TVariables = unknown
 >({
   baseURL = process.env.NEXT_PUBLIC_API_BASE_URL,
-  contentType = 'application/json',
+  contentType,
   ...config
 }: RequestConfig<TVariables>): Promise<ResponseConfig<TData, TError>> => {
   const { token } = await getAuthToken()
 
+  let body: BodyInit | undefined
+  let headers: HeadersInit = {
+    ...config.headers,
+    Authorization: `Bearer ${token?.value}`
+  }
+
+  if (config.data instanceof FormData) {
+    body = config.data
+  }
+
+  if (!(config.data instanceof FormData)) {
+    body = JSON.stringify(config.data)
+    headers = {
+      ...headers,
+      'Content-Type': contentType || 'application/json'
+    }
+  }
+
   const response = await fetch(`${baseURL}${config.url}`, {
     method: config.method.toUpperCase(),
-    body: config.data ? JSON.stringify(config.data) : undefined,
+    body,
     signal: config.signal,
-    headers: {
-      ...config.headers,
-      'Content-Type': contentType,
-      Authorization: `Bearer ${token?.value}`
-    },
+    headers,
     cache: config.cache,
     next: config.next
   })
