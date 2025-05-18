@@ -81,22 +81,11 @@ export class PetsService {
 
   async update(id: string, data: UpdatePetDto, photo?: any): Promise<Pet> {
     const pet = await this.findOne(id)
-
     if (!pet) {
       throw new NotFoundException('Pet not found')
     }
 
-    let photoUrl = data.photoUrl ?? pet.photoUrl
-    if (photo && photo.buffer && photo.mimetype) {
-      const buffer: Buffer = Buffer.isBuffer(photo.buffer)
-        ? photo.buffer
-        : Buffer.from(photo.buffer)
-      photoUrl = await this.storageService.uploadFile(
-        buffer,
-        `pets/${id}-${Date.now()}.jpeg`,
-        String(photo.mimetype)
-      )
-    }
+    const photoUrl = await this.handlePetPhotoUpdate(pet, data, photo)
 
     const [updatedPet] = await this.db
       .update(pets)
@@ -122,6 +111,51 @@ export class PetsService {
       throw new InternalServerErrorException('Error updating pet')
     }
 
-    return pet
+    return updatedPet
+  }
+
+  private async handlePetPhotoUpdate(
+    pet: Pet,
+    data: UpdatePetDto,
+    photo?: any
+  ): Promise<string | null> {
+    const oldPhotoUrl = pet.photoUrl
+
+    if (!photo && (data.photoUrl === null || data.photoUrl === undefined)) {
+      if (oldPhotoUrl) {
+        const key = oldPhotoUrl.split('/').slice(-2).join('/')
+        await this.storageService.deleteFile(key)
+      }
+      return null
+    }
+
+    if (photo && photo.buffer && photo.mimetype) {
+      if (oldPhotoUrl) {
+        const key = oldPhotoUrl.split('/').slice(-2).join('/')
+        await this.storageService.deleteFile(key)
+      }
+      const buffer: Buffer = Buffer.isBuffer(photo.buffer)
+        ? photo.buffer
+        : Buffer.from(photo.buffer)
+
+      return await this.storageService.uploadFile(
+        buffer,
+        `pets/${pet.id}-${Date.now()}.jpeg`,
+        String(photo.mimetype)
+      )
+    }
+
+    if (
+      typeof data.photoUrl === 'string' &&
+      data.photoUrl &&
+      oldPhotoUrl &&
+      data.photoUrl !== oldPhotoUrl
+    ) {
+      const key = oldPhotoUrl.split('/').slice(-2).join('/')
+      await this.storageService.deleteFile(key)
+      return data.photoUrl
+    }
+
+    return oldPhotoUrl
   }
 }

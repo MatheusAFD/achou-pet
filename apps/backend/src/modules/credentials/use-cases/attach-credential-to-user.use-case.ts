@@ -15,6 +15,7 @@ import { pets } from '@db/drizzle/schema/pets'
 import { CredentialsStatusEnum } from '@common/enums'
 
 import { CreatePetDto } from '../../pets/dto/create-pet.dto'
+import { StorageService } from '../../storage/storage.service'
 
 interface AttachCredentialToUser {
   userId: string
@@ -24,10 +25,15 @@ interface AttachCredentialToUser {
 export class AttachCredentialToUserUseCase {
   constructor(
     @Inject(DrizzleAsyncProvider)
-    private readonly db: DrizzleSchema
+    private readonly db: DrizzleSchema,
+    @Inject(StorageService)
+    private readonly storageService: StorageService
   ) {}
 
-  async execute(relations: AttachCredentialToUser, payload: CreatePetDto) {
+  async execute(
+    relations: AttachCredentialToUser,
+    payload: CreatePetDto & { photo?: any }
+  ) {
     const { userId, credentialId } = relations
     const {
       gender,
@@ -41,7 +47,8 @@ export class AttachCredentialToUserUseCase {
       isVaccinated,
       medicationDescription,
       needsMedication,
-      photoUrl
+      photoUrl,
+      photo
     } = payload
 
     const [credential] = await this.db
@@ -64,27 +71,24 @@ export class AttachCredentialToUserUseCase {
       )
     }
 
-    const petData = {
-      ...payload,
-      credentialId
-    }
+    const finalPhotoUrl = await this.handlePetPhotoAttach(photo, photoUrl)
 
     const [createdPet] = await this.db
       .insert(pets)
       .values({
-        gender: gender,
-        name: name,
+        gender,
+        name,
         birthDate: birthDate ?? null,
-        species: species,
-        breed: breed,
-        size: size,
-        color: color,
-        isVaccinated: isVaccinated,
-        hasAllergies: hasAllergies,
-        medicationDescription: medicationDescription,
-        photoUrl: photoUrl,
-        credentialId: petData.credentialId,
-        needsMedication: needsMedication
+        species,
+        breed,
+        size,
+        color,
+        isVaccinated,
+        hasAllergies,
+        medicationDescription,
+        photoUrl: finalPhotoUrl,
+        credentialId,
+        needsMedication
       })
       .returning()
 
@@ -99,5 +103,34 @@ export class AttachCredentialToUserUseCase {
       .returning()
 
     return { credential: updatedCredential, pet: createdPet }
+  }
+
+  private async handlePetPhotoAttach(
+    photo?: any,
+    photoUrl?: string
+  ): Promise<string | null> {
+    if (photo && (photo.buffer || photo instanceof Buffer)) {
+      let buffer: Buffer
+      if (Buffer.isBuffer(photo.buffer)) {
+        buffer = photo.buffer
+      } else if (photo.buffer) {
+        buffer = Buffer.from(photo.buffer)
+      } else {
+        buffer = Buffer.from(photo)
+      }
+      let mimetype = 'image/jpeg'
+      if (photo.mimetype) {
+        mimetype = String(photo.mimetype)
+      }
+      return await this.storageService.uploadFile(
+        buffer,
+        `pets/${Date.now()}.jpeg`,
+        mimetype
+      )
+    }
+    if (typeof photoUrl === 'string' && photoUrl) {
+      return photoUrl
+    }
+    return null
   }
 }
