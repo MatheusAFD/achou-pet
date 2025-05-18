@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get } from '@nestjs/common'
 import { ApiBody, ApiResponse } from '@nestjs/swagger'
 
+import { TermsService } from '@modules/terms/terms.service'
 import { UsersService } from '@modules/users/users.service'
 
 import { Public } from '@common/decorators/auth'
@@ -14,7 +15,8 @@ import { AuthUser } from './entities/auth.entity'
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UsersService
+    private readonly userService: UsersService,
+    private readonly termsService: TermsService
   ) {}
 
   @Post('sign-in')
@@ -27,7 +29,10 @@ export class AuthController {
   }
 
   @Get('get-me')
-  getMe(@CurrentUser() user: AuthUser) {
-    return this.userService.findOne(user.id)
+  async getMe(@CurrentUser() user: AuthUser) {
+    const userData = await this.userService.findOne(user.id)
+
+    const hasPendingTerm = await this.termsService.hasPendingTerm(user.id)
+    return { ...userData, hasPendingTerm }
   }
 }

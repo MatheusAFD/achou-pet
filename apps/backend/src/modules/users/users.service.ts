@@ -5,18 +5,18 @@ import {
   NotFoundException
 } from '@nestjs/common'
 
-import { eq } from 'drizzle-orm'
+import { eq, and, desc } from 'drizzle-orm'
 
 import { plainToClass } from 'class-transformer'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { RoleEnum, users } from '@db/drizzle/schema'
+import { userTerms, users, RoleEnum } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
+import { UserTermSituationEnum } from '@common/enums/db-enums'
 import { encryptData } from '@common/lib'
 
 import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
 
 @Injectable()
@@ -45,21 +45,31 @@ export class UsersService {
     }
   }
 
-  findAll() {
-    return `This action returns all users`
-  }
-
   async findOne(id: string) {
-    const [user] = await this.db.select().from(users).where(eq(users.id, id))
+    const [result] = await this.db
+      .select({
+        user: users,
+        pendingTermId: userTerms.termId
+      })
+      .from(users)
+      .leftJoin(
+        userTerms,
+        and(
+          eq(userTerms.userId, users.id),
+          eq(userTerms.situation, UserTermSituationEnum.PENDING)
+        )
+      )
+      .where(eq(users.id, id))
+      .orderBy(desc(userTerms.createdAt))
+      .limit(1)
 
-    if (!user) {
+    if (!result || !result.user) {
       throw new NotFoundException('User not found')
     }
 
-    return plainToClass(User, user)
-  }
+    const hasPendingTerm = !!result.pendingTermId
+    const user = plainToClass(User, result.user)
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user ${JSON.stringify(updateUserDto)}`
+    return { ...user, hasPendingTerm }
   }
 }

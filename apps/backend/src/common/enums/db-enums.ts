@@ -17,6 +17,12 @@ export const pgPetGenderEnum = pgEnum('pet_gender', ['MALE', 'FEMALE'])
 
 export const pgPetSizeEnum = pgEnum('pet_size', ['SMALL', 'MEDIUM', 'LARGE'])
 
+export const pgUserTermSituationEnum = pgEnum('user_term_situation', [
+  'PENDING',
+  'ACCEPTED',
+  'REFUSED'
+])
+
 export const RoleEnum = z.enum(pgRoleEnum.enumValues).Enum
 export const AddressTypeEnum = z.enum(pgAddressTypeEnum.enumValues).Enum
 export const CredentialsStatusEnum = z.enum(
@@ -25,3 +31,6 @@ export const CredentialsStatusEnum = z.enum(
 
 export const PetSizeEnum = z.enum(pgPetSizeEnum.enumValues).Enum
 export const PetGenderEnum = z.enum(pgPetGenderEnum.enumValues).Enum
+export const UserTermSituationEnum = z.enum(
+  pgUserTermSituationEnum.enumValues
+).Enum
