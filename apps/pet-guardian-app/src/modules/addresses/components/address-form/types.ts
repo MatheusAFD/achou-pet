@@ -14,25 +14,15 @@ export const addressFormSchema = z.object({
     .string()
     .nonempty('CEP é obrigatório')
     .length(8, 'CEP deve ter 8 dígitos'),
-  address: z
-    .string()
-    .nonempty('Endereço é obrigatório')
-    .regex(lettersAndSpacesRegex, 'O campo deve conter apenas letras'),
+  address: z.string().nonempty('Endereço é obrigatório'),
   number: z.string().nonempty('Número é obrigatório'),
-  neighborhood: z
-    .string()
-    .nonempty('Bairro é obrigatório')
-    .regex(lettersAndSpacesRegex, 'Deve conter apenas letras'),
-  reference: z
-    .string()
-    .nonempty('Ponto de referência é obrigatório')
-    .regex(lettersAndSpacesRegex, 'O campo deve conter apenas letras'),
+  neighborhood: z.string().nonempty('Bairro é obrigatório'),
+  reference: z.string().nonempty('Ponto de referência é obrigatório'),
   complement: z.string().optional().nullable(),
   city: z
     .string()
     .nonempty('Cidade é obrigatória')
-    .min(3, 'Cidade deve ter no mínimo 3 letras')
-    .regex(lettersAndSpacesRegex, 'O campo deve conter apenas letras'),
+    .min(3, 'Cidade deve ter no mínimo 3 letras'),
   state: z
     .string()
     .nonempty('Estado é obrigatório')

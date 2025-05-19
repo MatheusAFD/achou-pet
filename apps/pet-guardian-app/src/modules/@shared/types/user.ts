@@ -6,6 +6,7 @@ export interface User {
   phone: string
   role: string
   canDisplayAddress: boolean
+  hasPendingTerm: boolean
   lastLogin: string | Date | null
   updatedAt: string | Date | null
   createdAt: string | Date | null

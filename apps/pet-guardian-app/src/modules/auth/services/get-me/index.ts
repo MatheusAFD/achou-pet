@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+
 import { ONE_HOUR_IN_SECONDS } from '@user-app/modules/@shared/constants'
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
 import { ErrorResponse } from '@user-app/modules/@shared/types'
@@ -12,6 +14,10 @@ export const getMe = async (): Promise<[ErrorResponse | null, User | null]> => {
       revalidate: ONE_HOUR_IN_SECONDS
     }
   })
+
+  if (data?.hasPendingTerm) {
+    redirect('/termos-de-uso')
+  }
 
   return [error, data]
 }
