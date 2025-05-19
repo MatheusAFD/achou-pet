@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common'
 
-import { eq, and, desc } from 'drizzle-orm'
+import { eq, and, desc, isNull } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { terms, userTerms } from '@db/drizzle/schema'
@@ -18,29 +18,23 @@ export class TermsService {
   ) {}
 
   async getPendingTermForUser(userId: string): Promise<{ term: Term | null }> {
-    const [latestTerm] = await this.db
-      .select()
+    const [result] = await this.db
+      .select({ term: terms })
       .from(terms)
+      .leftJoin(
+        userTerms,
+        and(
+          eq(userTerms.termId, terms.id),
+          eq(userTerms.userId, userId),
+          eq(userTerms.situation, UserTermSituationEnum.ACCEPTED)
+        )
+      )
+      .where(isNull(userTerms.id))
       .orderBy(desc(terms.createdAt))
       .limit(1)
 
-    if (!latestTerm) {
-      return { term: null }
-    }
-
-    const [userTerm] = await this.db
-      .select()
-      .from(userTerms)
-      .where(
-        and(eq(userTerms.userId, userId), eq(userTerms.termId, latestTerm.id))
-      )
-
-    if (
-      !userTerm ||
-      userTerm.situation === UserTermSituationEnum.PENDING ||
-      userTerm.situation === UserTermSituationEnum.REFUSED
-    ) {
-      return { term: latestTerm as Term }
+    if (result && result.term) {
+      return { term: result.term as Term }
     }
 
     return { term: null }

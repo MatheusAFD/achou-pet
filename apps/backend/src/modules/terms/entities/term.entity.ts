@@ -20,7 +20,6 @@ export class UserTerm implements UserTermType {
   termId: string
   situation: keyof typeof UserTermSituationEnum
   acceptedAt: Date | null
-  refusedAt: Date | null
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
