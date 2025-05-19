@@ -1,11 +1,18 @@
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
 import { ErrorResponse } from '@user-app/modules/@shared/types'
 
-import { RegisterUserFormData } from '../../components/register-user-form/types'
 import { CreateAccountResponse } from './types'
 
+interface CreateAccountRequestBody {
+  name: string
+  lastName: string
+  email: string
+  password: string
+  phone: string
+}
+
 export const createAccount = async (
-  body: RegisterUserFormData
+  body: CreateAccountRequestBody
 ): Promise<[ErrorResponse | null, CreateAccountResponse | null]> => {
   const [error, data] = await httpClientFetch<
     CreateAccountResponse,
