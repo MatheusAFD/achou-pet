@@ -70,9 +70,9 @@ export class TermsService {
     return userTerm as UserTerm
   }
 
-  async hasPendingTerm(userId: string): Promise<{ hasPending: boolean }> {
+  async hasPendingTerm(userId: string): Promise<boolean> {
     const { term } = await this.getPendingTermForUser(userId)
 
-    return { hasPending: Boolean(term) }
+    return Boolean(term)
   }
 }
