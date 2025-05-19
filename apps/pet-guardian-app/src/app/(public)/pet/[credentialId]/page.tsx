@@ -20,9 +20,8 @@ export default async function PetCredentialPage({
   params: Promise<{ credentialId: string }>
 }) {
   const { credentialId } = await params
-  const [error, data] = await getPetByCredentialId(credentialId)
-
-  console.log(error)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, data] = await getPetByCredentialId(credentialId)
 
   if (data?.status === 'INACTIVE') {
     redirect('/auth/sign-up')

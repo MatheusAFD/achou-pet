@@ -46,8 +46,6 @@ export class GetCredentialDetailsUseCase {
 
     let primaryAddress: Address | null = null
 
-    console.log('result', result.user)
-
     if (!!result.user?.canDisplayAddress && result.credential.userId) {
       const [address] = await this.db
         .select()
