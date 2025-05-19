@@ -16,9 +16,8 @@ export const metadata: Metadata = {
 }
 
 export default async function TermsPage() {
-  const [error, data] = await getPendingTerm()
-
-  console.log('error', error)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, data] = await getPendingTerm()
 
   return (
     <main className="bg-primary/50 w-full p-4 h-lvh flex md:items-center md:justify-center">
@@ -40,7 +39,7 @@ export default async function TermsPage() {
         </Conditional>
 
         <Conditional condition={!data?.content}>
-          <section className="mt-4">
+          <section className="my-4 animate-pulse">
             <h2 className="text-lg">Sem termos de uso para aceitar</h2>
           </section>
         </Conditional>

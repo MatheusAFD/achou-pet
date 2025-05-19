@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Portal } from '@radix-ui/react-dialog'
+import { Portal } from '@radix-ui/react-select'
 import { Loader2 } from 'lucide-react'
 
 import { Conditional } from '../conditional'
