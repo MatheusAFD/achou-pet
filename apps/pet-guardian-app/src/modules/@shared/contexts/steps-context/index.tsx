@@ -2,29 +2,37 @@
 
 import React, { createContext, useState, PropsWithChildren } from 'react'
 
-export interface StepsContextProps<T> {
+export interface StepsContextProps<T, F = Record<string, unknown>> {
   formStep: T
+  formData: F
   updateFormStep: (step: T) => void
+  updateFormData: (data: Partial<F>) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const StepsContext = createContext<StepsContextProps<any> | undefined>(
-  undefined
-)
+export const StepsContext = createContext<
+  StepsContextProps<unknown, Record<string, unknown>> | undefined
+>(undefined)
 
-export function StepsProvider<T>({
+export function StepsProvider({
   children,
   initialStep
-}: PropsWithChildren<{ initialStep: T }>) {
-  const [formStep, setFormStep] = useState<T>(initialStep)
+}: PropsWithChildren<{ initialStep: unknown }>) {
+  const [formStep, setFormStep] = useState<unknown>(initialStep)
+  const [formData, setFormData] = useState<Record<string, unknown>>({})
 
-  const updateFormStep = (step: T) => {
+  const updateFormStep = (step: unknown) => {
     setFormStep(step)
   }
 
-  const contextValue: StepsContextProps<T> = {
+  const updateFormData = (data: Partial<Record<string, unknown>>) => {
+    setFormData((prev) => ({ ...prev, ...data }))
+  }
+
+  const contextValue: StepsContextProps<unknown, Record<string, unknown>> = {
     formStep,
-    updateFormStep
+    formData,
+    updateFormStep,
+    updateFormData
   }
 
   return (
