@@ -70,9 +70,11 @@ export class PetsService {
           photoUrl
         })
         .returning()
+
       if (!createdPet) {
         throw new InternalServerErrorException('Error creating pet')
       }
+
       return createdPet
     } catch (error) {
       throw new InternalServerErrorException(error.message)
@@ -121,12 +123,8 @@ export class PetsService {
   ): Promise<string | null> {
     const oldPhotoUrl = pet.photoUrl
 
-    if (!photo && (data.photoUrl === null || data.photoUrl === undefined)) {
-      if (oldPhotoUrl) {
-        const key = oldPhotoUrl.split('/').slice(-2).join('/')
-        await this.storageService.deleteFile(key)
-      }
-      return null
+    if (typeof data.photo === 'string') {
+      return oldPhotoUrl
     }
 
     if (photo && photo.buffer && photo.mimetype) {
@@ -145,15 +143,12 @@ export class PetsService {
       )
     }
 
-    if (
-      typeof data.photoUrl === 'string' &&
-      data.photoUrl &&
-      oldPhotoUrl &&
-      data.photoUrl !== oldPhotoUrl
-    ) {
-      const key = oldPhotoUrl.split('/').slice(-2).join('/')
-      await this.storageService.deleteFile(key)
-      return data.photoUrl
+    if (!photo && (data.photo === undefined || data.photo === null)) {
+      if (oldPhotoUrl) {
+        const key = oldPhotoUrl.split('/').slice(-2).join('/')
+        await this.storageService.deleteFile(key)
+      }
+      return null
     }
 
     return oldPhotoUrl
