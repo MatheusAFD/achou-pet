@@ -15,10 +15,12 @@ import { AppService } from './app.service'
 import { AddressesModule } from './modules/addresses/addresses.module'
 import { BatchesModule } from './modules/batches/batches.module'
 import { CredentialsModule } from './modules/credentials/credentials.module'
+import { EmailsModule } from './modules/emails/emails.module'
 import { PetsModule } from './modules/pets/pets.module'
 import { StorageModule } from './modules/storage/storage.module'
+import { TermsModule } from './modules/terms/terms.module'
+import { TokensModule } from './modules/tokens/tokens.module'
 import { UsersModule } from './modules/users/users.module'
-import { TermsModule } from './modules/terms/terms.module';
 
 const ONE_MINUTE_IN_MS = 60 * 1000
 
@@ -41,7 +43,9 @@ const ONE_MINUTE_IN_MS = 60 * 1000
     BatchesModule,
     PetsModule,
     StorageModule,
-    TermsModule
+    TermsModule,
+    EmailsModule,
+    TokensModule
   ],
   controllers: [AppController],
   providers: [
