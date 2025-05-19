@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common'
 
-import { eq, and, desc, isNull } from 'drizzle-orm'
+import { eq, and } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { terms, userTerms } from '@db/drizzle/schema'
@@ -18,26 +18,34 @@ export class TermsService {
   ) {}
 
   async getPendingTermForUser(userId: string): Promise<{ term: Term | null }> {
-    const [result] = await this.db
-      .select({ term: terms })
+    const allTermIds = (await this.db.select({ id: terms.id }).from(terms)).map(
+      (t) => t.id
+    )
+    if (!allTermIds.length) return { term: null }
+
+    const acceptedTermIds = new Set(
+      (
+        await this.db
+          .select({ termId: userTerms.termId })
+          .from(userTerms)
+          .where(
+            and(
+              eq(userTerms.userId, userId),
+              eq(userTerms.situation, UserTermSituationEnum.ACCEPTED)
+            )
+          )
+      ).map((t) => t.termId)
+    )
+
+    const pendingTermId = allTermIds.find((id) => !acceptedTermIds.has(id))
+    if (!pendingTermId) return { term: null }
+
+    const [pendingTerm] = await this.db
+      .select()
       .from(terms)
-      .leftJoin(
-        userTerms,
-        and(
-          eq(userTerms.termId, terms.id),
-          eq(userTerms.userId, userId),
-          eq(userTerms.situation, UserTermSituationEnum.ACCEPTED)
-        )
-      )
-      .where(isNull(userTerms.id))
-      .orderBy(desc(terms.createdAt))
+      .where(eq(terms.id, pendingTermId))
       .limit(1)
-
-    if (result && result.term) {
-      return { term: result.term as Term }
-    }
-
-    return { term: {} as Term }
+    return { term: pendingTerm as Term }
   }
 
   async updateUserTermSituation(
