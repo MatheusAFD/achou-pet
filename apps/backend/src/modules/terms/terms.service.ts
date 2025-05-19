@@ -37,7 +37,7 @@ export class TermsService {
       return { term: result.term as Term }
     }
 
-    return { term: null }
+    return { term: {} as Term }
   }
 
   async updateUserTermSituation(
