@@ -6,6 +6,8 @@ const envSchema = z.object({
   CORS_ALLOWED_ORIGINS: z.array(z.string()),
   JWT_SECRET: z.string(),
   JWT_REFRESH_SECRET: z.string(),
+  RESEND_API_KEY: z.string(),
+  RESEND_EMAIL_FROM: z.string(),
   POSTGRES_PASSWORD: z.string(),
   R2_ACCESS_KEY_ID: z.string(),
   R2_SECRET_ACCESS_KEY: z.string(),
