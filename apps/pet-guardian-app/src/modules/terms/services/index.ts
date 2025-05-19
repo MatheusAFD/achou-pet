@@ -1,2 +1,2 @@
 export * from './get-pending-term'
-export * from './update-term-situation'
+export * from './update-user-term-situation'

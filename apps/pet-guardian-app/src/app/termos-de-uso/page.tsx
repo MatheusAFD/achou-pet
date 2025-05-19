@@ -7,6 +7,7 @@ import {
   CustomCard,
   LineBadge
 } from '@user-app/modules/@shared/components'
+import { TermsActions } from '@user-app/modules/terms/components/terms-actions'
 import { getPendingTerm } from '@user-app/modules/terms/services'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default async function TermsPage() {
           <section
             className="max-h-96 mt-4 text-sm text-foreground/50 overflow-y-scroll"
             dangerouslySetInnerHTML={{
-              __html: data?.content ?? 's'
+              __html: data?.content ?? ''
             }}
           />
         </Conditional>
@@ -45,10 +46,7 @@ export default async function TermsPage() {
         </Conditional>
 
         <Conditional condition={!!data?.content}>
-          <footer className="flex flex-1 flex-row gap-4 pt-6 pb-2">
-            <Button variant="destructive">Recusar</Button>
-            <Button>Aceitar</Button>
-          </footer>
+          <TermsActions />
         </Conditional>
 
         <Conditional condition={!data?.content}>

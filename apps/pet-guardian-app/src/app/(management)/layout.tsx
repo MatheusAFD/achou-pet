@@ -17,6 +17,8 @@ export default async function PrivateLayout({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, session] = await getMe()
 
+  console.log('session', session)
+
   return (
     <>
       <SessionProvider
