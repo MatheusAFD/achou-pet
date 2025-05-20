@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { REGEXP_ONLY_DIGITS } from 'input-otp'
+import { toast } from 'sonner'
 
 import { Button, LineBadge } from '@user-app/modules/@shared/components'
 import {
@@ -13,7 +14,9 @@ import {
 } from '@user-app/modules/@shared/components/ui/input-otp'
 import { useSteps } from '@user-app/modules/@shared/hooks'
 
+import { checkToken } from '../../services/check-token'
 import { RegisterUserStepsEnum } from '../../types'
+import { UserDataFormStep } from '../user-data-step/types'
 import {
   userEmailConfirmationSchema,
   UserEmailConfirmationFormData
@@ -22,13 +25,13 @@ import {
 export const UserEmailConfirmationStep = () => {
   const { formData, updateFormStep, updateFormData } = useSteps<
     RegisterUserStepsEnum,
-    UserEmailConfirmationFormData
+    UserEmailConfirmationFormData & UserDataFormStep
   >()
 
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid }
+    formState: { errors, isValid, isSubmitting }
   } = useForm<UserEmailConfirmationFormData>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
@@ -38,7 +41,32 @@ export const UserEmailConfirmationStep = () => {
     resolver: zodResolver(userEmailConfirmationSchema)
   })
 
-  const onSubmit = (data: UserEmailConfirmationFormData) => {
+  const onSubmit = async (data: UserEmailConfirmationFormData) => {
+    const [error, response] = await checkToken({
+      key: formData.email,
+      token: data.pin
+    })
+
+    if (error) {
+      toast.error('Erro', {
+        description: 'Erro ao verificar o código de verificação'
+      })
+
+      return
+    }
+
+    if (!response?.isValid) {
+      toast.error('Erro', {
+        description: 'Código inválido ou expirado'
+      })
+
+      return
+    }
+
+    toast.success('Código verificado com sucesso', {
+      description: 'Agora você pode criar sua senha'
+    })
+
     updateFormData(data)
     updateFormStep(RegisterUserStepsEnum.PASSWORD)
   }
@@ -87,7 +115,7 @@ export const UserEmailConfirmationStep = () => {
         </p>
       </div>
 
-      <footer className="flex gap-4 justify-center">
+      <footer className="flex gap-4 justify-center mt-4">
         <Button
           variant="outline"
           onClick={() => updateFormStep(RegisterUserStepsEnum.USER_DATA)}
@@ -95,7 +123,7 @@ export const UserEmailConfirmationStep = () => {
           Voltar
         </Button>
 
-        <Button type="submit" disabled={!isValid}>
+        <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
           Avançar
         </Button>
       </footer>
