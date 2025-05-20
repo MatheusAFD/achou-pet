@@ -2,27 +2,39 @@
 
 import { useForm } from 'react-hook-form'
 
+import { useRouter } from 'next/navigation'
+
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 
 import { Button, LineBadge } from '@user-app/modules/@shared/components'
 import { PasswordField } from '@user-app/modules/@shared/components/fields'
 import { useSteps } from '@user-app/modules/@shared/hooks'
 
+import { createAccount } from '../../services/create-account'
 import { RegisterUserStepsEnum } from '../../types'
 import { checkPasswordCharacters } from '../../utils'
+import { UserDataFormStep } from '../user-data-step/types'
+import { UserEmailConfirmationFormData } from '../user-email-confirmation-step/types'
 import { userPasswordSchema, UserPasswordFormData } from './types'
 
+type AllFormData = UserPasswordFormData &
+  UserDataFormStep &
+  UserEmailConfirmationFormData
+
 export const UserPasswordStep = () => {
-  const { formData, updateFormStep, updateFormData } = useSteps<
+  const router = useRouter()
+
+  const { formData, updateFormStep } = useSteps<
     RegisterUserStepsEnum,
-    UserPasswordFormData
+    AllFormData
   >()
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid }
+    formState: { errors, isValid, isSubmitting }
   } = useForm<UserPasswordFormData>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
@@ -33,9 +45,28 @@ export const UserPasswordStep = () => {
     resolver: zodResolver(userPasswordSchema)
   })
 
-  const onSubmit = (data: UserPasswordFormData) => {
-    updateFormData(data)
-    updateFormStep(RegisterUserStepsEnum.TOKEN)
+  const onSubmit = async (data: UserPasswordFormData) => {
+    const [error] = await createAccount({
+      email: formData.email,
+      password: data.password,
+      name: formData.name,
+      lastName: formData.lastName,
+      phone: formData.phone
+    })
+
+    if (error) {
+      toast.error('Erro', {
+        description: 'Erro ao criar a conta'
+      })
+
+      return
+    }
+
+    toast.success('Conta criada com sucesso', {
+      description: 'Você já pode acessar sua conta'
+    })
+
+    router.push('/auth/sign-in')
   }
 
   const { hasLowercase, hasNumber, hasSpecialChar, hasUppercase } =
@@ -99,7 +130,7 @@ export const UserPasswordStep = () => {
           Voltar
         </Button>
 
-        <Button type="submit" disabled={!isValid}>
+        <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
           Finalizar
         </Button>
       </footer>
