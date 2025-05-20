@@ -13,7 +13,7 @@ export const AppHeader = () => {
       <SidebarTrigger className="pl-7" />
       <Container className="w-full flex items-end">
         <div className="flex items-center gap-3 md:p-4">
-          <Avatar className="size-10 outline-2 outline-tertiary">
+          <Avatar className="size-10 outline-2 outline-primary">
             <AvatarFallback>
               {getNameInitials(`${session?.name} ${session?.lastName}`)}
             </AvatarFallback>

@@ -28,7 +28,9 @@ export const AppSidebar = () => {
           />
         </Link>
 
-        <h1 className="text-sm font-semibold">Achou Pet | Admin</h1>
+        <h1 className="text-sm text-primary font-semibold">
+          Achou Pet | Admin
+        </h1>
       </SidebarHeader>
       <SidebarContent className="p-4">
         <SidebarGroup className="p-0">

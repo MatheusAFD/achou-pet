@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react'
+
 import {
   AppHeader,
   AppSidebar,
@@ -6,7 +8,6 @@ import {
 import { SessionProvider } from '@admin/modules/@shared/contexts/session-context'
 import { getAuthToken } from '@admin/modules/@shared/utils'
 import { getMe } from '@admin/modules/auth/services'
-import { PropsWithChildren } from 'react'
 
 export default async function LayoutAdmin(props: PropsWithChildren) {
   const { children } = props

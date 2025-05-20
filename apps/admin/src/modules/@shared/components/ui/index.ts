@@ -8,6 +8,7 @@ export * from './avatar'
 export * from './dialog'
 export * from './tooltip'
 export * from './badge'
+export * from './table'
 
 export * from './label'
 export * from './input'
