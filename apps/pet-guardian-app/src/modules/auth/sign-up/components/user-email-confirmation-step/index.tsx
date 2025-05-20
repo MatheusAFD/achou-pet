@@ -82,7 +82,7 @@ export const UserEmailConfirmationStep = () => {
           <span className="text-red-500 text-sm">{errors.pin.message}</span>
         )}
 
-        <p className="mt-4 text-xs text-foreground/80 font-medium">
+        <p className="mb-4 text-xs text-foreground/80 font-medium">
           O código é válido por 60 minutos
         </p>
       </div>

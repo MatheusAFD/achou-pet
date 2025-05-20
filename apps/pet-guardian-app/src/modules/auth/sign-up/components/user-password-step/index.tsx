@@ -9,6 +9,7 @@ import { PasswordField } from '@user-app/modules/@shared/components/fields'
 import { useSteps } from '@user-app/modules/@shared/hooks'
 
 import { RegisterUserStepsEnum } from '../../types'
+import { checkPasswordCharacters } from '../../utils'
 import { userPasswordSchema, UserPasswordFormData } from './types'
 
 export const UserPasswordStep = () => {
@@ -20,6 +21,7 @@ export const UserPasswordStep = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid }
   } = useForm<UserPasswordFormData>({
     mode: 'onTouched',
@@ -35,6 +37,9 @@ export const UserPasswordStep = () => {
     updateFormData(data)
     updateFormStep(RegisterUserStepsEnum.TOKEN)
   }
+
+  const { hasLowercase, hasNumber, hasSpecialChar, hasUppercase } =
+    checkPasswordCharacters(watch().password)
 
   return (
     <form
@@ -68,6 +73,22 @@ export const UserPasswordStep = () => {
           errorMessage={errors.confirmPassword?.message}
           required
         />
+
+        <div className="text-xs text-foreground/70 font-medium">
+          <strong className="text-sm mb-.5">
+            A senha deve conter no mínimo
+          </strong>
+          <p className={hasUppercase ? 'text-green-700' : ''}>
+            1 letra maíuscula
+          </p>
+          <p className={hasLowercase ? 'text-green-700' : ''}>
+            1 letra minúscula
+          </p>
+          <p className={hasNumber ? 'text-green-700' : ''}>1 número</p>
+          <p className={hasSpecialChar ? 'text-green-700' : ''}>
+            1 caractere especial
+          </p>
+        </div>
       </div>
 
       <footer className="flex gap-4 justify-end">

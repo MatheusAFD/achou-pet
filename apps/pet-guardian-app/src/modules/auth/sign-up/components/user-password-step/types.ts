@@ -2,7 +2,12 @@ import { z } from 'zod'
 
 export const userPasswordSchema = z
   .object({
-    password: z.string().nonempty({ message: 'A senha é obrigatória' }),
+    password: z
+      .string()
+      .nonempty({ message: 'A senha é obrigatória' })
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/, {
+        message: 'Senha fraca'
+      }),
     confirmPassword: z
       .string()
       .nonempty({ message: 'A confirmação de senha é obrigatória' })
