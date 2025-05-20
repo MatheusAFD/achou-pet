@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 
 import { Button, LineBadge } from '@user-app/modules/@shared/components'
 import {
@@ -13,6 +14,7 @@ import {
 } from '@user-app/modules/@shared/components/fields'
 import { useSteps } from '@user-app/modules/@shared/hooks'
 
+import { sendToken } from '../../services'
 import { RegisterUserStepsEnum } from '../../types'
 import { UserDataFormStep, userDataStepSchema } from './types'
 
@@ -26,7 +28,7 @@ export const RegisterUserForm = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors, isValid }
+    formState: { errors, isValid, isSubmitting }
   } = useForm<UserDataFormStep>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
@@ -39,7 +41,17 @@ export const RegisterUserForm = () => {
     resolver: zodResolver(userDataStepSchema)
   })
 
-  const onSubmit = (data: UserDataFormStep) => {
+  const onSubmit = async (data: UserDataFormStep) => {
+    const [error] = await sendToken(data.email)
+
+    if (error) {
+      toast.error('Erro', {
+        description: 'Erro ao enviar o código de verificação para o seu e-mail'
+      })
+
+      return
+    }
+
     updateFormData(data)
     updateFormStep(RegisterUserStepsEnum.TOKEN)
   }
@@ -107,7 +119,7 @@ export const RegisterUserForm = () => {
             <Button variant="outline">Cancelar</Button>
           </Link>
 
-          <Button type="submit" disabled={!isValid}>
+          <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
             Avançar
           </Button>
         </div>
