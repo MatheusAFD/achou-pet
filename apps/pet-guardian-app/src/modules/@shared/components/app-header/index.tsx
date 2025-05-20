@@ -25,7 +25,7 @@ export const AppHeader = () => {
 
           <Avatar className="size-10 outline-2 outline-tertiary">
             <AvatarFallback>
-              {getNameInitials(session?.name ?? '')}
+              {getNameInitials(`${session?.name} ${session?.lastName}`)}
             </AvatarFallback>
           </Avatar>
         </div>
