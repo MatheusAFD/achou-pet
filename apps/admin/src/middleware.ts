@@ -7,7 +7,7 @@ import { isPublicRoute } from './modules/auth/utils'
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/auth/sign-in'
 const REDIRECT_WHEN_TOKEN_INVALID = '/auth/sign-out'
-const REDIRECT_WHEN_AUTHENTICATED = '/meus-pets'
+const REDIRECT_WHEN_AUTHENTICATED = '/admin/credenciais'
 
 const handleRedirect = (request: NextRequest, pathname: string) => {
   const redirectUrl = request.nextUrl.clone()
@@ -21,7 +21,7 @@ export function middleware(request: NextRequest) {
     publicRoutes.find((route) => path === route.path) ||
     (isPublicRoute(path) ? { whenAuthenticated: 'keep' } : undefined)
 
-  const token = request.cookies.get('achou-pet-token')?.value
+  const token = request.cookies.get('achou-pet-admin-token')?.value
 
   if (token && publicRoute && publicRoute.whenAuthenticated === 'redirect') {
     return handleRedirect(request, REDIRECT_WHEN_AUTHENTICATED)
@@ -29,9 +29,15 @@ export function middleware(request: NextRequest) {
 
   if (token) {
     try {
-      const decoded: { exp?: number } = jwtDecode(token)
+      const decoded: { exp?: number; role: string } = jwtDecode(token)
+
       const currentDate = Math.floor(Date.now() / 1000)
-      if (!decoded.exp || currentDate >= decoded.exp) {
+
+      if (!['ADMIN', 'SUPER_ADMIN'].includes(decoded.role) && !publicRoute) {
+        return handleRedirect(request, REDIRECT_WHEN_TOKEN_INVALID)
+      }
+
+      if (!decoded.exp || (currentDate >= decoded.exp && !publicRoute)) {
         return handleRedirect(request, REDIRECT_WHEN_TOKEN_INVALID)
       }
 
