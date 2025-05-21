@@ -8,6 +8,7 @@ import { DateTime } from 'luxon'
 import {
   Button,
   Loading,
+  ScrollArea,
   Table,
   TableBody,
   TableCaption,
@@ -31,57 +32,63 @@ export const BatchesTable = (props: BatchesTableProps) => {
   const [isPending, startTransition] = useTransition()
 
   return (
-    <Table>
-      <TableCaption className="font-medium">
-        Credenciais geradas em lote
-      </TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="font-semibold text-foreground/60">ID</TableHead>
-          <TableHead className="text-foreground/60">Descrição</TableHead>
-          <TableHead className="text-foreground/60">Criado em</TableHead>
-          <TableHead className="text-foreground/60 font-semibold">
-            Total
-          </TableHead>
+    <ScrollArea>
+      <Table className="relative">
+        <TableCaption className="font-medium">
+          Credenciais geradas em lote
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="font-semibold text-foreground/60">
+              ID
+            </TableHead>
+            <TableHead className="text-foreground/60">Descrição</TableHead>
+            <TableHead className="text-foreground/60">Criado em</TableHead>
+            <TableHead className="text-foreground/60 font-semibold">
+              Total
+            </TableHead>
 
-          <TableHead>Ação</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {batches?.data.map((batch) => {
-          return (
-            <TableRow key={batch.id} className="text-sm text-foreground/90">
-              <TableCell className="font-semibold">{batch.shortId}</TableCell>
-              <TableCell>{batch.description}</TableCell>
-              <TableCell>
-                {DateTime.fromISO(batch.createdAt as string).toFormat(
-                  "dd/LL/yyyy 'às' HH'h':mm"
-                )}
-              </TableCell>
-              <TableCell className=" font-semibold">
-                {batch.totalCredentialsGenerated}
-              </TableCell>
+            <TableHead>Ação</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {batches?.data.map((batch) => {
+            return (
+              <TableRow key={batch.id} className="text-sm text-foreground/90">
+                <TableCell className="font-semibold">{batch.shortId}</TableCell>
 
-              <TableCell>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="justify-self-end"
-                  onClick={() => {
-                    startTransition(async () => {
-                      await downloadQrCodesZip(batch.id)
-                    })
-                  }}
-                >
-                  <Download />
-                </Button>
-              </TableCell>
-            </TableRow>
-          )
-        })}
-      </TableBody>
+                <TableCell>{batch.description}</TableCell>
 
-      <Loading isLoading={isPending} isGlobal />
-    </Table>
+                <TableCell>
+                  {DateTime.fromISO(batch.createdAt as string).toFormat(
+                    "dd/LL/yyyy 'às' HH'h':mm"
+                  )}
+                </TableCell>
+                <TableCell className=" font-semibold">
+                  {batch.totalCredentialsGenerated}
+                </TableCell>
+
+                <TableCell>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="justify-self-end"
+                    onClick={() => {
+                      startTransition(async () => {
+                        await downloadQrCodesZip(batch.id)
+                      })
+                    }}
+                  >
+                    <Download />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+
+        <Loading isLoading={isPending} isGlobal />
+      </Table>
+    </ScrollArea>
   )
 }

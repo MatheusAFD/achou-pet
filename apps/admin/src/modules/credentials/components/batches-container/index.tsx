@@ -6,9 +6,5 @@ export const BatchesContainer = async () => {
 
   console.log(error)
 
-  return (
-    <section>
-      <BatchesTable data={batches} />
-    </section>
-  )
+  return <BatchesTable data={batches} />
 }
