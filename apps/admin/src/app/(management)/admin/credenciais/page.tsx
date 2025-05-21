@@ -24,8 +24,8 @@ export default function CredentialsPage() {
       <h1 className="text-3xl">Credenciais geradas</h1>
 
       <GenerateCredentialsModal>
-        <Button className="w-fit my-4">
-          <Plus /> Criar novo lote
+        <Button className="w-fit my-4 mb-8">
+          <Plus /> Gerar novo lote
         </Button>
       </GenerateCredentialsModal>
 
