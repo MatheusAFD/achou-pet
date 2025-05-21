@@ -76,7 +76,7 @@ export const PetForm = (props: PetFormProps) => {
       className="flex flex-col justify-between h-full gap-4"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="col-span-2 flex justify-center">
+        <div className="col-span-1 md:col-span-2 flex justify-center">
           <ImageField
             name="photo"
             control={control}
