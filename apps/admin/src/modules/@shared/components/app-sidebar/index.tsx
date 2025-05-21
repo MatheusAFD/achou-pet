@@ -1,11 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { LogOut } from 'lucide-react'
+
 import { sidebarMenuItems } from '../../constants/sidebar-menu-items'
 import { NavItem } from '../nav-item'
 import {
+  buttonVariants,
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarHeader,
@@ -48,6 +52,16 @@ export const AppSidebar = () => {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="mb-8">
+        <Link
+          href="/auth-logout"
+          className={buttonVariants({ variant: 'outline' })}
+        >
+          <LogOut />
+          Sair
+        </Link>
+      </SidebarFooter>
     </Sidebar>
   )
 }

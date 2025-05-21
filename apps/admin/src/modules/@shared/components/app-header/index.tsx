@@ -1,9 +1,13 @@
 'use client'
 
+import Link from 'next/link'
+
+import { LogOut } from 'lucide-react'
+
 import { useSession } from '../../hooks/use-session'
 import { getNameInitials } from '../../utils'
 import { Container } from '../container'
-import { Avatar, AvatarFallback, SidebarTrigger } from '../ui'
+import { Avatar, AvatarFallback, buttonVariants, SidebarTrigger } from '../ui'
 
 export const AppHeader = () => {
   const { session } = useSession()
@@ -13,6 +17,14 @@ export const AppHeader = () => {
       <SidebarTrigger className="pl-7" />
       <Container className="w-full flex items-end">
         <div className="flex items-center gap-3 md:p-4">
+          <Link
+            href="/auth-logout"
+            className={buttonVariants({ variant: 'outline' })}
+          >
+            <LogOut />
+            Sair
+          </Link>
+
           <Avatar className="size-10 outline-2 outline-primary">
             <AvatarFallback>
               {getNameInitials(`${session?.name} ${session?.lastName}`)}
