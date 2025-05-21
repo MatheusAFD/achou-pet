@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function SignInPage() {
   return (
-    <main className="w-full">
+    <main className="w-full h-screen bg-primary/50">
       <section className="flex justify-center w-full md:pt-16">
         <CustomCard className="w-full md:w-[34rem] h-lvh md:h-auto p-8">
           <LineBadge size="sm" />
