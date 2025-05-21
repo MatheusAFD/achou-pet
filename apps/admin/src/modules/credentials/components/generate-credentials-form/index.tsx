@@ -73,8 +73,8 @@ export const GenerateCredentialsForm = ({
         />
         <TextareaField
           {...register('description')}
-          label="Ex: Lote de credenciais para o evento X"
-          placeholder="Descrição do lote de credenciais"
+          label="Descrição"
+          placeholder="Ex: Lote de credenciais para o evento X"
           required
           errorMessage={errors.description?.message}
         />
