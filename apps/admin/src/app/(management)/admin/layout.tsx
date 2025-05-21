@@ -24,7 +24,7 @@ export default async function LayoutAdmin(props: PropsWithChildren) {
     >
       <SidebarProvider>
         <AppSidebar />
-        <div className="flex-auto flex flex-col">
+        <div className="flex-auto flex flex-col w-full">
           <AppHeader />
           <main>{children}</main>
         </div>
