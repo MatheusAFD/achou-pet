@@ -3,6 +3,7 @@
 import { useTransition } from 'react'
 
 import { Download } from 'lucide-react'
+import { DateTime } from 'luxon'
 
 import {
   Button,
@@ -49,10 +50,14 @@ export const BatchesTable = (props: BatchesTableProps) => {
       <TableBody>
         {batches?.data.map((batch) => {
           return (
-            <TableRow key={batch.id} className="text-foreground/90">
+            <TableRow key={batch.id} className="text-sm text-foreground/90">
               <TableCell className="font-semibold">{batch.shortId}</TableCell>
               <TableCell>{batch.description}</TableCell>
-              <TableCell>{batch.createdAt?.toLocaleString()}</TableCell>
+              <TableCell>
+                {DateTime.fromISO(batch.createdAt as string).toFormat(
+                  "dd/LL/yyyy 'às' HH'h':mm"
+                )}
+              </TableCell>
               <TableCell className=" font-semibold">
                 {batch.totalCredentialsGenerated}
               </TableCell>
