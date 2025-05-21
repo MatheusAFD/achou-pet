@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  UploadedFile,
+  UseInterceptors
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 
 import { AuthUser } from '@modules/auth/entities/auth.entity'
 
@@ -44,10 +54,11 @@ export class CredentialsController {
 
   @Patch(':id')
   @Roles(RoleEnum.USER)
+  @UseInterceptors(FileInterceptor('photo'))
   update(
     @Param('id') id: string,
-    @Body()
-    attachCredentialDto: CreatePetDto,
+    @Body() attachCredentialDto: CreatePetDto,
+    @UploadedFile() photo: any,
     @CurrentUser() user: AuthUser
   ) {
     return this.attachCredentialToUserUseCase.execute(
@@ -55,7 +66,7 @@ export class CredentialsController {
         credentialId: id,
         userId: user.id
       },
-      attachCredentialDto
+      { ...attachCredentialDto, photo }
     )
   }
 }

@@ -18,7 +18,6 @@ import { useDisclosure, useSteps } from '@user-app/modules/@shared/hooks'
 import { attatchCredential } from '../../services'
 import { AttachCredentialFormSteps } from '../../types'
 import { PetForm } from '../pet-form'
-import { PetFormData } from '../pet-form/types'
 import { ScanPetCredential } from '../scan-pet-credential'
 
 const AttachCredentialModal = (props: PropsWithChildren) => {
@@ -32,22 +31,19 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
     null
   )
 
-  const onSubmit = async (data: PetFormData) => {
-    const [error] = await attatchCredential({
-      ...data,
-      credentialId: String(scannedCredentialId)
-    })
-
+  const onSubmit = async (formData: FormData) => {
+    // Não adicionar credentialId ao body, ele já está na URL
+    const [error] = await attatchCredential(
+      String(scannedCredentialId),
+      formData
+    )
     if (error) {
       toast.error('Erro!', {
         description: 'Ocorreu um erro ao cadastrar o pet.'
       })
-
       return
     }
-
     onOpenChange(false)
-
     toast.success('Sucesso!', {
       description: 'Pet cadastrado com sucesso!'
     })
