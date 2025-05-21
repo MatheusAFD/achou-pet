@@ -15,6 +15,7 @@ import { tokens } from '@db/drizzle/schema/tokens'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { EmailsService } from '@modules/emails/emails.service'
+import { sendTokenEmailTemplate } from '@modules/emails/templates'
 
 import { CheckTokenDto } from './dto/check-token.dto'
 import { CreateTokenDto } from './dto/create-token.dto'
@@ -68,7 +69,7 @@ export class TokensService {
         from: env.RESEND_EMAIL_FROM,
         subject: 'Achou Pet - Seu código de verificação',
         to: key,
-        html: `<h1>Seu código de verificação é: <strong>${createdToken.value}</strong></h1>`
+        html: sendTokenEmailTemplate(value)
       })
 
       return createdToken
