@@ -5,7 +5,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
-import { Button, DialogClose } from '@admin/modules/@shared/components'
+import {
+  Button,
+  DialogClose,
+  DialogFooter
+} from '@admin/modules/@shared/components'
 import {
   TextareaField,
   TextField
@@ -54,24 +58,29 @@ export const GenerateCredentialsForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <TextField
-        {...register('numberOfCredentials')}
-        type="number"
-        inputMode="numeric"
-        label="Quantidade de credenciais"
-        required
-        errorMessage={errors.numberOfCredentials?.message}
-      />
-      <TextareaField
-        {...register('description')}
-        label="Ex: Lote de credenciais para o evento X"
-        placeholder="Descrição do lote de credenciais"
-        required
-        errorMessage={errors.description?.message}
-      />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4  justify-between h-full"
+    >
+      <div className="flex flex-col gap-4">
+        <TextField
+          {...register('numberOfCredentials')}
+          type="number"
+          inputMode="numeric"
+          label="Quantidade de credenciais"
+          required
+          errorMessage={errors.numberOfCredentials?.message}
+        />
+        <TextareaField
+          {...register('description')}
+          label="Ex: Lote de credenciais para o evento X"
+          placeholder="Descrição do lote de credenciais"
+          required
+          errorMessage={errors.description?.message}
+        />
+      </div>
 
-      <footer className="flex gap-4 w-full justify-end">
+      <DialogFooter className="flex gap-4 w-full justify-end">
         <DialogClose asChild>
           <Button variant="outline" size="lg">
             Cancelar
@@ -86,7 +95,7 @@ export const GenerateCredentialsForm = ({
         >
           Criar
         </Button>
-      </footer>
+      </DialogFooter>
     </form>
   )
 }
