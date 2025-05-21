@@ -23,6 +23,8 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get('achou-pet-token')?.value
 
+  console.log('token', token)
+
   if (token && publicRoute && publicRoute.whenAuthenticated === 'redirect') {
     return handleRedirect(request, REDIRECT_WHEN_AUTHENTICATED)
   }

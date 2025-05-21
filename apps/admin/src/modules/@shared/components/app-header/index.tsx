@@ -18,7 +18,7 @@ export const AppHeader = () => {
       <Container className="w-full flex items-end">
         <div className="flex items-center gap-3 md:p-4">
           <Link
-            href="/auth-logout"
+            href="/auth/sign-out"
             className={buttonVariants({ variant: 'outline' })}
           >
             <LogOut />

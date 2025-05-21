@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Headset } from 'lucide-react'
+import { Headset, LogOut } from 'lucide-react'
 
 import { sidebarMenuItems } from '../../constants/sidebar-menu-items'
 import { NavItem } from '../nav-item'
 import {
   Button,
+  buttonVariants,
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -49,6 +50,14 @@ export const AppSidebar = () => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-4 pb-10">
+        <Link
+          href="/auth/sign-out"
+          className={buttonVariants({ variant: 'outline' })}
+        >
+          <LogOut />
+          Sair
+        </Link>
+
         <Button variant="link">
           precisando de ajuda?
           <Headset size={16} />

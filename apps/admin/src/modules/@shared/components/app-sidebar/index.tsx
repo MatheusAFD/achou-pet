@@ -55,7 +55,7 @@ export const AppSidebar = () => {
 
       <SidebarFooter className="mb-8">
         <Link
-          href="/auth-logout"
+          href="/auth/sign-out"
           className={buttonVariants({ variant: 'outline' })}
         >
           <LogOut />
