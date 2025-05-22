@@ -28,10 +28,6 @@ coverage
 *.sublime-workspace
 .vscode
 
-# Ignore environment files (if you copy manually or via Dockerfile)
-.env
-.env.*
-
 # Ignore temp files
 .temp
 .tmp
