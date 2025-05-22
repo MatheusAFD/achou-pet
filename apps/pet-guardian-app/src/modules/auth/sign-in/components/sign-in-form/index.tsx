@@ -60,6 +60,7 @@ export const SignInForm = () => {
       <TextField
         {...register('email')}
         type="email"
+        id="email"
         label="E-mail"
         placeholder="Informe o seu e-mail"
         errorMessage={errors.email?.message}
@@ -68,6 +69,7 @@ export const SignInForm = () => {
       <PasswordField
         {...register('password')}
         label="Senha"
+        id="password"
         placeholder="Informe sua senha"
         errorMessage={errors.password?.message}
         required
@@ -77,6 +79,7 @@ export const SignInForm = () => {
         <Button
           type="submit"
           size="lg"
+          id="submit-sign-in"
           disabled={!isValid}
           isLoading={isSubmitting}
         >
