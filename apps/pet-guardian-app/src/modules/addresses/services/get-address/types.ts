@@ -10,7 +10,7 @@ export interface Address {
   state: string
   zipCode: string
   userId: string
-  updatedAt: string | Date | null
-  createdAt: string | Date | null
-  deletedAt: string | Date | null
+  updatedAt?: string | Date | null
+  createdAt?: string | Date | null
+  deletedAt?: string | Date | null
 }
