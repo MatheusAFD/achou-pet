@@ -90,7 +90,8 @@ export const EditPetModal = (props: EditPetModalProps) => {
         <PetForm
           actionText="Salvar"
           defaultValues={defaultValues}
-          onSubmit={onSubmit}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onSubmit={onSubmit as any}
         />
       </DialogContent>
     </Dialog>
