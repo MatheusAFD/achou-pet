@@ -1,2 +1,2 @@
-export * from './get-me'
-export * from './sign-in'
+export * from './get-me.mock'
+export * from './sign-in.mock'

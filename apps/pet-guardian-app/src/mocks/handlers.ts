@@ -1,7 +1,6 @@
-import { createAddress } from './addresses/create-address.mock'
-import { getAddresses } from './addresses/get-addresses.mock'
+import { createAddress, getAddresses } from './addresses'
 import { getMeMock, signInMock } from './auth'
-import { getMePetsMock } from './pets/pets-me'
+import { getMePetsMock } from './pets'
 
 export const handlers = [
   ...getMeMock,
