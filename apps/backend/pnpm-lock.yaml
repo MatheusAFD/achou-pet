@@ -65,6 +65,9 @@ importers:
       drizzle-orm:
         specifier: ^0.43.1
         version: 0.43.1(@types/pg@8.11.14)(pg@8.15.6)
+      pg:
+        specifier: ^8.13.1
+        version: 8.15.6
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -9409,8 +9412,7 @@ snapshots:
   pg-cloudflare@1.2.5:
     optional: true
 
-  pg-connection-string@2.8.5:
-    optional: true
+  pg-connection-string@2.8.5: {}
 
   pg-int8@1.0.1: {}
 
@@ -9419,7 +9421,6 @@ snapshots:
   pg-pool@3.9.6(pg@8.15.6):
     dependencies:
       pg: 8.15.6
-    optional: true
 
   pg-protocol@1.9.5: {}
 
@@ -9430,7 +9431,6 @@ snapshots:
       postgres-bytea: 1.0.0
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
-    optional: true
 
   pg-types@4.0.2:
     dependencies:
@@ -9451,12 +9451,10 @@ snapshots:
       pgpass: 1.0.5
     optionalDependencies:
       pg-cloudflare: 1.2.5
-    optional: true
 
   pgpass@1.0.5:
     dependencies:
       split2: 4.2.0
-    optional: true
 
   picocolors@1.1.1: {}
 
@@ -9480,27 +9478,23 @@ snapshots:
 
   pngjs@5.0.0: {}
 
-  postgres-array@2.0.0:
-    optional: true
+  postgres-array@2.0.0: {}
 
   postgres-array@3.0.4: {}
 
-  postgres-bytea@1.0.0:
-    optional: true
+  postgres-bytea@1.0.0: {}
 
   postgres-bytea@3.0.0:
     dependencies:
       obuf: 1.1.2
 
-  postgres-date@1.0.7:
-    optional: true
+  postgres-date@1.0.7: {}
 
   postgres-date@2.1.0: {}
 
   postgres-interval@1.2.0:
     dependencies:
       xtend: 4.0.2
-    optional: true
 
   postgres-interval@3.0.0: {}
 
@@ -9875,8 +9869,7 @@ snapshots:
 
   source-map@0.7.4: {}
 
-  split2@4.2.0:
-    optional: true
+  split2@4.2.0: {}
 
   sprintf-js@1.0.3: {}
 
