@@ -22,8 +22,9 @@ COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
 COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /usr/src/app/.drizzle ./.drizzle
 COPY --from=builder /usr/src/app/drizzle.config.ts ./drizzle.config.ts
 
 EXPOSE 4000
 
-CMD ["node", "dist/src/main.js"]
+CMD ["pnpm", "start"]
