@@ -22,7 +22,7 @@ export default function MyAddressesPage() {
       <LineBadge />
       <h1 className="text-3xl">Meus endereços</h1>
       <CreateAddressModal>
-        <Button className="w-fit mt-4">
+        <Button className="w-fit mt-4" data-testid="create-address">
           <MapPinHouse /> Cadastrar novo
         </Button>
       </CreateAddressModal>
