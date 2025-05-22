@@ -3,13 +3,13 @@ import { migrate } from 'drizzle-orm/node-postgres/migrator'
 
 import { env } from 'env'
 import path from 'path'
-import pg from 'pg'
+import { Pool } from 'pg'
 import { exit } from 'process'
 
 import * as schema from './schema'
 
 void (async () => {
-  const pool = new pg.Pool({
+  const pool = new Pool({
     connectionString: env.DATABASE_URL
   })
   let db: NodePgDatabase<typeof schema> | null = null
