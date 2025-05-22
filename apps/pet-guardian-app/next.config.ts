@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
         hostname: '**.r2.cloudflarestorage.com'
       }
     ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/',
+        destination: '/auth-sign-in'
+      }
+    ]
   }
 }
 
