@@ -23,5 +23,5 @@ COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 
 EXPOSE 4000
 
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]
 
