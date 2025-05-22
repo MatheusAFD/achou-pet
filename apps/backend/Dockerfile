@@ -8,7 +8,7 @@ COPY . .
 
 RUN pnpm install -f --prod=false
 
-RUN pnpm dlx dotenv -e .env npx drizzle-kit generate
+RUN pnpm db:generate
 
 RUN pnpm build
 
