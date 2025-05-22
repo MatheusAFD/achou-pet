@@ -9,6 +9,7 @@
     "build": "nest build",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx ./src/drizzle/migrate.ts",
+    "migrate:prod": "node dist/src/drizzle/migrate.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
