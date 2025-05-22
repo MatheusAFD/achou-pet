@@ -1,16 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+import { server } from '@user-app/mocks/server'
 import {
   ONE_HOUR_IN_SECONDS,
   SEVEN_DAY_IN_SECONDS
 } from '@user-app/modules/@shared/constants'
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
 import { ErrorResponse } from '@user-app/modules/@shared/types'
+import { generateMockJwtToken } from '@user-app/modules/mocks/utils'
 
 import { SignInUserFormData } from '../../../../modules/auth/sign-in/components/sign-in-form/types'
 import { SignInResponse } from '../../../../modules/auth/sign-in/services/sign-in/types'
 
 export async function POST(req: NextRequest): Promise<Response> {
+  server.listen()
+
   const body: SignInUserFormData = await req.json()
 
   const [error, response]: [ErrorResponse | null, SignInResponse | null] =
@@ -26,7 +30,12 @@ export async function POST(req: NextRequest): Promise<Response> {
 
   const res = NextResponse.json(response)
 
-  res.cookies.set('achou-pet-token', response!.accessToken, {
+  const tokenValue =
+    process.env.NEXT_PUBLIC_ENV_MODE === 'test'
+      ? generateMockJwtToken()
+      : response!.accessToken
+
+  res.cookies.set('achou-pet-token', tokenValue, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: ONE_HOUR_IN_SECONDS,
