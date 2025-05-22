@@ -23,7 +23,6 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
 COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 
-COPY --from=builder /usr/src/app/drizzle ./drizzle
 
 EXPOSE 4000
 
