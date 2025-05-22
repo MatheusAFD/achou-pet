@@ -1,8 +1,8 @@
-import { test as base } from '@playwright/test'
+import { test as base, expect } from '@playwright/test'
 
 export const signedInTest = base.extend<{ forEachTest: void }>({
   forEachTest: [
-    async ({ page }) => {
+    async ({ page }, use) => {
       await page.goto('/auth/sign-in')
 
       await page.getByTestId('email').fill('johndoe@example.com')
@@ -10,7 +10,9 @@ export const signedInTest = base.extend<{ forEachTest: void }>({
 
       await page.getByTestId('submit-sign-in').click()
 
-      await page.waitForTimeout(2000)
+      await expect(page).toHaveURL(/meus-pets/)
+
+      await use()
     },
     { auto: true }
   ]
