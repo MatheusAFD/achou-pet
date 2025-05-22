@@ -19,8 +19,7 @@ void (async () => {
     }
   })
 
-  const migrationPath = path.join(process.cwd(), 'src/drizzle/migrations')
-
+  const migrationPath = path.join(__dirname, 'migrations')
   await migrate(db, { migrationsFolder: migrationPath })
 
   console.log('Migration complete')
