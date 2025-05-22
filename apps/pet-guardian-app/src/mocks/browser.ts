@@ -1,5 +1,5 @@
 import { setupWorker } from 'msw/browser'
 
-import { getMeMock } from './auth'
+import { handlers } from './handlers'
 
-export const worker = setupWorker(...getMeMock)
+export const worker = setupWorker(...handlers)
