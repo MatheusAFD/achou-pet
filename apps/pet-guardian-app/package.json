@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "dev:test": "env NEXT_PUBLIC_ENV_MODE=test next dev --turbopack",
-    "test:ui": "env NEXT_PUBLIC_ENV_MODE=test pnpm exec playwright test --ui",
-    "test:e2e": "env NEXT_PUBLIC_ENV_MODE=test pnpm exec playwright test",
+    "dev:test": "next dev --turbopack",
+    "test:ui": "pnpm exec playwright test --ui",
+    "test:e2e": "pnpm exec playwright test",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
