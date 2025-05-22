@@ -16,7 +16,8 @@ export const signInMock = [
           status: 201
         })
       }
-      return new HttpResponse({}, { status: 401 })
+
+      return new HttpResponse(JSON.stringify({}), { status: 401 })
     }
   )
 ]
