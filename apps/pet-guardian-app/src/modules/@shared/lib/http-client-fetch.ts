@@ -32,7 +32,7 @@ export const httpClientFetch = async <
   TVariables = unknown
 >({
   baseURL = process.env.NEXT_PUBLIC_API_BASE_URL,
-  contentType,
+  contentType = 'application/json',
   ...config
 }: RequestConfig<TVariables>): Promise<ResponseConfig<TData, TError>> => {
   const { token } = await getAuthToken()
@@ -64,7 +64,7 @@ export const httpClientFetch = async <
     next: config.next
   })
 
-  const data = response != null ? await response.json() : null
+  const data = contentType === 'application/json' ? await response.json() : []
 
   if (!response.ok) {
     return [data as TError, null]
