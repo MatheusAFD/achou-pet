@@ -8,7 +8,7 @@ COPY . .
 
 RUN pnpm install -f --prod=false
 
-RUN pnpm db:generate && npx drizzle-kit push
+RUN pnpm db:generate && pnpm migrate:prod
 
 RUN pnpm build
 
