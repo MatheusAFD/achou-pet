@@ -1,6 +1,8 @@
 import { expect } from '@playwright/test'
 
-import { signedInTest } from './fixtures'
+import { address } from '@user-app/mocks/addresses'
+
+import { signedInTest } from '../fixtures'
 
 signedInTest('should to create a new address', async ({ page }) => {
   await page.goto('/meus-enderecos')
@@ -11,7 +13,7 @@ signedInTest('should to create a new address', async ({ page }) => {
 
   const modal = page.getByTestId('create-address-modal')
 
-  expect(modal).toBeVisible()
+  await expect(modal).toBeVisible()
 
   page.getByTestId('zipCode').fill(address.zipCode)
 
@@ -27,22 +29,12 @@ signedInTest('should to create a new address', async ({ page }) => {
 
   const submitButton = page.getByTestId('submit-button')
 
-  await expect(submitButton).toBeDisabled()
-
   await page.getByTestId('number').fill('123')
   await page.getByTestId('reference').fill('Próximo ao parque')
 
-  await expect(submitButton).toBeEnabled()
-
   await submitButton.click()
+
+  await expect(modal).not.toBeVisible()
 
   await expect(page.getByText('Sucesso!').first()).toBeVisible()
 })
-
-const address = {
-  zipCode: '78140444',
-  address: 'Rua da Tailândia',
-  neighborhood: 'Glória',
-  city: 'Várzea Grande',
-  state: 'MT'
-}

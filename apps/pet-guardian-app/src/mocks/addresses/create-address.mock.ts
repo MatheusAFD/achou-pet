@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw'
 
 import { Address } from '@user-app/modules/addresses/services/get-address/types'
 
-import { addresses } from './addresses-store'
+import { addressesStore } from './addresses-store'
 
 export const createAddress = [
   http.post(
@@ -17,7 +17,7 @@ export const createAddress = [
       }
 
       const newAddress: Address = {
-        id: String(addresses.length + 1),
+        id: String(addressesStore.length + 1),
         userId: '1',
         type: 'PRIMARY',
         address: body.address,
@@ -29,7 +29,7 @@ export const createAddress = [
         state: body.state,
         zipCode: body.zipCode
       }
-      addresses.push(newAddress)
+      addressesStore.push(newAddress)
       return HttpResponse.json(newAddress, { status: 201 })
     }
   )

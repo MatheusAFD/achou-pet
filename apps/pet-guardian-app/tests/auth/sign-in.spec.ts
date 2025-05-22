@@ -1,6 +1,11 @@
 import { test, expect } from '@playwright/test'
 
-test('should sign in successfully with valid credentials', async ({ page }) => {
+import { getSessionCookie } from '../utils'
+
+test('should sign in successfully with valid credentials', async ({
+  page,
+  context
+}) => {
   await page.goto('/auth/sign-in')
 
   expect(page).toHaveURL(/.*sign-in/)
@@ -12,6 +17,11 @@ test('should sign in successfully with valid credentials', async ({ page }) => {
   await expect(page.getByTestId('loading-button')).toBeVisible()
 
   const toast = page.getByText('Sucesso!')
+
+  await page.waitForTimeout(2000)
+
+  const sessionCookie = await getSessionCookie(context)
+  expect(sessionCookie).not.toBeUndefined()
 
   expect(toast).toBeVisible()
 

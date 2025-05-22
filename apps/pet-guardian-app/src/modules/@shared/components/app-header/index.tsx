@@ -20,6 +20,7 @@ export const AppHeader = () => {
           <Link
             href="/auth/sign-out"
             className={buttonVariants({ variant: 'outline' })}
+            data-testid="sign-out-button"
           >
             <LogOut />
             Sair
