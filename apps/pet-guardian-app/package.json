@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "dev:test": "next dev --turbopack",
+    "dev:test": "NODE_ENV=test PORT=6328 next dev --turbopack",
     "test:ui": "pnpm exec playwright test --ui",
     "test:e2e": "pnpm exec playwright test",
     "build": "next build",
