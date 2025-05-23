@@ -23,10 +23,6 @@ export class JwtAuthGuard implements CanActivate {
     const request: Request = context.switchToHttp().getRequest()
     const token = this.extractTokenFromHeader(request)
 
-    console.log('request', request)
-    console.log('request headers', request.headers)
-    console.log('token', token)
-
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass()
@@ -55,7 +51,15 @@ export class JwtAuthGuard implements CanActivate {
 
   private extractTokenFromHeader(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? []
+    if (type === 'Bearer' && token) {
+      return token
+    }
 
-    return type === 'Bearer' ? token : undefined
+    const xAccessToken =
+      request.headers['x-access-token'] || request.get?.('x-access-token')
+    if (xAccessToken) {
+      return Array.isArray(xAccessToken) ? xAccessToken[0] : xAccessToken
+    }
+    return undefined
   }
 }
