@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, StreamableFile } from '@nestjs/common'
 
 import * as archiver from 'archiver'
+import { env } from 'env'
 import * as QRCode from 'qrcode'
 import { PassThrough } from 'stream'
 
@@ -36,7 +37,7 @@ export class ExportBatchCredentialsQRCodesUseCase {
     const QR_CODE_COLOR_LIGHT = '#00000000'
 
     for (const credential of credentials) {
-      const qrUrl = `http://localhost:3000/${credential.id}`
+      const qrUrl = `${env.WEB_APP_SERVICE_URL}/${credential.id}`
       const qrBuffer = await QRCode.toBuffer(qrUrl, {
         width: QR_CODE_SIZE_PX,
         margin: QR_CODE_MARGIN_PX,

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
+  WEB_APP_SERVICE_URL: z.string().url(),
   NEST_API_PORT: z.coerce.number().min(1000),
   BCRYPT_ROUNDS: z.coerce.number().min(1),
   CORS_ALLOWED_ORIGINS: z.array(z.string()),
