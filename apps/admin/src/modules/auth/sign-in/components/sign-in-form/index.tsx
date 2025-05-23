@@ -13,7 +13,6 @@ import {
   TextField
 } from '@admin/modules/@shared/components/fields'
 
-import { signIn } from '../../services/sign-in'
 import { SignInUserFormData, signInUserSchema } from './types'
 
 export const SignInForm = () => {
@@ -28,21 +27,30 @@ export const SignInForm = () => {
   })
 
   const onSubmit = async (data: SignInUserFormData) => {
-    const [error] = await signIn(data)
+    try {
+      const res = await fetch('/api/auth/sign-in', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        credentials: 'include'
+      })
+      if (!res.ok) {
+        toast.error('Erro!', {
+          description: 'E-mail ou senha inválidos.'
+        })
+        return
+      }
 
-    if (error) {
-      toast.error('Erro!', {
-        description: 'E-mail ou senha inválidos.'
+      toast.success('Sucesso!', {
+        description: 'Você será redirecionado em alguns instantes.'
       })
 
-      return
+      router.replace('/admin/credenciais')
+    } catch {
+      toast.error('Erro!', {
+        description: 'Erro de conexão.'
+      })
     }
-
-    toast.success('Sucesso!', {
-      description: 'Você será redirecionado em alguns instantes.'
-    })
-
-    router.push('/admin/credenciais')
   }
 
   return (
