@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export interface PetFormProps {
   actionText?: string
-  onSubmit: (data: FormData) => Promise<void>
+  onSubmit: (data: PetFormData & { photoUrl?: string }) => Promise<void>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValues?: Partial<PetFormData> | any
 }

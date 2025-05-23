@@ -31,7 +31,7 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
     null
   )
 
-  const onSubmit = async (formData: FormData) => {
+  const onSubmit = async (formData: Record<string, unknown>) => {
     const [error] = await attatchCredential(
       String(scannedCredentialId),
       formData

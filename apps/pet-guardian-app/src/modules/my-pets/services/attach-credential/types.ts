@@ -1,6 +1,5 @@
-import { PetFormData } from '../../components/pet-form/types'
-
-export interface AttachCredentialBody extends PetFormData {
+export interface AttachCredentialBody {
+  [key: string]: unknown
   credentialId: string
 }
 

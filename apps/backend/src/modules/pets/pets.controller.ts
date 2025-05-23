@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UploadedFile,
-  UseInterceptors
-} from '@nestjs/common'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common'
 
 import { AuthUser } from '@modules/auth/entities/auth.entity'
 
@@ -39,22 +29,16 @@ export class PetsController {
 
   @Patch(':id')
   @Roles(RoleEnum.USER)
-  @UseInterceptors(FileInterceptor('photo'))
   async update(
     @Param('id') id: string,
-    @Body() updatePetDto: UpdatePetDto,
-    @UploadedFile() photo?: any
+    @Body() updatePetDto: UpdatePetDto
   ): Promise<Pet> {
-    return this.petsService.update(id, updatePetDto, photo)
+    return this.petsService.update(id, updatePetDto)
   }
 
   @Post()
   @Roles(RoleEnum.USER)
-  @UseInterceptors(FileInterceptor('photo'))
-  async create(
-    @Body() createPetDto: CreatePetDto,
-    @UploadedFile() photo?: any
-  ): Promise<Pet> {
-    return this.petsService.create(createPetDto, photo)
+  async create(@Body() createPetDto: CreatePetDto): Promise<Pet> {
+    return this.petsService.create(createPetDto)
   }
 }

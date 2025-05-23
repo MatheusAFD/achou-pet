@@ -1,4 +1,4 @@
 export interface UpdatePetParams {
   petId: string
-  data: FormData
+  data: { [key: string]: unknown }
 }
