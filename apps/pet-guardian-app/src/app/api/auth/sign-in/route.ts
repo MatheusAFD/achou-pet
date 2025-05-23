@@ -31,19 +31,21 @@ export async function POST(req: NextRequest): Promise<Response> {
   console.log(process.env.NODE_ENV)
   console.log('isProduction', isProduction)
 
-  res.cookies.set('achou-pet-token', response!.accessToken, {
+  res.cookies.set({
+    name: 'achou-pet-access-token',
+    value: response!.accessToken,
     httpOnly: true,
     secure: true,
     maxAge: ONE_HOUR_IN_SECONDS,
-    path: '/',
-    sameSite: isProduction ? 'none' : 'lax'
+    path: '/'
   })
-  res.cookies.set('achou-pet-refresh-token', response!.refreshToken, {
+  res.cookies.set({
+    name: 'achou-pet-refresh-token',
+    value: response!.refreshToken,
     httpOnly: true,
     secure: true,
     maxAge: SEVEN_DAY_IN_SECONDS,
-    path: '/',
-    sameSite: isProduction ? 'none' : 'lax'
+    path: '/'
   })
 
   return res
