@@ -9,6 +9,8 @@ COPY . .
 RUN pnpm install
 
 RUN pnpm db:generate
+# Debug: List contents of migrations folder after generation
+RUN echo "Contents of /usr/src/app/src/drizzle/migrations in builder:" && ls -R /usr/src/app/src/drizzle/migrations
 
 RUN pnpm build
 
@@ -23,6 +25,8 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
 COPY --from=builder /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /usr/src/app/src/drizzle/migrations ./migrations
+# Debug: List contents of migrations folder after copying
+RUN echo "Contents of /usr/src/app/migrations in production:" && ls -R /usr/src/app/migrations
 
 EXPOSE 4000
 
