@@ -3,12 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.r2.cloudflarestorage.com'
-      }
-    ]
+    remotePatterns: [new URL('https://static.achou.pet/achou-pet/**')]
   },
   async redirects() {
     return [
