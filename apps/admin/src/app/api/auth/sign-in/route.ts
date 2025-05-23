@@ -26,15 +26,17 @@ export async function POST(req: NextRequest): Promise<Response> {
 
   const res = NextResponse.json(response)
 
+  const isProduction = process.env.NODE_ENV === 'production'
+
   res.cookies.set('achou-pet-admin-token', response!.accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
     maxAge: ONE_HOUR_IN_SECONDS,
     path: '/'
   })
   res.cookies.set('achou-pet-admin-refresh-token', response!.refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
     maxAge: SEVEN_DAY_IN_SECONDS,
     path: '/'
   })
