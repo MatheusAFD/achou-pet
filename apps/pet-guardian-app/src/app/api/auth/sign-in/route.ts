@@ -32,13 +32,15 @@ export async function POST(req: NextRequest): Promise<Response> {
     httpOnly: true,
     secure: isProduction,
     maxAge: ONE_HOUR_IN_SECONDS,
-    path: '/'
+    path: '/',
+    sameSite: 'lax'
   })
   res.cookies.set('achou-pet-refresh-token', response!.refreshToken, {
     httpOnly: true,
     secure: isProduction,
     maxAge: SEVEN_DAY_IN_SECONDS,
-    path: '/'
+    path: '/',
+    sameSite: 'lax'
   })
 
   return res
