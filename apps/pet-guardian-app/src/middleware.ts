@@ -37,6 +37,7 @@ export function middleware(request: NextRequest) {
 
       return NextResponse.next()
     } catch {
+      console.log('Invalid token')
       return handleRedirect(request, REDIRECT_WHEN_TOKEN_INVALID)
     }
   }
