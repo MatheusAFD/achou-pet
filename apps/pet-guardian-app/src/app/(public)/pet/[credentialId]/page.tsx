@@ -45,6 +45,7 @@ export default async function PetCredentialPage({
                 src={pet?.photoUrl || '/logo.png'}
                 width={128}
                 height={128}
+                quality={100}
                 alt="Foto do pet"
                 className="object-cover rounded-full"
               />
@@ -61,9 +62,11 @@ export default async function PetCredentialPage({
               <span className="bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
                 {pet?.species}
               </span>
-              <span className="bg-secondary/80 text-gray-900 px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
-                {pet?.breed}
-              </span>
+              <Conditional condition={!!pet?.breed}>
+                <span className="bg-secondary/80 text-gray-900 px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+                  {pet?.breed}
+                </span>
+              </Conditional>
               <span className="bg-tertiary text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
                 {petSizeParser[pet.size]}
               </span>
@@ -87,10 +90,20 @@ export default async function PetCredentialPage({
                   Possui alergias
                 </span>
               </Conditional>
-              <Conditional condition={!!pet?.needsMedication}>
-                <span className="text-xs text-pink-800 font-bold bg-pink-100 rounded px-2 py-0.5 w-fit">
-                  Precisa de medicação
-                </span>
+              <Conditional
+                condition={!!pet?.needsMedication || pet.hasAllergies}
+              >
+                <Conditional condition={!!pet?.needsMedication}>
+                  <span className="text-xs text-pink-800 font-bold bg-pink-100 rounded px-2 py-0.5 w-fit">
+                    Precisa de medicação
+                  </span>
+                </Conditional>
+
+                <Conditional condition={!!pet?.hasAllergies}>
+                  <span className="text-xs text-pink-800 font-bold bg-pink-100 rounded px-2 py-0.5 w-fit">
+                    Possui alergias
+                  </span>
+                </Conditional>
                 <Conditional condition={true}>
                   <span className="text-xs text-gray-800 bg-gray-100 rounded px-2 py-0.5 w-fit">
                     {pet?.medicationDescription}
