@@ -27,7 +27,9 @@ export default async function PetCredentialPage({
     redirect('/auth/sign-up')
   }
 
-  const { pet, user, primaryAddress } = data!
+  const pet = data?.pet
+  const user = data?.user
+  const primaryAddress = data?.primaryAddress
 
   if (!pet) {
     redirect('/auth/sign-in')
@@ -106,15 +108,15 @@ export default async function PetCredentialPage({
           <div className="flex flex-col md:flex-row md:items-center gap-4">
             <div className="flex-1 flex flex-col gap-1">
               <span className="text-lg font-semibold text-tertiary">
-                {user.name} {user.lastName}
+                {user?.name} {user?.lastName}
               </span>
-              <Link href={`tel:${user.phone}`} target="_blank">
+              <Link href={`tel:${user?.phone}`} target="_blank">
                 <span className="flex items-center gap-2 text-base text-primary font-bold">
-                  <Phone size={18} /> {phoneMask(user.phone)}
+                  <Phone size={18} /> {phoneMask(user?.phone ?? '')}
                 </span>
               </Link>
             </div>
-            <Conditional condition={user.canDisplayAddress && !!primaryAddress}>
+            <Conditional condition={!!primaryAddress}>
               <div className="flex flex-col gap-1 bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 shadow-sm">
                 <span className="text-xs text-gray-700 font-semibold">
                   Localização aproximada
