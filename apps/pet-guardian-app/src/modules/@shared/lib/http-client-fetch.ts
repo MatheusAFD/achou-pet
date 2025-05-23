@@ -43,6 +43,7 @@ export const httpClientFetch = async <
   }
   if (token?.value) {
     headers['Authorization'] = `Bearer ${token.value}`
+    headers['x-access-token'] = token.value
   }
 
   if (config.data instanceof FormData) {
@@ -57,6 +58,7 @@ export const httpClientFetch = async <
     }
     if (token?.value) {
       headers['Authorization'] = `Bearer ${token.value}`
+      headers['x-access-token'] = token.value
     }
   }
 
