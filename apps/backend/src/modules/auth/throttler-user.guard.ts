@@ -7,6 +7,8 @@ export class ThrottlerUserGuard extends ThrottlerGuard {
     const forwarded = req.headers['x-forwarded-for']
     const ip = forwarded ? forwarded.split(',')[0].trim() : req.ip
 
+    console.log('IP:', ip)
+
     return ip
   }
 
