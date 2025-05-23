@@ -4,7 +4,7 @@ const envSchema = z.object({
   WEB_APP_SERVICE_URL: z.string().url(),
   NEST_API_PORT: z.coerce.number().min(1000),
   BCRYPT_ROUNDS: z.coerce.number().min(1),
-  CORS_ALLOWED_ORIGINS: z.array(z.string()),
+  CORS_ALLOWED_ORIGINS: z.any(),
   JWT_SECRET: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   RESEND_API_KEY: z.string(),
@@ -24,5 +24,9 @@ const envSchema = z.object({
 
 export const env = envSchema.parse({
   ...process.env,
-  CORS_ALLOWED_ORIGINS: process.env.CORS_ALLOWED_ORIGINS?.split(',')
+  CORS_ALLOWED_ORIGINS: process.env.CORS_ALLOWED_ORIGINS
+    ? process.env.CORS_ALLOWED_ORIGINS.split(',')
+        .map((origin) => origin.trim())
+        .filter(Boolean)
+    : []
 })
