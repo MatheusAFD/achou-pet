@@ -6,9 +6,9 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN pnpm install -f --prod=false
+RUN pnpm install -f
 
-RUN pnpm db:generate && pnpm migrate:prod
+RUN pnpm db:generate
 
 RUN pnpm build
 
