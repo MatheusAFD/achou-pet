@@ -33,15 +33,17 @@ export const httpClientFetch = async <
 >({
   baseURL = process.env.NEXT_PUBLIC_API_BASE_URL,
   contentType,
-  responseType = 'json',
   ...config
 }: RequestConfig<TVariables>): Promise<ResponseConfig<TData, TError>> => {
   const { token } = await getAuthToken()
 
   let body: BodyInit | undefined
-  let headers: HeadersInit = {
-    ...config.headers,
-    Authorization: `Bearer ${token?.value}`
+  let headers: Record<string, string> = {
+    ...(config.headers as Record<string, string>)
+  }
+  if (token?.value) {
+    headers['Authorization'] = `Bearer ${token.value}`
+    headers['x-access-token'] = token.value
   }
 
   if (config.data instanceof FormData) {
@@ -54,6 +56,10 @@ export const httpClientFetch = async <
       ...headers,
       'Content-Type': contentType || 'application/json'
     }
+    if (token?.value) {
+      headers['Authorization'] = `Bearer ${token.value}`
+      headers['x-access-token'] = token.value
+    }
   }
 
   const response = await fetch(`${baseURL}${config.url}`, {
@@ -65,7 +71,7 @@ export const httpClientFetch = async <
     next: config.next
   })
 
-  const data = responseType === 'json' ? await response.json() : response
+  const data = response != null ? await response.json() : null
 
   if (!response.ok) {
     return [data as TError, null]
