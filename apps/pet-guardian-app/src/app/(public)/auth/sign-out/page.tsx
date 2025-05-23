@@ -15,7 +15,10 @@ export default function SignOutPage() {
       .then(() => {
         router.replace('/auth/sign-in')
       })
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setLoading(false)
+        router.replace('/auth/sign-in')
+      })
   }, [router])
 
   if (loading) {
