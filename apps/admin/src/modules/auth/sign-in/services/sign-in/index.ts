@@ -32,7 +32,8 @@ export const signIn = async (
       value: response!.accessToken,
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: ONE_HOUR_IN_SECONDS
+      maxAge: ONE_HOUR_IN_SECONDS,
+      sameSite: 'none'
     })
   }
 
