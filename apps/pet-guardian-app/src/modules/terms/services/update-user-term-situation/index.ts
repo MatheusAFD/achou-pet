@@ -1,7 +1,6 @@
 'use server'
 
 import { revalidateTag } from 'next/cache'
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
@@ -12,8 +11,6 @@ import { UserTerm } from '../get-pending-term/types'
 export const updateUserTermSituation = async (
   situation: 'ACCEPTED' | 'REFUSED'
 ): Promise<Either<ErrorResponse, UserTerm>> => {
-  const cookieStore = await cookies()
-
   const [error, data] = await httpClientFetch<UserTerm, ErrorResponse>({
     url: '/terms/situation',
     method: 'POST',
@@ -29,10 +26,7 @@ export const updateUserTermSituation = async (
   }
 
   if (situation === 'REFUSED') {
-    cookieStore.delete('achou-pet-token')
-    cookieStore.delete('achou-pet-refresh_token')
-
-    redirect('/auth/sign-in')
+    redirect('/auth/sign-out')
   }
 
   return [error, data]
