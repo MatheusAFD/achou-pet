@@ -30,6 +30,7 @@ export const AppSidebar = () => {
             priority
             alt="Logo de um animal com a face metade gato e metade cachorro."
             className="mx-4"
+            unoptimized
           />
         </Link>
       </SidebarHeader>
