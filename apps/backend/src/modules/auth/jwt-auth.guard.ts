@@ -23,6 +23,10 @@ export class JwtAuthGuard implements CanActivate {
     const request: Request = context.switchToHttp().getRequest()
     const token = this.extractTokenFromHeader(request)
 
+    console.log('request', request)
+    console.log('request headers', request.headers)
+    console.log('token', token)
+
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass()
