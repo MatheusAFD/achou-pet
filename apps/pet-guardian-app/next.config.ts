@@ -13,14 +13,6 @@ const nextConfig: NextConfig = {
         permanent: true
       }
     ]
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/',
-        destination: '/auth-sign-in'
-      }
-    ]
   }
 }
 
