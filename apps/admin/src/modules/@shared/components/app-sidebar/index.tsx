@@ -20,7 +20,7 @@ export const AppSidebar = () => {
   return (
     <Sidebar>
       <SidebarHeader className="flex flex-row items-center gap-4 h-[72px] border-b border-sidebar-border">
-        <Link href="/meus-pets">
+        <Link href="/admin/credenciais">
           <Image
             src="/logo.png"
             width={64}
