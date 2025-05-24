@@ -40,6 +40,7 @@ export const SignInForm = () => {
         toast.error('Erro!', {
           description: 'E-mail ou senha inválidos.'
         })
+
         return
       }
 

@@ -23,9 +23,7 @@ export const metadata: Metadata = {
 }
 
 if (process.env.NEXT_PUBLIC_ENV_MODE === 'test') {
-  ;(async () => {
-    await import('../mocks')
-  })()
+  import('../mocks')
 }
 
 export default function RootLayout({
