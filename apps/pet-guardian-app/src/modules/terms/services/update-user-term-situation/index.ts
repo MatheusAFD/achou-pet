@@ -21,6 +21,7 @@ export const updateUserTermSituation = async (
 
   if (situation === 'ACCEPTED') {
     revalidateTag('me')
+    revalidateTag('pending-terms')
 
     redirect('/meus-pets')
   }

@@ -41,14 +41,16 @@ export const PetFormSchema = z
       )
       .optional()
   })
-  .superRefine(({ needsMedication, medicationDescription }, ctx) => {
-    if (needsMedication && !medicationDescription) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Descreva a medicação necessária',
-        path: ['medicationDescription']
-      })
+  .superRefine(
+    ({ needsMedication, hasAllergies, medicationDescription }, ctx) => {
+      if ((needsMedication || hasAllergies) && !medicationDescription) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Descreva a medicação necessária',
+          path: ['medicationDescription']
+        })
+      }
     }
-  })
+  )
 
 export type PetFormData = z.infer<typeof PetFormSchema>
