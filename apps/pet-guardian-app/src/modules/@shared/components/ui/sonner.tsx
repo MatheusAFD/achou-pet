@@ -11,6 +11,7 @@ const Toaster = ({ position = 'top-center', ...props }: ToasterProps) => {
     <Sonner
       theme={theme as ToasterProps['theme']}
       className="toaster group"
+      data-testid="toaster"
       position={position}
       style={
         {

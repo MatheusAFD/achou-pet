@@ -37,7 +37,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         })}
       >
         {hasLabel && (
-          <Label htmlFor={`data-test-id-${id}`} className="mb-2">
+          <Label htmlFor={id} className="mb-2">
             {label}: {required && '*'}
           </Label>
         )}
@@ -45,7 +45,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         <Input
           ref={ref}
           name={name}
-          id={`data-test-id-${id}`}
+          id={id}
+          data-testid={id}
           type={type}
           className={cn(
             errorMessage && 'border-red-400 placeholder:text-red-400',

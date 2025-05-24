@@ -74,7 +74,11 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
           </address>
           <footer className="flex items-center gap-2 ">
             <ChildTooltip content="Editar endereço">
-              <Button variant="outline" onClick={onEdit}>
+              <Button
+                variant="outline"
+                onClick={onEdit}
+                data-testid={address.id}
+              >
                 <Edit />
                 Editar
               </Button>
