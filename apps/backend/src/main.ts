@@ -13,10 +13,12 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api')
 
+  const origins = env.CORS_ALLOWED_ORIGINS
+
   app.enableCors({
-    origin: env.CORS_ALLOWED_ORIGINS,
+    origin: origins,
     methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type, Authorization'
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-access-token']
   })
 
   app.useGlobalPipes(

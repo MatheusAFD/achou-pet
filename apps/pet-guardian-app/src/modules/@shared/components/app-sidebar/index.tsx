@@ -30,6 +30,7 @@ export const AppSidebar = () => {
             priority
             alt="Logo de um animal com a face metade gato e metade cachorro."
             className="mx-4"
+            unoptimized
           />
         </Link>
       </SidebarHeader>
@@ -52,6 +53,7 @@ export const AppSidebar = () => {
       <SidebarFooter className="p-4 pb-10">
         <Link
           href="/auth/sign-out"
+          prefetch={false}
           className={buttonVariants({ variant: 'outline' })}
           data-testid="sign-out-button"
         >

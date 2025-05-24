@@ -38,9 +38,12 @@ export const httpClientFetch = async <
   const { token } = await getAuthToken()
 
   let body: BodyInit | undefined
-  let headers: HeadersInit = {
-    ...config.headers,
-    Authorization: `Bearer ${token?.value}`
+  let headers: Record<string, string> = {
+    ...(config.headers as Record<string, string>)
+  }
+  if (token?.value) {
+    headers['Authorization'] = `Bearer ${token.value}`
+    headers['x-access-token'] = token.value
   }
 
   if (config.data instanceof FormData) {
@@ -52,6 +55,10 @@ export const httpClientFetch = async <
     headers = {
       ...headers,
       'Content-Type': contentType || 'application/json'
+    }
+    if (token?.value) {
+      headers['Authorization'] = `Bearer ${token.value}`
+      headers['x-access-token'] = token.value
     }
   }
 

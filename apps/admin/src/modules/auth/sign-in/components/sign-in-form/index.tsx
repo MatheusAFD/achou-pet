@@ -40,9 +40,11 @@ export const SignInForm = () => {
         })
         return
       }
+
       toast.success('Sucesso!', {
         description: 'Você será redirecionado em alguns instantes.'
       })
+
       router.replace('/admin/credenciais')
     } catch {
       toast.error('Erro!', {

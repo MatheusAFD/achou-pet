@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { server } from '@user-app/mocks/server'
-import {
-  ONE_HOUR_IN_SECONDS,
-  SEVEN_DAY_IN_SECONDS
-} from '@user-app/modules/@shared/constants'
+import { ONE_HOUR_IN_SECONDS } from '@user-app/modules/@shared/constants'
 import { httpClientFetch } from '@user-app/modules/@shared/lib'
 import { ErrorResponse } from '@user-app/modules/@shared/types'
 import { generateMockJwtToken } from '@user-app/modules/mocks/utils'
@@ -35,17 +32,13 @@ export async function POST(req: NextRequest): Promise<Response> {
       ? generateMockJwtToken()
       : response!.accessToken
 
+  const isProduction = process.env.NODE_ENV === 'production'
   res.cookies.set('achou-pet-token', tokenValue, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
     maxAge: ONE_HOUR_IN_SECONDS,
-    path: '/'
-  })
-  res.cookies.set('achou-pet-refresh-token', response!.refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: SEVEN_DAY_IN_SECONDS,
-    path: '/'
+    path: '/',
+    sameSite: 'lax'
   })
 
   return res

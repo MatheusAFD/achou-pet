@@ -19,6 +19,7 @@ export const AppHeader = () => {
         <div className="flex items-center gap-3 md:p-4">
           <Link
             href="/auth/sign-out"
+            prefetch={false}
             className={buttonVariants({ variant: 'outline' })}
           >
             <LogOut />

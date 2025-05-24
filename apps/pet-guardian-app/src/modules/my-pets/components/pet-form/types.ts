@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export interface PetFormProps {
   actionText?: string
-  onSubmit: (data: FormData) => Promise<void>
+  onSubmit: (data: PetFormData & { photoUrl?: string }) => Promise<void>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValues?: Partial<PetFormData> | any
 }
@@ -41,14 +41,16 @@ export const PetFormSchema = z
       )
       .optional()
   })
-  .superRefine(({ needsMedication, medicationDescription }, ctx) => {
-    if (needsMedication && !medicationDescription) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Descreva a medicação necessária',
-        path: ['medicationDescription']
-      })
+  .superRefine(
+    ({ needsMedication, hasAllergies, medicationDescription }, ctx) => {
+      if ((needsMedication || hasAllergies) && !medicationDescription) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Descreva a medicação necessária',
+          path: ['medicationDescription']
+        })
+      }
     }
-  })
+  )
 
 export type PetFormData = z.infer<typeof PetFormSchema>

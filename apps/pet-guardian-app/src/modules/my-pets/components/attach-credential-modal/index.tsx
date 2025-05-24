@@ -31,12 +31,12 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
     null
   )
 
-  const onSubmit = async (formData: FormData) => {
-    // Não adicionar credentialId ao body, ele já está na URL
+  const onSubmit = async (formData: Record<string, unknown>) => {
     const [error] = await attatchCredential(
       String(scannedCredentialId),
       formData
     )
+
     if (error) {
       toast.error('Erro!', {
         description: 'Ocorreu um erro ao cadastrar o pet.'
