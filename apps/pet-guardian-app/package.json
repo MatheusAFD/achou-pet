@@ -61,5 +61,16 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "msw",
+      "sharp"
+    ],
+    "ignoredBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "core-js-pure",
+      "unrs-resolver"
+    ]
   }
 }
