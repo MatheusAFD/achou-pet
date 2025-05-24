@@ -1,0 +1,13 @@
+pre-push:
+  parallel: false
+  commands:
+    test-dev:
+      run: |
+        cd apps/pet-guardian-app && \
+        export $(grep -v '^#' .env.test | xargs) && \
+        pnpm dev:test
+    test-e2e:
+      run: |
+        cd apps/pet-guardian-app && \
+        export $(grep -v '^#' .env.test | xargs) && \
+        pnpm test:e2e
