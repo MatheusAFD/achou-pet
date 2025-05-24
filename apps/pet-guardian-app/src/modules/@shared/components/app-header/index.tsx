@@ -21,6 +21,7 @@ export const AppHeader = () => {
             href="/auth/sign-out"
             prefetch={false}
             className={buttonVariants({ variant: 'outline' })}
+            data-testid="sign-out-button"
           >
             <LogOut />
             Sair

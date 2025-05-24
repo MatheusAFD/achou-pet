@@ -1,0 +1,15 @@
+pre-push:
+  parallel: false
+  commands:
+    test-e2e:
+      run: |
+        cd apps/pet-guardian-app
+        export $(grep -v '^#' .env.test | xargs)
+        pnpm dev:test &
+        DEV_PID=$!
+        sleep 10
+        export $(grep -v '^#' .env.test | xargs)
+        pnpm test:e2e
+        KILL_EXIT=$?
+        kill $DEV_PID
+        exit $KILL_EXIT
