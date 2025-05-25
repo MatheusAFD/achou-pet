@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { Slot } from '@radix-ui/react-slot'
 import { VariantProps, cva } from 'class-variance-authority'
-import { PanelLeftIcon } from 'lucide-react'
+import { AlignJustify, PanelLeftIcon } from 'lucide-react'
 
 import { Button } from '@user-app/modules/@shared/components/ui/button'
 import { Input } from '@user-app/modules/@shared/components/ui/input'
@@ -267,14 +267,15 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn('size-7', className)}
+      className={cn('size-8', className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <PanelLeftIcon />
+      <PanelLeftIcon className="hidden md:block" />
+      <AlignJustify className="block md:hidden size-6" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )
