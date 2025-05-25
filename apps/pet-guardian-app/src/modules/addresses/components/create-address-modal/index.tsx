@@ -44,7 +44,10 @@ export const CreateAddressModal = (props: PropsWithChildren) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="min-w-full h-full flex flex-col gap-4 justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
+      <DialogContent
+        className="min-w-full h-full flex flex-col gap-4 justify-start md:h-auto md:min-w-[40rem] overflow-auto "
+        data-testid="create-address-modal"
+      >
         <DialogHeader>
           <LineBadge hideOnMobile />
           <DialogTitle>Cadastrar novo endereço</DialogTitle>

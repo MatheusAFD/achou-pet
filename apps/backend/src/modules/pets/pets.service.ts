@@ -50,24 +50,13 @@ export class PetsService {
     return pet
   }
 
-  async create(data: CreatePetDto, photo?: any): Promise<Pet> {
+  async create(data: CreatePetDto): Promise<Pet> {
     try {
-      let photoUrl = data.photoUrl ?? null
-      if (photo && photo.buffer && photo.mimetype) {
-        const buffer: Buffer = Buffer.isBuffer(photo.buffer)
-          ? photo.buffer
-          : Buffer.from(photo.buffer)
-        photoUrl = await this.storageService.uploadFile(
-          buffer,
-          `pets/${Date.now()}.jpeg`,
-          String(photo.mimetype)
-        )
-      }
       const [createdPet] = await this.db
         .insert(pets)
         .values({
           ...data,
-          photoUrl
+          photoUrl: data.photoUrl ?? null
         })
         .returning()
 
@@ -81,13 +70,13 @@ export class PetsService {
     }
   }
 
-  async update(id: string, data: UpdatePetDto, photo?: any): Promise<Pet> {
+  async update(id: string, data: UpdatePetDto): Promise<Pet> {
     const pet = await this.findOne(id)
     if (!pet) {
       throw new NotFoundException('Pet not found')
     }
 
-    const photoUrl = await this.handlePetPhotoUpdate(pet, data, photo)
+    const photoUrl = await this.handlePetPhotoUpdate(pet, data)
 
     const [updatedPet] = await this.db
       .update(pets)
@@ -118,37 +107,24 @@ export class PetsService {
 
   private async handlePetPhotoUpdate(
     pet: Pet,
-    data: UpdatePetDto,
-    photo?: any
+    data: UpdatePetDto
   ): Promise<string | null> {
     const oldPhotoUrl = pet.photoUrl
 
-    if (typeof data.photo === 'string') {
-      return oldPhotoUrl
-    }
-
-    if (photo && photo.buffer && photo.mimetype) {
-      if (oldPhotoUrl) {
-        const key = oldPhotoUrl.split('/').slice(-2).join('/')
-        await this.storageService.deleteFile(key)
-      }
-      const buffer: Buffer = Buffer.isBuffer(photo.buffer)
-        ? photo.buffer
-        : Buffer.from(photo.buffer)
-
-      return await this.storageService.uploadFile(
-        buffer,
-        `pets/${pet.id}-${Date.now()}.jpeg`,
-        String(photo.mimetype)
-      )
-    }
-
-    if (!photo && (data.photo === undefined || data.photo === null)) {
+    if (data.photoUrl === '') {
       if (oldPhotoUrl) {
         const key = oldPhotoUrl.split('/').slice(-2).join('/')
         await this.storageService.deleteFile(key)
       }
       return null
+    }
+
+    if (data.photoUrl && data.photoUrl !== oldPhotoUrl) {
+      if (oldPhotoUrl) {
+        const key = oldPhotoUrl.split('/').slice(-2).join('/')
+        await this.storageService.deleteFile(key)
+      }
+      return data.photoUrl
     }
 
     return oldPhotoUrl

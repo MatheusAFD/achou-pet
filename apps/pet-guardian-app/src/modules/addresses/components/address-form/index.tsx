@@ -60,6 +60,7 @@ export const AddressForm = (props: AddressFormProps) => {
           control={control}
           name="zipCode"
           label="CEP"
+          id="zipCode"
           pattern="00000-000"
           inputMode="numeric"
           placeholder="Ex: 00000-000"
@@ -102,6 +103,7 @@ export const AddressForm = (props: AddressFormProps) => {
         <TextField
           {...register('address')}
           label="Endereço"
+          id="address"
           placeholder="Ex: Rua Chico da Silva"
           isLoading={isLoading}
           errorMessage={errors.address?.message}
@@ -111,6 +113,7 @@ export const AddressForm = (props: AddressFormProps) => {
         <TextField
           {...register('number')}
           label="Número"
+          id="number"
           placeholder="Ex: 029"
           errorMessage={errors.number?.message}
           required
@@ -119,6 +122,7 @@ export const AddressForm = (props: AddressFormProps) => {
         <TextField
           {...register('neighborhood')}
           label="Bairro"
+          id="neighborhood"
           placeholder="Bairro"
           isLoading={isLoading}
           errorMessage={errors.neighborhood?.message}
@@ -128,6 +132,7 @@ export const AddressForm = (props: AddressFormProps) => {
         <TextField
           {...register('reference')}
           label="Ponto de referência"
+          id="reference"
           placeholder="Ex: Próximo ao mercado"
           isLoading={isLoading}
           errorMessage={errors.reference?.message}
@@ -145,6 +150,7 @@ export const AddressForm = (props: AddressFormProps) => {
         <TextField
           {...register('state')}
           label="Estado"
+          id="state"
           placeholder="Ex: CE"
           isLoading={isLoading}
           errorMessage={errors.state?.message}
@@ -155,6 +161,7 @@ export const AddressForm = (props: AddressFormProps) => {
         <TextField
           {...register('city')}
           label="Cidade"
+          id="city"
           placeholder="Ex: Fortaleza"
           isLoading={isLoading}
           errorMessage={errors.city?.message}
@@ -173,6 +180,7 @@ export const AddressForm = (props: AddressFormProps) => {
         <Button
           type="submit"
           size="lg"
+          data-testid="submit-button"
           disabled={!isValid}
           isLoading={isSubmitting || isPending || isLoading}
         >

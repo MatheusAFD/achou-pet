@@ -54,5 +54,15 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.0",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "sharp"
+    ],
+    "ignoredBuiltDependencies": [
+      "core-js-pure",
+      "unrs-resolver"
+    ]
   }
 }

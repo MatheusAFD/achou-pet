@@ -45,6 +45,7 @@ function Button({
   type = 'button',
   isLoading,
   children,
+  id,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
@@ -57,13 +58,21 @@ function Button({
     <Comp
       data-slot="button"
       type={type}
+      id={id}
+      data-testid={id}
       className={cn(buttonVariants({ variant, size, className }))}
       {...Object.fromEntries(
         Object.entries(props).filter(([k]) => k !== 'disabled')
       )}
       disabled={isLoading || props.disabled}
     >
-      {isLoading && <Loader2 className="animate-spin" size={14} />}
+      {isLoading && (
+        <Loader2
+          className="animate-spin"
+          size={14}
+          data-testid="loading-button"
+        />
+      )}
       {children}
     </Comp>
   )

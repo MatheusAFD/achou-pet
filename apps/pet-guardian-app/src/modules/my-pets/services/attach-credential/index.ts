@@ -9,7 +9,7 @@ import { AttachCredentialResponse } from './types'
 
 export const attatchCredential = async (
   credentialId: string,
-  data: FormData
+  data: { [key: string]: unknown }
 ): Promise<[ErrorResponse | null, AttachCredentialResponse | null]> => {
   const [error, response] = await httpClientFetch<
     AttachCredentialResponse,
@@ -17,7 +17,6 @@ export const attatchCredential = async (
   >({
     url: `/credentials/${credentialId}`,
     method: 'PATCH',
-    contentType: 'multipart/form-data',
     data
   })
 

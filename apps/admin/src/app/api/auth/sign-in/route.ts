@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import {
-  ONE_HOUR_IN_SECONDS,
-  SEVEN_DAY_IN_SECONDS
-} from '@admin/modules/@shared/constants'
+import { ONE_HOUR_IN_SECONDS } from '@admin/modules/@shared/constants'
 import { httpClientFetch } from '@admin/modules/@shared/lib'
 import { ErrorResponse } from '@admin/modules/@shared/types'
 
@@ -32,13 +29,8 @@ export async function POST(req: NextRequest): Promise<Response> {
     httpOnly: true,
     secure: isProduction,
     maxAge: ONE_HOUR_IN_SECONDS,
-    path: '/'
-  })
-  res.cookies.set('achou-pet-admin-refresh-token', response!.refreshToken, {
-    httpOnly: true,
-    secure: isProduction,
-    maxAge: SEVEN_DAY_IN_SECONDS,
-    path: '/'
+    path: '/',
+    sameSite: 'lax'
   })
 
   return res

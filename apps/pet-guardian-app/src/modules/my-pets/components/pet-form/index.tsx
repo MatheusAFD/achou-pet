@@ -15,6 +15,7 @@ import {
 } from '@user-app/modules/@shared/components/fields'
 
 import { animalGenderOptions, animalSizeOptions } from '../../constants'
+import { uploadToR2 } from '../../utils/upload-to-r2'
 import { PetFormData, PetFormProps, PetFormSchema } from './types'
 
 export const PetForm = (props: PetFormProps) => {
@@ -53,21 +54,21 @@ export const PetForm = (props: PetFormProps) => {
   const needsMedication = watch('needsMedication') || watch('hasAllergies')
 
   const handleFormSubmit = async (data: PetFormData) => {
-    const formData = new FormData()
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === 'photo') return
-      formData.append(key, String(value))
-    })
+    let photoUrl = ''
     if (data.photo instanceof File) {
-      formData.append('photo', data.photo)
+      photoUrl = await uploadToR2(data.photo)
+    } else if (typeof data.photo === 'string' && data.photo) {
+      photoUrl = data.photo
     }
-
-    if (typeof data.photo === 'string' && data.photo) {
-      formData.append('photo', data.photo)
+    if (!data.photo) {
+      photoUrl = ''
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await onSubmit(formData as any)
+    const payload = {
+      ...data,
+      photoUrl,
+      photo: undefined
+    }
+    await onSubmit(payload)
   }
 
   return (
