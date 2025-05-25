@@ -33,21 +33,6 @@ export class TokensService {
     try {
       const { key } = createTokenDto
 
-      const [token] = await this.db
-        .select()
-        .from(tokens)
-        .where(eq(tokens.key, key))
-        .limit(1)
-
-      const tokenIsValid = new Date(token?.expiresAt).getTime() > Date.now()
-
-      if (tokenIsValid) {
-        return {
-          isValid: true,
-          token
-        }
-      }
-
       const value = generateSixDigitToken()
 
       const ONE_HOUR_IN_MILLISECONDS = 60 * 60 * 1000
