@@ -15,12 +15,12 @@ export default function UsageGuidePage() {
             <div className="rounded-full bg-primary/90 text-white size-10 flex items-center justify-center text-2xl font-bold mb-3 shadow-md">
               1
             </div>
-            <h2 className="text-lg text-foreground/80 font-medium">
+            <h2 className="text-base text-foreground/80 font-medium">
               Faça seu cadastro
             </h2>
-            <p className="text-foreground/70 text-sm mt-2">
+            <p className="text-foreground/70 text-xs mt-2">
               Você precisa se cadastrar. Clique no botão{' '}
-              <strong>Cadastrar</strong> e preencha as informações solicitadas.
+              <strong>Começar</strong> e preencha as informações solicitadas.
             </p>
           </CustomCard>
 
@@ -29,12 +29,12 @@ export default function UsageGuidePage() {
               2
             </div>
 
-            <h2 className="text-lg text-foreground/80 font-medium">
+            <h2 className="text-base text-foreground/80 font-medium">
               Entre na plataforma
             </h2>
-            <p className="text-foreground/70 text-sm mt-2">
-              Após o cadastro, você pode entrar na plataforma. Clique no botão{' '}
-              <strong>Entrar</strong> e insira suas credenciais.
+            <p className="text-foreground/70 text-xs mt-2">
+              Após o cadastro, você pode entrar na plataforma. Insira suas
+              credenciais de acesso e clique no botão <strong>Entrar</strong>.
             </p>
           </CustomCard>
 
@@ -42,10 +42,10 @@ export default function UsageGuidePage() {
             <div className="rounded-full bg-primary/90 text-white size-10 flex items-center justify-center text-2xl font-bold mb-3 shadow-md">
               3
             </div>
-            <h2 className="text-lg text-foreground/80 font-medium">
+            <h2 className="text-base text-foreground/80 font-medium">
               Cadastrar um pet
             </h2>
-            <p className="text-foreground/70 text-sm mt-2">
+            <p className="text-foreground/70 text-xs mt-2">
               Após entrar na plataforma, você pode cadastrar um pet. Clique no
               botão <strong>Cadastrar novo</strong> e preencha as informações
               solicitadas
@@ -56,10 +56,10 @@ export default function UsageGuidePage() {
             <div className="rounded-full bg-primary/90 text-white size-10 flex items-center justify-center text-2xl font-bold mb-3 shadow-md">
               4
             </div>
-            <h2 className="text-lg text-foreground/80 font-medium">
+            <h2 className="text-base text-foreground/80 font-medium">
               Acessar página do pet
             </h2>
-            <p className="text-foreground/70 text-sm mt-2">
+            <p className="text-foreground/70 text-xs mt-2">
               Após cadastrar um pet, você pode acessar a página do pet. Clique
               no nome do pet na lista de pets cadastrados para ver mais
               detalhes.
