@@ -59,18 +59,22 @@ export const PetForm = (props: PetFormProps) => {
 
   const handleFormSubmit = async (data: PetFormData) => {
     let photoUrl = ''
+
     if (data.photo instanceof File) {
       photoUrl = await uploadToR2(data.photo)
-    } else if (typeof data.photo === 'string' && data.photo) {
+    }
+
+    if (typeof data.photo === 'string' && data.photo) {
       photoUrl = data.photo
     }
+
     if (!data.photo) {
       photoUrl = ''
     }
+
     const payload = {
       ...data,
-      photoUrl,
-      photo: undefined
+      photoUrl
     }
     await onSubmit(payload)
   }
