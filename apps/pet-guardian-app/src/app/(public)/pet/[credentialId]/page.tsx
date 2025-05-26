@@ -24,7 +24,7 @@ export default async function PetCredentialPage({
   const [_, data] = await getPetByCredentialId(credentialId)
 
   if (data?.status === 'INACTIVE') {
-    redirect('/auth/sign-up')
+    redirect('/guia-de-uso')
   }
 
   const pet = data?.pet
@@ -32,7 +32,7 @@ export default async function PetCredentialPage({
   const primaryAddress = data?.primaryAddress
 
   if (!pet) {
-    redirect('/auth/sign-in')
+    redirect('/guia-de-uso')
   }
 
   return (
