@@ -20,10 +20,12 @@ export const PetsContainer = async () => {
 
       <Conditional condition={!hasData}>
         <NoDataBackground
-          src="/add-something.svg"
+          src="/add-something.png"
+          quality={100}
           text="Você ainda não um tem pet cadastrado!"
           alt="Imagem ilustrada de uma pessoa com um quadro branco a direita."
           className="mt-10"
+          priority
         />
       </Conditional>
     </>

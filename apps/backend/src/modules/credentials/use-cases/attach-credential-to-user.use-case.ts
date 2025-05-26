@@ -30,10 +30,7 @@ export class AttachCredentialToUserUseCase {
     private readonly storageService: StorageService
   ) {}
 
-  async execute(
-    relations: AttachCredentialToUser,
-    payload: CreatePetDto & { photo?: any }
-  ) {
+  async execute(relations: AttachCredentialToUser, payload: CreatePetDto) {
     const { userId, credentialId } = relations
     const {
       gender,
@@ -47,8 +44,7 @@ export class AttachCredentialToUserUseCase {
       isVaccinated,
       medicationDescription,
       needsMedication,
-      photoUrl,
-      photo
+      photoUrl
     } = payload
 
     const [credential] = await this.db
@@ -71,66 +67,37 @@ export class AttachCredentialToUserUseCase {
       )
     }
 
-    const finalPhotoUrl = await this.handlePetPhotoAttach(photo, photoUrl)
+    return await this.db.transaction(async (tx) => {
+      const [createdPet] = await tx
+        .insert(pets)
+        .values({
+          gender,
+          name,
+          birthDate: birthDate ?? null,
+          species,
+          breed,
+          size,
+          color,
+          isVaccinated,
+          hasAllergies,
+          medicationDescription,
+          photoUrl,
+          credentialId,
+          needsMedication
+        })
+        .returning()
 
-    const [createdPet] = await this.db
-      .insert(pets)
-      .values({
-        gender,
-        name,
-        birthDate: birthDate ?? null,
-        species,
-        breed,
-        size,
-        color,
-        isVaccinated,
-        hasAllergies,
-        medicationDescription,
-        photoUrl: finalPhotoUrl,
-        credentialId,
-        needsMedication
-      })
-      .returning()
+      const [updatedCredential] = await tx
+        .update(credentials)
+        .set({
+          userId,
+          status: CredentialsStatusEnum.ACTIVE,
+          activatedAt: new Date()
+        })
+        .where(eq(credentials.id, credentialId))
+        .returning()
 
-    const [updatedCredential] = await this.db
-      .update(credentials)
-      .set({
-        userId,
-        status: CredentialsStatusEnum.ACTIVE,
-        activatedAt: new Date()
-      })
-      .where(eq(credentials.id, credentialId))
-      .returning()
-
-    return { credential: updatedCredential, pet: createdPet }
-  }
-
-  private async handlePetPhotoAttach(
-    photo?: any,
-    photoUrl?: string
-  ): Promise<string | null> {
-    if (photo && (photo.buffer || photo instanceof Buffer)) {
-      let buffer: Buffer
-      if (Buffer.isBuffer(photo.buffer)) {
-        buffer = photo.buffer
-      } else if (photo.buffer) {
-        buffer = Buffer.from(photo.buffer)
-      } else {
-        buffer = Buffer.from(photo)
-      }
-      let mimetype = 'image/jpeg'
-      if (photo.mimetype) {
-        mimetype = String(photo.mimetype)
-      }
-      return await this.storageService.uploadFile(
-        buffer,
-        `pets/${Date.now()}.jpeg`,
-        mimetype
-      )
-    }
-    if (typeof photoUrl === 'string' && photoUrl) {
-      return photoUrl
-    }
-    return null
+      return { credential: updatedCredential, pet: createdPet }
+    })
   }
 }
