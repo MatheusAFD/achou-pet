@@ -10,7 +10,7 @@ export default function UsageGuidePage() {
   return (
     <main className="w-full bg-primary/50 min-h-screen p-4 md:p-8">
       <Container className="max-w-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
           <CustomCard className="flex flex-col justify-center items-center bg-white w-72 text-center">
             <div className="rounded-full bg-primary/90 text-white size-10 flex items-center justify-center text-2xl font-bold mb-3 shadow-md">
               1
@@ -68,7 +68,7 @@ export default function UsageGuidePage() {
         </div>
         <Link
           href="/auth/sign-up"
-          className="flex justify-center mt-8 md:mt-14 animate-bounce "
+          className="flex justify-center mt-8 md:mt-14 animate-bounce pb-10"
         >
           <Button variant="secondary" className="w-72">
             Começar
