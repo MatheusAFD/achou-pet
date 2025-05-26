@@ -56,10 +56,12 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
     >
       <section className="flex flex-col items-center gap-4">
         <Image
-          src="/address-map.svg"
+          src="/address-map.png"
+          quality={100}
           width={256}
           height={256}
           alt="Imagem ilustrada de uma carta com icone de localização."
+          priority
         />
 
         <div className="flex flex-col items-center gap-4 w-full">

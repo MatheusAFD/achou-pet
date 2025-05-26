@@ -143,7 +143,14 @@ export const ScanPetCredential = (props: ScanPetCredentialProps) => {
         1. Aponte a câmera para o QR Code
       </h1>
 
-      <Image src="/scan-camera.svg" width={256} height={256} alt="Camera" />
+      <Image
+        src="/scan-camera.png"
+        quality={100}
+        width={256}
+        height={256}
+        alt="Camera"
+        priority
+      />
 
       <Button
         onClick={() => {
