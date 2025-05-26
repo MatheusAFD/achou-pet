@@ -6,7 +6,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
-import { Button, DialogClose } from '@user-app/modules/@shared/components'
+import {
+  Button,
+  DialogClose,
+  Loading
+} from '@user-app/modules/@shared/components'
 import {
   MaskField,
   TextField
@@ -47,7 +51,8 @@ export const AddressForm = (props: AddressFormProps) => {
     resolver: zodResolver(addressFormSchema),
     resetOptions: {
       keepErrors: true
-    }
+    },
+    disabled: isPending
   })
 
   return (
@@ -187,6 +192,8 @@ export const AddressForm = (props: AddressFormProps) => {
           {actionText}
         </Button>
       </footer>
+
+      <Loading isGlobal isLoading={isLoading || isPending} />
     </form>
   )
 }

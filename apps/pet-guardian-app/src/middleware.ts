@@ -27,6 +27,10 @@ export function middleware(request: NextRequest) {
     return handleRedirect(request, REDIRECT_WHEN_AUTHENTICATED)
   }
 
+  if (publicRoute) {
+    return NextResponse.next()
+  }
+
   if (token) {
     try {
       const decoded: { exp?: number } = jwtDecode(token)

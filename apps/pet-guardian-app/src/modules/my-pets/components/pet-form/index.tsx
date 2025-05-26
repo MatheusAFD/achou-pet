@@ -5,7 +5,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 
-import { Button, Conditional } from '@user-app/modules/@shared/components'
+import {
+  Button,
+  Conditional,
+  Loading
+} from '@user-app/modules/@shared/components'
 import {
   CheckboxField,
   SelectedField,
@@ -190,6 +194,8 @@ export const PetForm = (props: PetFormProps) => {
           {actionText}
         </Button>
       </footer>
+
+      <Loading isGlobal isLoading={isLoading} />
     </form>
   )
 }

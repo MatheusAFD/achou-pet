@@ -27,6 +27,10 @@ export function middleware(request: NextRequest) {
     return handleRedirect(request, REDIRECT_WHEN_AUTHENTICATED)
   }
 
+  if (publicRoute) {
+    return NextResponse.next()
+  }
+
   if (token) {
     try {
       const decoded: { exp?: number; role: string } = jwtDecode(token)
@@ -45,10 +49,6 @@ export function middleware(request: NextRequest) {
     } catch {
       return handleRedirect(request, REDIRECT_WHEN_TOKEN_INVALID)
     }
-  }
-
-  if (publicRoute) {
-    return NextResponse.next()
   }
 
   return handleRedirect(request, REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)

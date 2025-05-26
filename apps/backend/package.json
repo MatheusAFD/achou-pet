@@ -20,7 +20,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org m-labs --project backend-achou-pet ./dist && sentry-cli sourcemaps upload --org m-labs --project backend-achou-pet ./dist"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.812.0",
@@ -36,20 +37,22 @@
     "@nestjs/swagger": "^11.0.3",
     "@nestjs/throttler": "^6.4.0",
     "@nestjs/websockets": "^11.0.9",
+    "@sentry/cli": "^2.45.0",
+    "@sentry/nestjs": "^9.22.0",
     "@types/sharp": "^0.32.0",
     "archiver": "^7.0.1",
     "bcryptjs": "^3.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "drizzle-orm": "^0.43.1",
+    "pg": "^8.13.1",
     "qrcode": "^1.5.4",
     "reflect-metadata": "^0.2.2",
     "resend": "^4.5.1",
     "rxjs": "^7.8.1",
     "sharp": "^0.34.1",
     "ulid": "^2.3.0",
-    "zod": "^3.24.1",
-    "pg": "^8.13.1"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
