@@ -45,7 +45,7 @@ export const SignInForm = () => {
         description: 'Você será redirecionado em alguns instantes.'
       })
 
-      router.replace('/admin/credenciais')
+      router.push('/admin/credenciais')
     } catch {
       toast.error('Erro!', {
         description: 'Erro de conexão.'
