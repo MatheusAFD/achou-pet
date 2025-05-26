@@ -111,9 +111,13 @@ export class PetsService {
   ): Promise<string | null> {
     const oldPhotoUrl = pet.photoUrl
 
+    const extractKey = (url: string) => {
+      return url.replace(/^https?:\/\/[^/]+\/[^/]+\//, '')
+    }
+
     if (data.photoUrl === '') {
       if (oldPhotoUrl) {
-        const key = oldPhotoUrl.split('/').slice(-2).join('/')
+        const key = extractKey(oldPhotoUrl)
         await this.storageService.deleteFile(key)
       }
       return null
@@ -121,7 +125,7 @@ export class PetsService {
 
     if (data.photoUrl && data.photoUrl !== oldPhotoUrl) {
       if (oldPhotoUrl) {
-        const key = oldPhotoUrl.split('/').slice(-2).join('/')
+        const key = extractKey(oldPhotoUrl)
         await this.storageService.deleteFile(key)
       }
       return data.photoUrl
