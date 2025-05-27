@@ -25,7 +25,9 @@ export async function POST(req: NextRequest): Promise<Response> {
 
   const isProduction = process.env.NODE_ENV === 'production'
 
-  res.cookies.set('achou-pet-admin-token', response!.accessToken, {
+  res.cookies.set({
+    name: 'achou-pet-admin-token',
+    value: response!.accessToken,
     httpOnly: true,
     secure: isProduction,
     maxAge: ONE_DAY_IN_SECONDS,
