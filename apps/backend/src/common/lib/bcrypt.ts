@@ -1,8 +1,6 @@
 import * as bcrypt from 'bcryptjs'
 
-import { env } from '../../../env'
-
-const roundsOfHashing = env.BCRYPT_ROUNDS
+const roundsOfHashing = process.env.BCRYPT_ROUNDS!
 
 export async function encryptData(data: string) {
   return await bcrypt.hash(data, roundsOfHashing)

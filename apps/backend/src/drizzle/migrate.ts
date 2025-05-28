@@ -5,12 +5,11 @@ import * as path from 'path'
 import { Pool } from 'pg'
 import { exit } from 'process'
 
-import { env } from '../../env'
 import * as schema from './schema'
 
 void (async () => {
   const pool = new Pool({
-    connectionString: env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL!
   })
   let db: NodePgDatabase<typeof schema> | null = null
   db = drizzle(pool, {
