@@ -30,4 +30,4 @@ COPY --from=development /usr/src/app/src/drizzle ./src/drizzle
 
 EXPOSE 4000
 
-CMD ["sh", "-c", "npm run migrate && node dist/src/main"]
+CMD ["sh", "-c", "npm run migrate:prod && node dist/src/main"]
