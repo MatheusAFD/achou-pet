@@ -22,6 +22,7 @@ export const updatePet = async (
   if (!error) {
     revalidateTag('pet')
     revalidateTag('pets')
+    revalidateTag('pet-by-credential-id')
   }
 
   return [error, response]

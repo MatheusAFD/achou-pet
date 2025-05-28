@@ -5,7 +5,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogClose } from '@radix-ui/react-dialog'
 
-import { Button, Conditional } from '@user-app/modules/@shared/components'
+import {
+  Button,
+  Conditional,
+  Loading
+} from '@user-app/modules/@shared/components'
 import {
   CheckboxField,
   SelectedField,
@@ -55,18 +59,22 @@ export const PetForm = (props: PetFormProps) => {
 
   const handleFormSubmit = async (data: PetFormData) => {
     let photoUrl = ''
+
     if (data.photo instanceof File) {
       photoUrl = await uploadToR2(data.photo)
-    } else if (typeof data.photo === 'string' && data.photo) {
+    }
+
+    if (typeof data.photo === 'string' && data.photo) {
       photoUrl = data.photo
     }
+
     if (!data.photo) {
       photoUrl = ''
     }
+
     const payload = {
       ...data,
-      photoUrl,
-      photo: undefined
+      photoUrl
     }
     await onSubmit(payload)
   }
@@ -190,6 +198,8 @@ export const PetForm = (props: PetFormProps) => {
           {actionText}
         </Button>
       </footer>
+
+      <Loading isGlobal isLoading={isLoading} />
     </form>
   )
 }

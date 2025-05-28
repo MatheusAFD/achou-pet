@@ -5,7 +5,6 @@ import {
   Body,
   Param,
   Patch,
-  UploadedFile,
   UseInterceptors
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
@@ -58,7 +57,6 @@ export class CredentialsController {
   update(
     @Param('id') id: string,
     @Body() attachCredentialDto: CreatePetDto,
-    @UploadedFile() photo: any,
     @CurrentUser() user: AuthUser
   ) {
     return this.attachCredentialToUserUseCase.execute(
@@ -66,7 +64,7 @@ export class CredentialsController {
         credentialId: id,
         userId: user.id
       },
-      { ...attachCredentialDto, photo }
+      attachCredentialDto
     )
   }
 }

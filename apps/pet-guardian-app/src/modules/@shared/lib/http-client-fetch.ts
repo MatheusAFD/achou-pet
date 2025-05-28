@@ -1,5 +1,7 @@
 'use server'
 
+import { redirect } from 'next/navigation'
+
 import { getAuthToken } from '../utils'
 
 export type RequestConfig<TData = unknown> = {
@@ -35,7 +37,11 @@ export const httpClientFetch = async <
   contentType = 'application/json',
   ...config
 }: RequestConfig<TVariables>): Promise<ResponseConfig<TData, TError>> => {
-  const { token } = await getAuthToken()
+  const { token, tokenHasExpired } = await getAuthToken()
+
+  if (tokenHasExpired) {
+    redirect('/auth/sign-out')
+  }
 
   let body: BodyInit | undefined
   let headers: Record<string, string> = {

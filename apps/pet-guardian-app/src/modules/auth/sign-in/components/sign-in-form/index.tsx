@@ -48,7 +48,7 @@ export const SignInForm = () => {
         description: 'Você será redirecionado em alguns instantes.'
       })
 
-      router.replace('/meus-pets')
+      router.push('/meus-pets')
     } catch {
       toast.error('Erro!', {
         description: 'Erro de conexão.'

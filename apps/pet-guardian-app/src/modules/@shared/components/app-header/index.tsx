@@ -14,7 +14,7 @@ export const AppHeader = () => {
 
   return (
     <header className="w-full sticky top-0 z-10 md:relative bg-background flex justify-center items-center h-[72px] border-b border-sidebar-border">
-      <SidebarTrigger className="pl-7" />
+      <SidebarTrigger className="ml-3" />
       <Container className="w-full flex items-end">
         <div className="flex items-center gap-3 md:p-4">
           <Link

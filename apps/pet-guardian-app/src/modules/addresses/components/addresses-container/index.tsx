@@ -20,10 +20,12 @@ export const AddressesContainer = async () => {
 
       <Conditional condition={!hasData}>
         <NoDataBackground
-          src="/searching-house.svg"
+          src="/searching-house.png"
+          quality={100}
           text="Você ainda não um tem endereço cadastrado!"
           alt="Imagem ilustrada de uma casa com uma lupa."
           className="mt-10"
+          priority
         />
       </Conditional>
     </>

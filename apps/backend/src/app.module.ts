@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { APP_GUARD, Reflector } from '@nestjs/core'
+import { APP_FILTER, APP_GUARD, Reflector } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import { ThrottlerModule } from '@nestjs/throttler'
+
+import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup'
 
 import { AuthModule } from '@modules/auth/auth.module'
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard'
@@ -26,6 +28,7 @@ const ONE_MINUTE_IN_MS = 60 * 1000
 
 @Module({
   imports: [
+    SentryModule.forRoot(),
     DrizzleModule,
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
@@ -52,6 +55,7 @@ const ONE_MINUTE_IN_MS = 60 * 1000
     AppService,
     JwtService,
     Reflector,
+
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard
@@ -63,6 +67,10 @@ const ONE_MINUTE_IN_MS = 60 * 1000
     {
       provide: APP_GUARD,
       useClass: ThrottlerUserGuard
+    },
+    {
+      provide: APP_FILTER,
+      useClass: SentryGlobalFilter
     }
   ]
 })

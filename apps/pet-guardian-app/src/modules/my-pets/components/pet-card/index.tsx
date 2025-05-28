@@ -1,11 +1,21 @@
 'use client'
 
-import { Edit, Mars, Venus, Syringe, Pill, BeanOff } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import {
+  Edit,
+  Mars,
+  Venus,
+  Syringe,
+  Pill,
+  BeanOff,
+  ExternalLink
+} from 'lucide-react'
 
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
   Button,
   ChildTooltip,
   Conditional,
@@ -40,10 +50,12 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
     >
       <div className="flex flex-col items-center p-2">
         <Avatar className="size-24 border-2 border-primary shadow-md">
-          <AvatarImage
+          <Image
             src={photoUrl || '/logo.png'}
             width={112}
             height={112}
+            quality={100}
+            priority
             alt="Imagem de perfil do pet"
             className="object-cover"
           />
@@ -87,16 +99,30 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
         </div>
       </div>
 
-      <ChildTooltip content="Editar">
-        <Button
-          variant="outline"
-          size="icon"
-          className="absolute top-3 right-3 border-tertiary hover:bg-tertiary/10"
-          onClick={onEdit}
-        >
-          <Edit size={15} className="text-tertiary" />
-        </Button>
-      </ChildTooltip>
+      <div className="flex flex-col gap-2 absolute top-3 right-3">
+        <ChildTooltip content="Editar">
+          <Button
+            variant="outline"
+            size="icon"
+            className="size-8 border-tertiary hover:bg-tertiary/10"
+            onClick={onEdit}
+          >
+            <Edit size={15} className="text-tertiary" />
+          </Button>
+        </ChildTooltip>
+
+        <ChildTooltip content="Página do Pet">
+          <Link href={`/pet/${pet.credentialId}`} target="_blank">
+            <Button
+              variant="outline"
+              size="icon"
+              className="size-8 border-tertiary hover:bg-tertiary/10"
+            >
+              <ExternalLink size={15} className="text-tertiary" />
+            </Button>
+          </Link>
+        </ChildTooltip>
+      </div>
 
       <div className="absolute bottom-3 right-3.5 flex gap-2">
         <ChildTooltip content={isVaccinated ? 'Vacinado' : 'Não vacinado'}>
