@@ -21,8 +21,8 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
 COPY .env ./
-# Roda as migrations antes do build
-RUN pnpm run migrate
+# Roda as migrations antes do build, exportando variáveis do .env
+RUN set -a && . .env && pnpm run migrate
 RUN pnpm run build
 
 #
