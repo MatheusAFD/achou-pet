@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcryptjs'
-import { env } from 'env'
+import { env } from '../../../env'
 
 const roundsOfHashing = env.BCRYPT_ROUNDS
 

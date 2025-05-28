@@ -1,7 +1,7 @@
 import { type NodePgDatabase, drizzle } from 'drizzle-orm/node-postgres'
 import { migrate } from 'drizzle-orm/node-postgres/migrator'
 
-import { env } from 'env'
+import { env } from '../../env'
 import * as path from 'path'
 import { Pool } from 'pg'
 import { exit } from 'process'
