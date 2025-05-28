@@ -8,7 +8,7 @@ import {
 import { and, eq, asc, desc } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { addresses } from '@db/drizzle/schema/schema'
+import { addresses } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { AddressTypeEnum } from '@common/enums/db-enums'

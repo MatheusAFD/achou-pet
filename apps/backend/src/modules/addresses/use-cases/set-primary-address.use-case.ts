@@ -3,7 +3,7 @@ import { Inject, NotFoundException } from '@nestjs/common'
 import { and, eq } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { addresses } from '@db/drizzle/schema/schema'
+import { addresses } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { AddressTypeEnum } from '@common/enums/db-enums'

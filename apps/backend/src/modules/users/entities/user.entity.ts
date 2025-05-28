@@ -1,6 +1,6 @@
 import { Exclude } from 'class-transformer'
 
-import { RoleEnum, users } from '@db/drizzle/schema/schema'
+import { RoleEnum, users } from '@db/drizzle/schema'
 
 type UserSelect = typeof users.$inferSelect
 

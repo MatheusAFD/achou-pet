@@ -1,6 +1,6 @@
 import { IsString, IsEmail, MinLength } from 'class-validator'
 
-import { users } from '@db/drizzle/schema/schema'
+import { users } from '@db/drizzle/schema'
 
 type CreateUserInsert = Omit<typeof users.$inferInsert, 'role'>
 

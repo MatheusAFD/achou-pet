@@ -5,7 +5,7 @@ import { NodePgDatabase } from 'drizzle-orm/node-postgres'
 
 import { Pool } from 'pg'
 
-import * as schema from './schema/schema'
+import * as schema from './schema'
 
 export const DrizzleAsyncProvider = 'DrizzleAsyncProvider'
 

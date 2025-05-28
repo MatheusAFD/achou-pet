@@ -1,4 +1,4 @@
-import { addresses, AddressTypeEnum } from '@db/drizzle/schema/schema'
+import { addresses, AddressTypeEnum } from '@db/drizzle/schema'
 
 type AddressType = typeof addresses.$inferSelect
 

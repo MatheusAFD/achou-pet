@@ -10,7 +10,7 @@ import { eq, and, desc } from 'drizzle-orm'
 import { plainToClass } from 'class-transformer'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { userTerms, users, RoleEnum } from '@db/drizzle/schema/schema'
+import { userTerms, users, RoleEnum } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { UserTermSituationEnum } from '@common/enums/db-enums'

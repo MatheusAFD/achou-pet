@@ -8,7 +8,7 @@ import {
 import { count, desc, eq, ilike, or } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { batches } from '@db/drizzle/schema/schema'
+import { batches } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { DefaultFilterDTO } from '@common/dto'

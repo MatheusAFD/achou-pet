@@ -3,7 +3,7 @@ import { Injectable, Inject } from '@nestjs/common'
 import { eq, and } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { terms, userTerms } from '@db/drizzle/schema/schema'
+import { terms, userTerms } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { UserTermSituationEnum } from '@common/enums/db-enums'

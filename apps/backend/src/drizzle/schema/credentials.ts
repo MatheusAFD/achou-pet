@@ -5,7 +5,7 @@ import { CredentialsStatusEnum, pgCredentialsStatusEnum } from '@common/enums'
 import { createCustomId } from '@common/lib'
 import { timestamps } from '@common/utils'
 
-import { batches, users } from './schema'
+import { batches, users } from '.'
 import { pets } from './pets'
 
 export const credentials = pgTable('credentials', {

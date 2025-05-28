@@ -1,4 +1,4 @@
-import { batches } from '@db/drizzle/schema/schema'
+import { batches } from '@db/drizzle/schema'
 
 type BatchType = typeof batches.$inferSelect
 
