@@ -26,7 +26,10 @@ COPY package*.json ./
 RUN npm install --frozen-lockfile --prod # Use --frozen-lockfile for npm v7+ and --prod to install only production dependencies
 
 COPY --from=development /usr/src/app/dist ./dist
+COPY --from=development /usr/src/app/src/drizzle/migrations ./dist/src/drizzle/migrations
 
 EXPOSE 4000
 
-CMD ["npm", "run", "start:prod"]
+RUN npm run migrate:prod
+
+CMD npm run start:prod
