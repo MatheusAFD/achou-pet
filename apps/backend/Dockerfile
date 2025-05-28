@@ -29,7 +29,8 @@ COPY . .
 RUN pnpm add -D tsx
 
 # Roda as migrations com Drizzle usando drizzle.config.ts e tsx
-RUN yes | pnpm exec drizzle-kit push --config=drizzle.config.ts
+RUN pnpm exec drizzle-kit push --config=drizzle.config.ts --force
+
 
 
 # Builda o projeto (geralmente algo como tsc ou next build)
