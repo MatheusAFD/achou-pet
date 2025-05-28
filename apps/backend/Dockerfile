@@ -20,6 +20,7 @@ WORKDIR /usr/src/app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
+COPY .env ./
 # Roda as migrations antes do build
 RUN pnpm run migrate
 RUN pnpm run build
