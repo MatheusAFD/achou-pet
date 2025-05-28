@@ -6,7 +6,10 @@ export default defineConfig({
     process.env.NODE_ENV === 'production'
       ? './drizzle/schema'
       : './src/drizzle/schema',
-  out: './src/drizzle/migrations',
+  out:
+    process.env.NODE_ENV === 'production'
+      ? './drizzle/migrations'
+      : './src/drizzle/migrations',
   dbCredentials: {
     url:
       process.env.DATABASE_URL ??
