@@ -4,7 +4,7 @@ export default defineConfig({
   dialect: 'postgresql',
   schema:
     process.env.NODE_ENV === 'production'
-      ? './dist/src/drizzle/schema'
+      ? './drizzle/schema'
       : './src/drizzle/schema',
   out: './src/drizzle/migrations',
   dbCredentials: {
