@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "postbuild": "cp -r src/drizzle/migrations dist/src/drizzle/ && cp -r src/drizzle/schema dist/src/drizzle/",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx ./src/drizzle/migrate.ts",
     "migrate": "tsx ./src/drizzle/migrate.ts",

@@ -1,15 +1,15 @@
 import { Config, defineConfig } from 'drizzle-kit'
 
+import fs from 'fs'
+
+function resolvePath(primary: string, fallback: string) {
+  return fs.existsSync(primary) ? primary : fallback
+}
+
 export default defineConfig({
   dialect: 'postgresql',
-  schema:
-    process.env.NODE_ENV === 'production'
-      ? './drizzle/schema'
-      : './src/drizzle/schema',
-  out:
-    process.env.NODE_ENV === 'production'
-      ? './drizzle/migrations'
-      : './src/drizzle/migrations',
+  schema: resolvePath('./dist/src/drizzle/schema', './src/drizzle/schema'),
+  out: resolvePath('./dist/src/drizzle/migrations', './src/drizzle/migrations'),
   dbCredentials: {
     url:
       process.env.DATABASE_URL ??
