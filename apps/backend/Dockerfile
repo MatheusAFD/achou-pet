@@ -9,7 +9,7 @@ FROM base AS prod-deps
 
 WORKDIR /usr/src/app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --prod
 
 #
 # BUILD STAGE
@@ -18,7 +18,7 @@ FROM base AS build
 
 WORKDIR /usr/src/app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 COPY . .
 COPY .env ./
 # Roda as migrations antes do build, exportando variáveis do .env
