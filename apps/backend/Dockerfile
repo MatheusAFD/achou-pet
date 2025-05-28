@@ -36,5 +36,6 @@ COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/package.json ./package.json
 COPY --from=build /usr/src/app/drizzle.config.ts ./drizzle.config.ts
 COPY --from=build /usr/src/app/src/drizzle ./drizzle
+COPY --from=build /usr/src/app/src/drizzle ./src/drizzle
 EXPOSE 4000
 CMD ["pnpm", "run", "start:prod"]
