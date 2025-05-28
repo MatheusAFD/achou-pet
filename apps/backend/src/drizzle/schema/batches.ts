@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm'
 import { numeric, pgTable, serial, text } from 'drizzle-orm/pg-core'
+
 import { createCustomId } from '../../common/lib'
 import { timestamps } from '../../common/utils'
 import { credentials } from './credentials'
