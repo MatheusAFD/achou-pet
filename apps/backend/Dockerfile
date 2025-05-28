@@ -22,7 +22,15 @@ RUN pnpm install
 COPY . .
 COPY .env ./
 # Roda as migrations antes do build, exportando variáveis do .env
-RUN set -a && . .env && pnpm run migrate && printf 'Yes, I want to execute all statements\n' | pnpm drizzle:push
+RUN apk add --no-cache expect \
+  && set -a && . .env \
+  && pnpm run migrate \
+  && expect -c "\
+    spawn pnpm drizzle:push\
+    expect \"Yes, I want to execute all statements\"\
+    send \"Yes, I want to execute all statements\\r\"\
+    expect eof\
+  "
 RUN pnpm run build
 
 #
