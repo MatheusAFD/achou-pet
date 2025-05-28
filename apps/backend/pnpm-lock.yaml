@@ -68,6 +68,9 @@ importers:
       class-validator:
         specifier: ^0.14.1
         version: 0.14.2
+      drizzle-kit:
+        specifier: ^0.31.1
+        version: 0.31.1
       drizzle-orm:
         specifier: ^0.43.1
         version: 0.43.1(@opentelemetry/api@1.9.0)(@types/pg@8.11.14)(pg@8.15.6)
@@ -141,9 +144,6 @@ importers:
       '@types/supertest':
         specifier: ^6.0.2
         version: 6.0.3
-      drizzle-kit:
-        specifier: ^0.31.1
-        version: 0.31.1
       eslint:
         specifier: ^9.18.0
         version: 9.26.0
@@ -187,7 +187,7 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       tsx:
-        specifier: ^4.19.2
+        specifier: ^4.19.4
         version: 4.19.4
       typescript:
         specifier: ^5.7.3

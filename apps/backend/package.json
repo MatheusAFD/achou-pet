@@ -7,14 +7,17 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "postbuild": "cp -r src/drizzle/migrations dist/src/drizzle/ && cp -r src/drizzle/schema dist/src/drizzle/",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx ./src/drizzle/migrate.ts",
+    "migrate": "pnpm exec drizzle-kit push --config=drizzle.config.ts",
     "migrate:prod": "node dist/src/drizzle/migrate.js",
+    "drizzle:push": "drizzle-kit push",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/src/main.js",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -44,6 +47,7 @@
     "bcryptjs": "^3.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "drizzle-kit": "^0.31.1",
     "drizzle-orm": "^0.43.1",
     "pg": "^8.13.1",
     "qrcode": "^1.5.4",
@@ -52,8 +56,7 @@
     "rxjs": "^7.8.1",
     "sharp": "^0.34.1",
     "ulid": "^2.3.0",
-    "zod": "^3.24.1",
-    "drizzle-kit": "^0.31.1"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -85,7 +88,7 @@
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.19.2",
+    "tsx": "^4.19.4",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
   },
