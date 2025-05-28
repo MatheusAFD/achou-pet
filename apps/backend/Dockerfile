@@ -22,7 +22,7 @@ RUN pnpm install
 COPY . .
 COPY .env ./
 # Roda as migrations antes do build, exportando variáveis do .env
-RUN set -a && . .env && yes | pnpm run migrate && yes | pnpm drizzle:push && yes
+RUN set -a && . .env && pnpm run migrate && printf 'Yes, I want to execute all statements\n' | pnpm drizzle:push
 RUN pnpm run build
 
 #
