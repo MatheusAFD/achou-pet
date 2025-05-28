@@ -27,8 +27,7 @@ RUN npm install --frozen-lockfile
 
 COPY --from=development /usr/src/app/dist ./dist
 COPY --from=development /usr/src/app/src/drizzle ./src/drizzle
-COPY --from=development /usr/src/app/migrations ./migrations
 
 EXPOSE 4000
 
-CMD npm run migrate && node dist/src/main
+CMD ["sh", "-c", "npm run migrate && node dist/src/main"]
