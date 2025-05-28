@@ -23,10 +23,12 @@ COPY package*.json ./
 # COPY pnpm-lock.yaml ./ # Uncomment if using pnpm
 # COPY yarn.lock ./ # Uncomment if using yarn
 
-RUN npm install --frozen-lockfile --prod # Use --frozen-lockfile for npm v7+ and --prod to install only production dependencies
+RUN npm install --frozen-lockfile
 
 COPY --from=development /usr/src/app/dist ./dist
+COPY --from=development /usr/src/app/src/drizzle ./src/drizzle
+COPY --from=development /usr/src/app/migrations ./migrations
 
 EXPOSE 4000
 
-CMD ["node", "dist/src/main"]
+CMD npm run migrate && node dist/src/main
