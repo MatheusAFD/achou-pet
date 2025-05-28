@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator'
 
-import { addresses } from '@db/drizzle/schema'
+import { addresses } from '@db/drizzle/schema/schema'
 
 type CreateAddressInsert = Omit<typeof addresses.$inferInsert, 'userId'>
 

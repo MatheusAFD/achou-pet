@@ -6,7 +6,7 @@ import { plainToClass } from 'class-transformer'
 import { DrizzleSchema } from 'src/drizzle/types'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { addresses, users } from '@db/drizzle/schema'
+import { addresses, users } from '@db/drizzle/schema/schema'
 import { credentials } from '@db/drizzle/schema/credentials'
 import { pets } from '@db/drizzle/schema/pets'
 

@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator'
 
-import { batches } from '@db/drizzle/schema'
+import { batches } from '@db/drizzle/schema/schema'
 
 type CreateBatch = Omit<
   typeof batches.$inferInsert,

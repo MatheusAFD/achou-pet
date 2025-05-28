@@ -1,4 +1,4 @@
-import { terms, userTerms } from '@db/drizzle/schema'
+import { terms, userTerms } from '@db/drizzle/schema/schema'
 
 import { UserTermSituationEnum } from '@common/enums/db-enums'
 

@@ -6,7 +6,7 @@ import * as path from 'path'
 import { Pool } from 'pg'
 import { exit } from 'process'
 
-import * as schema from './schema'
+import * as schema from './schema/schema'
 
 void (async () => {
   const pool = new Pool({

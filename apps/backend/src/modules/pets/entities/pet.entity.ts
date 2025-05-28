@@ -1,4 +1,4 @@
-import { PetGenderEnum, pets, PetSizeEnum } from '@db/drizzle/schema'
+import { PetGenderEnum, pets, PetSizeEnum } from '@db/drizzle/schema/schema'
 
 type PetType = typeof pets.$inferSelect
 
