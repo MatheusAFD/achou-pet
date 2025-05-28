@@ -1,10 +1,9 @@
 import { relations } from 'drizzle-orm'
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
-import { pgUserTermSituationEnum } from '@common/enums/db-enums'
-import { createCustomId } from '@common/lib'
-import { timestamps } from '@common/utils'
-
+import { pgUserTermSituationEnum } from '../../common/enums/db-enums'
+import { createCustomId } from '../../common/lib'
+import { timestamps } from '../../common/utils'
 import { users } from './users'
 
 export const terms = pgTable('terms', {

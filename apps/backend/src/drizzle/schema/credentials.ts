@@ -1,10 +1,12 @@
 import { relations } from 'drizzle-orm'
 import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
-import { CredentialsStatusEnum, pgCredentialsStatusEnum } from '@common/enums'
-import { createCustomId } from '@common/lib'
-import { timestamps } from '@common/utils'
-
+import {
+  CredentialsStatusEnum,
+  pgCredentialsStatusEnum
+} from '../../common/enums'
+import { createCustomId } from '../../common/lib'
+import { timestamps } from '../../common/utils'
 import { batches, users } from './'
 import { pets } from './pets'
 
