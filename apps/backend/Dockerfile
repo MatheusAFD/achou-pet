@@ -35,9 +35,7 @@ COPY --from=prod-deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/package.json ./package.json
 COPY --from=build /usr/src/app/drizzle.config.ts ./drizzle.config.ts
-COPY --from=build /usr/src/app/src/drizzle ./drizzle
-COPY --from=build /usr/src/app/src/drizzle ./src/drizzle
-COPY --from=build /usr/src/app/src/common ./src/common
-COPY --from=build /usr/src/app/env.ts ./src/env.ts
+COPY --from=build /usr/src/app/src/drizzle ./dist/src/drizzle
+
 EXPOSE 4000
 CMD ["pnpm", "run", "start:prod"]
