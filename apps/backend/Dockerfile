@@ -28,6 +28,9 @@ RUN npm install --frozen-lockfile --prod # Use --frozen-lockfile for npm v7+ and
 COPY --from=development /usr/src/app/dist ./dist
 COPY --from=development /usr/src/app/src/drizzle/migrations ./dist/src/drizzle/migrations
 
+COPY entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
 EXPOSE 4000
 
-CMD npm run migrate:prod && npm run start:prod
+ENTRYPOINT ["./entrypoint.sh"]
