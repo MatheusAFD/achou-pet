@@ -30,6 +30,4 @@ COPY --from=development /usr/src/app/src/drizzle/migrations ./dist/src/drizzle/m
 
 EXPOSE 4000
 
-RUN npm run migrate:prod
-
-CMD npm run start:prod
+CMD npm run migrate:prod && npm run start:prod
