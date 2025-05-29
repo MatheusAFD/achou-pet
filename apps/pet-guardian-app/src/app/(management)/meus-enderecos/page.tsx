@@ -1,3 +1,5 @@
+import { Suspense } from 'react'
+
 import { Metadata } from 'next'
 
 import { MapPinHouse } from 'lucide-react'
@@ -5,7 +7,8 @@ import { MapPinHouse } from 'lucide-react'
 import {
   Button,
   Container,
-  LineBadge
+  LineBadge,
+  Loading
 } from '@user-app/modules/@shared/components'
 import {
   AddressesContainer,
@@ -27,7 +30,9 @@ export default function MyAddressesPage() {
         </Button>
       </CreateAddressModal>
 
-      <AddressesContainer />
+      <Suspense fallback={<Loading isLoading />}>
+        <AddressesContainer />
+      </Suspense>
     </Container>
   )
 }

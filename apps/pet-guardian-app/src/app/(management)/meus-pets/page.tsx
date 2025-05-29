@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 
 import { Metadata } from 'next'
 
@@ -7,7 +7,8 @@ import { PawPrint } from 'lucide-react'
 import {
   Button,
   Container,
-  LineBadge
+  LineBadge,
+  Loading
 } from '@user-app/modules/@shared/components'
 import { StepsProvider } from '@user-app/modules/@shared/contexts'
 import { PetsContainer } from '@user-app/modules/my-pets/components'
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   title: 'Meus Pets'
 }
 
-export default async function MyPetsPage() {
+export default function MyPetsPage() {
   return (
     <Container>
       <LineBadge />
@@ -36,7 +37,9 @@ export default async function MyPetsPage() {
         </AttachCredentialModal>
       </StepsProvider>
 
-      <PetsContainer />
+      <Suspense fallback={<Loading isLoading />}>
+        <PetsContainer />
+      </Suspense>
     </Container>
   )
 }
