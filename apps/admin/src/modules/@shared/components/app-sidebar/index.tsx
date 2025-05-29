@@ -19,7 +19,7 @@ import {
 export const AppSidebar = () => {
   return (
     <Sidebar>
-      <SidebarHeader className="flex flex-row items-center gap-4 h-[72px] border-b border-sidebar-border">
+      <SidebarHeader className="flex flex-row items-center gap-4 h-[72px] border-b border-sidebar-border ">
         <Link href="/admin/credenciais">
           <Image
             src="/logo.png"
@@ -56,7 +56,6 @@ export const AppSidebar = () => {
       <SidebarFooter className="mb-8">
         <Link
           href="/auth/sign-out"
-          prefetch={false}
           className={buttonVariants({ variant: 'outline' })}
         >
           <LogOut />

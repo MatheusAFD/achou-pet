@@ -13,11 +13,11 @@ export default function SignOutPage() {
   useEffect(() => {
     fetch('/auth/sign-out-server')
       .then(() => {
-        router.replace('/auth/sign-in')
+        router.push('/auth/sign-in')
       })
       .finally(() => {
         setLoading(false)
-        router.replace('/auth/sign-in')
+        router.push('/auth/sign-in')
       })
   }, [router])
 
