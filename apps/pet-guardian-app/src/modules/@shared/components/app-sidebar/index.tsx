@@ -52,7 +52,6 @@ export const AppSidebar = () => {
       <SidebarFooter className="p-4 pb-10">
         <Link
           href="/auth/sign-out"
-          prefetch={false}
           className={buttonVariants({ variant: 'outline' })}
           data-testid="sign-out-button"
         >
