@@ -10,7 +10,7 @@ pre-push:
           export $(grep -v '^#' .env.test | xargs)
           pnpm dev:test &
           DEV_PID=$!
-          sleep 10 
+          sleep 10
           export $(grep -v '^#' .env.test | xargs)
           pnpm test:e2e
           KILL_EXIT=$?
