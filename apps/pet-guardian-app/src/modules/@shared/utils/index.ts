@@ -1,5 +1,5 @@
 export * from './tailwind-utils'
-export * from './formart-to-moneraty-value'
+export * from './format-to-monetary-value'
 export * from './get-auth-token'
 export * from './get-name-initials'
 export * from './maks'
