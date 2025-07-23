@@ -17,6 +17,19 @@ export class MissingAlertsService {
     private readonly db: DrizzleSchema
   ) {}
 
+  async findOne(id: string): Promise<MissingAlert> {
+    const [activeAlerts] = await this.db
+      .select()
+      .from(missingAlerts)
+      .where(eq(missingAlerts.id, id))
+
+    if (!activeAlerts) {
+      throw new Error(`Missing alert not found`)
+    }
+
+    return activeAlerts
+  }
+
   async findAllActive(): Promise<MissingAlert[]> {
     const activeAlerts = await this.db
       .select()
