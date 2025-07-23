@@ -10,20 +10,24 @@ import { DrizzleSchema } from '@db/drizzle/types'
 import { MissingAlertsStatusEnum } from '@common/enums/db-enums'
 
 import { MissingAlert } from '../entities/missing-alert.entity'
+import { MissingAlertsService } from '../missing-alerts.service'
 
 export class RemoveMissingAlertUseCase {
   constructor(
     @Inject(DrizzleAsyncProvider)
-    private readonly db: DrizzleSchema
+    private readonly db: DrizzleSchema,
+    private readonly missingAlertsService: MissingAlertsService
   ) {}
 
   async execute(id: string): Promise<MissingAlert> {
     try {
       const result = await this.db.transaction(async (tx) => {
-        const [alert] = await tx
+        const alert = await this.missingAlertsService.findOne(id)
+
+        const [updatedAlert] = await tx
           .update(missingAlerts)
           .set({ status: MissingAlertsStatusEnum.INACTIVE })
-          .where(eq(missingAlerts.id, id))
+          .where(eq(missingAlerts.id, alert.id))
           .returning()
 
         await tx
@@ -31,7 +35,7 @@ export class RemoveMissingAlertUseCase {
           .set({ isMissing: false })
           .where(eq(pets.id, alert.petId))
 
-        return alert
+        return updatedAlert
       })
       return result
     } catch (error) {
