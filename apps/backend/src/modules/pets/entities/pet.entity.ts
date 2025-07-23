@@ -9,6 +9,7 @@ export class Pet implements PetType {
   birthDate: Date | null
   species: string
   breed: string | null
+  isMissing: boolean | null
   size: keyof typeof PetSizeEnum
   color: string | null
   isVaccinated: boolean
