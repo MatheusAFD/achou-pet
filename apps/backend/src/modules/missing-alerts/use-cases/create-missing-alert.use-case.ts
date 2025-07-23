@@ -21,16 +21,17 @@ export class CreateMissingAlertUseCase {
   ): Promise<MissingAlert> {
     try {
       const result = await this.db.transaction(async (tx) => {
-        const [alert] = await tx
+        const [createdAlert] = await tx
           .insert(missingAlerts)
           .values(createMissingAlertDto)
           .returning()
+
         await tx
           .update(pets)
           .set({ isMissing: true })
           .where(eq(pets.id, createMissingAlertDto.petId))
 
-        return alert
+        return createdAlert
       })
       return result
     } catch (error) {
