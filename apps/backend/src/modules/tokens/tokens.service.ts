@@ -52,7 +52,7 @@ export class TokensService {
 
       await this.emailsService.send({
         from: env.RESEND_EMAIL_FROM,
-        subject: 'Achou Pet - Seu código de verificação',
+        subject: `Achou Pet - ${value} Seu código de verificação`,
         to: key,
         html: sendTokenEmailTemplate(value)
       })
