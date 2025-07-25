@@ -22,6 +22,7 @@ export class MissingAlertsService {
       .select()
       .from(missingAlerts)
       .where(eq(missingAlerts.id, id))
+      .limit(1)
 
     if (!activeAlerts) {
       throw new Error(`Missing alert not found`)
