@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common'
+import { Injectable, Inject, NotFoundException } from '@nestjs/common'
 
 import { eq } from 'drizzle-orm'
 
@@ -25,7 +25,7 @@ export class MissingAlertsService {
       .limit(1)
 
     if (!activeAlerts) {
-      throw new Error(`Missing alert not found`)
+      throw new NotFoundException(`Missing alert not found`)
     }
 
     return activeAlerts
