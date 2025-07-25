@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Delete, Param } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common'
 
 import { CreateMissingAlertDto } from './dto/create-missing-alert.dto'
 import { MissingAlert } from './entities/missing-alert.entity'
@@ -21,7 +21,7 @@ export class MissingAlertsController {
     return this.createMissingAlertUseCase.execute(createMissingAlertDto)
   }
 
-  @Delete(':id')
+  @Patch(':id')
   remove(@Param('id') id: string): Promise<MissingAlert> {
     return this.removeMissingAlertUseCase.execute(id)
   }
