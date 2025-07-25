@@ -8,6 +8,7 @@ import { CameraOff, ScanQrCode } from 'lucide-react'
 import QrScanner from 'qr-scanner'
 import { toast } from 'sonner'
 
+import { ScanCamera } from '@user-app/modules/@shared/assets'
 import { Button, Conditional } from '@user-app/modules/@shared/components'
 import { useSteps } from '@user-app/modules/@shared/hooks'
 
@@ -144,7 +145,7 @@ export const ScanPetCredential = (props: ScanPetCredentialProps) => {
       </h1>
 
       <Image
-        src="/scan-camera.png"
+        src={ScanCamera}
         quality={100}
         width={256}
         height={256}
