@@ -8,7 +8,7 @@ import {
 
 import { and, eq } from 'drizzle-orm'
 
-import { env } from 'process'
+import { env } from 'env'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { tokens } from '@db/drizzle/schema/tokens'
