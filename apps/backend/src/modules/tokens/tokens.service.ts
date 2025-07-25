@@ -8,7 +8,7 @@ import {
 
 import { and, eq } from 'drizzle-orm'
 
-import { env } from 'process'
+import { env } from 'env'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
 import { tokens } from '@db/drizzle/schema/tokens'
@@ -52,7 +52,7 @@ export class TokensService {
 
       await this.emailsService.send({
         from: env.RESEND_EMAIL_FROM,
-        subject: 'Achou Pet - Seu código de verificação',
+        subject: `Achou Pet - ${value} Seu código de verificação`,
         to: key,
         html: sendTokenEmailTemplate(value)
       })

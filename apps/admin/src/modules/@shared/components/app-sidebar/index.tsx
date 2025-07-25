@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { LogOut } from 'lucide-react'
 
+import { Logo } from '../../assets'
 import { sidebarMenuItems } from '../../constants/sidebar-menu-items'
 import { NavItem } from '../nav-item'
 import {
@@ -22,7 +23,7 @@ export const AppSidebar = () => {
       <SidebarHeader className="flex flex-row items-center gap-4 h-[72px] border-b border-sidebar-border ">
         <Link href="/admin/credenciais">
           <Image
-            src="/logo.png"
+            src={Logo}
             width={64}
             height={64}
             quality={100}
