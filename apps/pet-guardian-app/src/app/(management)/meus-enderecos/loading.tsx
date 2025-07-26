@@ -1,5 +1,14 @@
-import { Loading } from '@user-app/modules/@shared/components'
+import { Container } from '@user-app/modules/@shared/components'
+import {
+  AddressesListSkeleton,
+  MyAddressesHeader
+} from '@user-app/modules/addresses/components'
 
 export default function LoadingPage() {
-  return <Loading isLoading isGlobal />
+  return (
+    <Container>
+      <MyAddressesHeader />
+      <AddressesListSkeleton />
+    </Container>
+  )
 }

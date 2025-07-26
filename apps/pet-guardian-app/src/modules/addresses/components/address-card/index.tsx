@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Edit, Settings2 } from 'lucide-react'
 import { toast } from 'sonner'
 
+import { AddressMap } from '@user-app/modules/@shared/assets'
 import {
   Badge,
   Button,
@@ -56,7 +57,7 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
     >
       <section className="flex flex-col items-center gap-4">
         <Image
-          src="/address-map.png"
+          src={AddressMap}
           quality={100}
           width={256}
           height={256}
