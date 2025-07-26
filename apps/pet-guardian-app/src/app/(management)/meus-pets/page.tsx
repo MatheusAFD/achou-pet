@@ -28,7 +28,7 @@ export default function MyPetsPage() {
   return (
     <Container>
       <LineBadge />
-      <h1 className="text-3xl font-medium">Meus pets</h1>
+      <h1 className="text-3xl">Meus pets</h1>
       <StepsProvider initialStep={AttachCredentialFormSteps.ScanQrCode}>
         <AttachCredentialModal>
           <Button className="w-fit mt-4">
