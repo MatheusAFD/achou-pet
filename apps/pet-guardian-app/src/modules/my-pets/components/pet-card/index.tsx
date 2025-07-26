@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Edit, Mars, Venus, ExternalLink } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 
+import { Logo } from '@user-app/modules/@shared/assets'
 import {
   Avatar,
   AvatarFallback,
@@ -57,7 +58,7 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
       >
         <Avatar className=" size-24 border-2 border-primary shadow-md">
           <Image
-            src={photoUrl || '/logo.png'}
+            src={photoUrl || Logo}
             width={112}
             height={112}
             quality={100}
