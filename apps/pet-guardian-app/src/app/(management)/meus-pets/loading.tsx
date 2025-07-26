@@ -1,5 +1,5 @@
 import { Loading } from '@user-app/modules/@shared/components'
 
 export default function LoadingPage() {
-  return <Loading isLoading />
+  return <Loading isLoading isGlobal />
 }
