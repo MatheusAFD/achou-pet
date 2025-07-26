@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import { Phone } from 'lucide-react'
 
@@ -32,7 +32,7 @@ export default async function PetCredentialPage({
   const primaryAddress = data?.primaryAddress
 
   if (!pet) {
-    redirect('/guia-de-uso')
+    notFound()
   }
 
   return (
