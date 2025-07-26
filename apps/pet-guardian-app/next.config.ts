@@ -8,6 +8,9 @@ const withBundleAnalyzer = createWithBundleAnalyzer({
 
 const nextConfig: NextConfig = {
   /* config options here */
+  experimental: {
+    devtoolSegmentExplorer: true
+  },
   output: 'standalone',
   images: {
     remotePatterns: [new URL('https://static.achou.pet/achou-pet/**')]
