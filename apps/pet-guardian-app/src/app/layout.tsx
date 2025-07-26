@@ -28,6 +28,8 @@ if (process.env.NEXT_PUBLIC_ENV_MODE === 'test') {
   })()
 }
 
+export const experimental_ppr = true
+
 export default function RootLayout({
   children
 }: Readonly<{
