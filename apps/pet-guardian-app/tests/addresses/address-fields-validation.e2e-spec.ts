@@ -1,11 +1,15 @@
 import { expect } from '@playwright/test'
 
-import { address } from '../../src/mocks/addresses/addresses-store'
 import { signedInTest } from '../fixtures'
+import { address } from '../mocks/addresses/addresses-store'
 
 signedInTest('should require mandatory fields', async ({ page }) => {
   await page.goto('/meus-enderecos')
   await expect(page).toHaveURL(/meus-enderecos/)
+
+  const loadingSkeleton = page.getByTestId('addresses-list-skeleton')
+
+  await expect(loadingSkeleton).not.toBeVisible()
 
   await page.getByTestId('create-address').click()
 
