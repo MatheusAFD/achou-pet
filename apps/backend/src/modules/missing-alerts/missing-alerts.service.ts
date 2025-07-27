@@ -18,17 +18,17 @@ export class MissingAlertsService {
   ) {}
 
   async findOne(id: string): Promise<MissingAlert> {
-    const [activeAlerts] = await this.db
+    const [activeAlert] = await this.db
       .select()
       .from(missingAlerts)
       .where(eq(missingAlerts.id, id))
       .limit(1)
 
-    if (!activeAlerts) {
+    if (!activeAlert) {
       throw new NotFoundException(`Missing alert not found`)
     }
 
-    return activeAlerts
+    return activeAlert
   }
 
   async findAllActive(): Promise<MissingAlert[]> {
