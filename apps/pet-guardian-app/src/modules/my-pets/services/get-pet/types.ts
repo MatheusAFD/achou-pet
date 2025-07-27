@@ -7,6 +7,7 @@ export interface Pet {
   breed?: string
   size: 'SMALL' | 'MEDIUM' | 'LARGE'
   color?: string
+  isMissing: boolean
   isVaccinated: boolean
   hasAllergies: boolean
   needsMedication: boolean

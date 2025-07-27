@@ -4,18 +4,24 @@ import { cookies } from 'next/headers'
 
 import { jwtDecode } from 'jwt-decode'
 
+interface JwtPayload {
+  id: string
+  role: 'ADMIN' | 'USER'
+  exp: number
+  iat: number
+}
+
 export const getAuthToken = async () => {
   const cookieService = await cookies()
 
   const token = cookieService.get('achou-pet-admin-token')
   const refreshToken = cookieService.get('achou-pet-admin-refresh-token')
 
-  const decodedToken = token && jwtDecode(token?.value ?? '')
+  const user: JwtPayload | undefined = token && jwtDecode(token?.value ?? '')
 
-  const tokenHasExpired =
-    decodedToken?.exp && Math.floor(Date.now() / 1000) >= decodedToken.exp
+  const tokenHasExpired = user?.exp && Math.floor(Date.now() / 1000) >= user.exp
 
-  const tokenExpirationTime = decodedToken?.exp
+  const tokenExpirationTime = user?.exp
 
-  return { token, tokenExpirationTime, tokenHasExpired, refreshToken }
+  return { token, user, tokenExpirationTime, tokenHasExpired, refreshToken }
 }

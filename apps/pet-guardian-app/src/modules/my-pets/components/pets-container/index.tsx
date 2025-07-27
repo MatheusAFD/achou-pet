@@ -1,3 +1,4 @@
+import { AddSomething } from '@user-app/modules/@shared/assets'
 import {
   Conditional,
   NoDataBackground
@@ -20,7 +21,7 @@ export const PetsContainer = async () => {
 
       <Conditional condition={!hasData}>
         <NoDataBackground
-          src="/add-something.png"
+          src={AddSomething}
           quality={100}
           text="Você ainda não um tem pet cadastrado!"
           alt="Imagem ilustrada de uma pessoa com um quadro branco a direita."

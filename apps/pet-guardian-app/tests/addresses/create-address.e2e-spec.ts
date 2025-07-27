@@ -1,17 +1,20 @@
 import { expect } from '@playwright/test'
 
-import { address } from '@user-app/mocks/addresses'
-
 import { signedInTest } from '../fixtures'
+import { address } from '../mocks/addresses'
 
 signedInTest('should to create a new address', async ({ page }) => {
   await page.goto('/meus-enderecos')
 
   expect(page).toHaveURL(/meus-enderecos/)
 
-  page.getByTestId('create-address').click()
+  const loadingSkeleton = page.getByTestId('addresses-list-skeleton')
 
-  const modal = page.getByTestId('create-address-modal')
+  await expect(loadingSkeleton).not.toBeVisible()
+
+  await page.getByTestId('create-address').click()
+
+  const modal = page.getByTestId('create-address-modal').first()
 
   await expect(modal).toBeVisible()
 

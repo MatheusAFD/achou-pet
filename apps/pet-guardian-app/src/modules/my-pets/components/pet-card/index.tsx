@@ -3,28 +3,26 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import {
-  Edit,
-  Mars,
-  Venus,
-  Syringe,
-  Pill,
-  BeanOff,
-  ExternalLink
-} from 'lucide-react'
+import { Edit, Mars, Venus, ExternalLink } from 'lucide-react'
+import { twMerge } from 'tailwind-merge'
 
+import { Logo } from '@user-app/modules/@shared/assets'
 import {
   Avatar,
   AvatarFallback,
-  Button,
   ChildTooltip,
   Conditional,
   CustomCard,
-  Skeleton
+  DropdownMenuItem,
+  Skeleton,
+  Switch
 } from '@user-app/modules/@shared/components'
+import { MoreOptionsMenu } from '@user-app/modules/@shared/components/more-options-button'
 
+import { useOptimisticMissing } from '../../hooks/use-optmistic-missing'
 import { Pet } from '../../services/get-pet/types'
 import { petSizeParser } from '../../utils'
+import { PetHealthInfo } from '../pet-health-info'
 
 interface PetCardProps {
   pet: Pet
@@ -37,21 +35,34 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
     gender,
     species,
     size,
+    isMissing,
     isVaccinated,
     needsMedication,
     hasAllergies,
     photoUrl
   } = pet
 
+  const { optimisticMissing, toggleMissing } = useOptimisticMissing(
+    isMissing,
+    pet.id
+  )
+
   return (
     <CustomCard
       as="li"
-      className="relative flex items-center gap-6 p-4 border border-border/80 hover:border-primary/50 transition-all duration-200 ease-in-out"
+      className={twMerge(
+        'relative flex items-center gap-6 p-4 border border-border/80 hover:border-primary/50 transition-all duration-200 ease-in-out'
+      )}
     >
-      <div className="flex flex-col items-center p-2">
-        <Avatar className="size-24 border-2 border-primary shadow-md">
+      <div
+        className={twMerge(
+          'relative flex flex-col items-center p-2',
+          optimisticMissing && 'animate-pulse'
+        )}
+      >
+        <Avatar className=" size-24 border-2 border-primary shadow-md">
           <Image
-            src={photoUrl || '/logo.png'}
+            src={photoUrl || Logo}
             width={112}
             height={112}
             quality={100}
@@ -100,56 +111,37 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
       </div>
 
       <div className="flex flex-col gap-2 absolute top-3 right-3">
-        <ChildTooltip content="Editar">
-          <Button
-            variant="outline"
-            size="icon"
-            className="size-8 border-tertiary hover:bg-tertiary/10"
-            onClick={onEdit}
-          >
-            <Edit size={15} className="text-tertiary" />
-          </Button>
-        </ChildTooltip>
+        <MoreOptionsMenu>
+          <DropdownMenuItem onSelect={onEdit}>
+            <Edit />
+            Editar
+          </DropdownMenuItem>
 
-        <ChildTooltip content="Página do Pet">
           <Link href={`/pet/${pet.credentialId}`} target="_blank">
-            <Button
-              variant="outline"
-              size="icon"
-              className="size-8 border-tertiary hover:bg-tertiary/10"
-            >
-              <ExternalLink size={15} className="text-tertiary" />
-            </Button>
+            <DropdownMenuItem>
+              <ExternalLink size={15} />
+              Página pública
+            </DropdownMenuItem>
           </Link>
-        </ChildTooltip>
+
+          <DropdownMenuItem>
+            <Switch
+              id="is-missing"
+              checked={optimisticMissing}
+              onCheckedChange={toggleMissing}
+            />
+            <label htmlFor="is-missing">Desaparecido</label>
+          </DropdownMenuItem>
+        </MoreOptionsMenu>
       </div>
 
-      <div className="absolute bottom-3 right-3.5 flex gap-2">
-        <ChildTooltip content={isVaccinated ? 'Vacinado' : 'Não vacinado'}>
-          <Syringe
-            size={16}
-            className={isVaccinated ? 'text-tertiary' : 'text-gray-300'}
-          />
-        </ChildTooltip>
-
-        <ChildTooltip
-          content={
-            needsMedication ? 'Necessita remédio' : 'Não necessita remédio'
-          }
-        >
-          <Pill
-            size={16}
-            className={needsMedication ? 'text-tertiary' : 'text-gray-300'}
-          />
-        </ChildTooltip>
-
-        <ChildTooltip content={hasAllergies ? 'Alérgico' : 'Sem alergias'}>
-          <BeanOff
-            size={16}
-            className={hasAllergies ? 'text-tertiary' : 'text-gray-300'}
-          />
-        </ChildTooltip>
-      </div>
+      <PetHealthInfo
+        healthData={{
+          isVaccinated,
+          needsMedication,
+          hasAllergies
+        }}
+      />
     </CustomCard>
   )
 }

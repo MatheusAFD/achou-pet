@@ -11,7 +11,7 @@ export const getPet = async (
     url: `/pets/${petId}`,
     method: 'GET',
     next: {
-      tags: ['pet'],
+      tags: [`pet-${petId}`],
       revalidate: ONE_HOUR_IN_SECONDS
     }
   })

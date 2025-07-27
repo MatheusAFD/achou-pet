@@ -6,13 +6,12 @@ import {
   DeleteObjectCommand
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import * as sharp from 'sharp'
 
 import { env } from '../../../env'
 
 @Injectable()
 export class StorageService {
-  private s3 = new S3Client({
+  private readonly s3 = new S3Client({
     region: env.R2_REGION,
     endpoint: env.R2_ENDPOINT,
     credentials: {
@@ -20,33 +19,6 @@ export class StorageService {
       secretAccessKey: env.R2_SECRET_ACCESS_KEY
     }
   })
-
-  async uploadFile(buffer: Buffer, key: string, mimetype: string) {
-    let uploadBuffer = buffer
-    let uploadMime = mimetype
-
-    if (mimetype.startsWith('image/')) {
-      const optimized = await sharp(buffer)
-        .resize(800, 800, { fit: 'inside' })
-        .toFormat('jpeg', { quality: 80 })
-        .toBuffer()
-      uploadBuffer = optimized
-      uploadMime = 'image/jpeg'
-    }
-
-    const prefix = env.R2_IMAGE_PREFIX || 'stage'
-    const fullKey = `${prefix}/${key}`
-
-    await this.s3.send(
-      new PutObjectCommand({
-        Bucket: env.R2_BUCKET_NAME,
-        Key: fullKey,
-        Body: uploadBuffer,
-        ContentType: uploadMime
-      })
-    )
-    return this.getPublicUrl(fullKey)
-  }
 
   async getPresignedUrl(filename: string, contentType: string) {
     const prefix = env.R2_IMAGE_PREFIX || 'stage'

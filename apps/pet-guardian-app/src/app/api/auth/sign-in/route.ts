@@ -30,6 +30,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       : response!.accessToken
 
   const isProduction = process.env.NODE_ENV === 'production'
+
   res.cookies.set({
     name: 'achou-pet-token',
     value: tokenValue,
