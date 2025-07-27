@@ -1,4 +1,8 @@
-import { Inject, InternalServerErrorException } from '@nestjs/common'
+import {
+  Inject,
+  InternalServerErrorException,
+  NotFoundException
+} from '@nestjs/common'
 
 import { eq, and } from 'drizzle-orm'
 
@@ -21,6 +25,16 @@ export class ToggleMissingAlertUseCase {
   async execute(dto: ToggleMissingAlertDto): Promise<MissingAlert | null> {
     try {
       const result = await this.db.transaction(async (tx) => {
+        const [pet] = await tx
+          .select()
+          .from(pets)
+          .where(eq(pets.id, dto.petId))
+          .limit(1)
+
+        if (!pet) {
+          throw new NotFoundException('Pet not found')
+        }
+
         const [activeAlert] = await tx
           .select()
           .from(missingAlerts)
@@ -54,6 +68,10 @@ export class ToggleMissingAlertUseCase {
           .insert(missingAlerts)
           .values({ ...dto, status: MissingAlertsStatusEnum.ACTIVE })
           .returning()
+
+        if (!createdAlert) {
+          throw new NotFoundException('Missing alert could not be created')
+        }
 
         await tx
           .update(pets)
