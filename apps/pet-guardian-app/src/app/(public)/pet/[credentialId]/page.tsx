@@ -4,6 +4,7 @@ import { notFound, redirect } from 'next/navigation'
 
 import { Phone } from 'lucide-react'
 
+import { Logo } from '@user-app/modules/@shared/assets'
 import {
   Conditional,
   Container,
@@ -42,7 +43,7 @@ export default async function PetCredentialPage({
           <div className="flex flex-col items-center md:items-start gap-4 w-full md:w-1/2">
             <Avatar className="size-32 border-2 border-primary shadow-md bg-white">
               <Image
-                src={pet?.photoUrl || '/logo.png'}
+                src={pet?.photoUrl || Logo}
                 width={128}
                 height={128}
                 quality={100}
