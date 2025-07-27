@@ -20,6 +20,7 @@ export const pets = pgTable('pets', {
   color: text('color'),
   isVaccinated: boolean('is_vaccinated').default(false).notNull(),
   hasAllergies: boolean('has_allergies').default(false).notNull(),
+  isMissing: boolean('is_missing').default(false),
   needsMedication: boolean('needs_medication').default(false).notNull(),
   medicationDescription: text('medication_description'),
   photoUrl: text('photo_url'),

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 if (process.env.NEXT_PUBLIC_ENV_MODE === 'test') {
   ;(async () => {
-    await import('../mocks')
+    await import('../../tests/mocks')
   })()
 }
 

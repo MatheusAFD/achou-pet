@@ -36,6 +36,7 @@ export const SignInForm = () => {
         body: JSON.stringify(data),
         credentials: 'include'
       })
+
       if (!res.ok) {
         toast.error('Erro!', {
           description: 'E-mail ou senha inválidos.'

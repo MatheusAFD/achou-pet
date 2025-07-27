@@ -1,3 +1,4 @@
+import { SearchingHouse } from '@user-app/modules/@shared/assets'
 import {
   Conditional,
   NoDataBackground
@@ -20,7 +21,7 @@ export const AddressesContainer = async () => {
 
       <Conditional condition={!hasData}>
         <NoDataBackground
-          src="/searching-house.png"
+          src={SearchingHouse}
           quality={100}
           text="Você ainda não um tem endereço cadastrado!"
           alt="Imagem ilustrada de uma casa com uma lupa."

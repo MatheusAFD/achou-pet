@@ -23,7 +23,7 @@ export const PetsList = (props: PetsListProps) => {
   }
 
   return (
-    <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
+    <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-8 ">
       {data?.map((pet) => {
         return (
           <PetCard

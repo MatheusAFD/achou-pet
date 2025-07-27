@@ -3,6 +3,8 @@ import Link from 'next/link'
 
 import { Headset, LogOut } from 'lucide-react'
 
+import { Logo } from '@user-app/modules/@shared/assets'
+
 import { sidebarMenuItems } from '../../constants/sidebar-menu-items'
 import { NavItem } from '../nav-item'
 import {
@@ -23,7 +25,7 @@ export const AppSidebar = () => {
       <SidebarHeader className="h-[72px]  border-b border-sidebar-border">
         <Link href="/meus-pets">
           <Image
-            src="/logo.png"
+            src={Logo}
             width={64}
             height={64}
             quality={100}
