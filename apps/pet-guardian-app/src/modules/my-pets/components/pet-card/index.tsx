@@ -19,6 +19,7 @@ import {
 } from '@user-app/modules/@shared/components'
 import { MoreOptionsMenu } from '@user-app/modules/@shared/components/more-options-button'
 
+import { useOptimisticMissing } from '../../hooks/use-optmistic-missing'
 import { Pet } from '../../services/get-pet/types'
 import { petSizeParser } from '../../utils'
 import { PetHealthInfo } from '../pet-health-info'
@@ -34,14 +35,17 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
     gender,
     species,
     size,
-    // isMissing,
+    isMissing,
     isVaccinated,
     needsMedication,
     hasAllergies,
     photoUrl
   } = pet
 
-  const isMissing = true
+  const { optimisticMissing, toggleMissing } = useOptimisticMissing(
+    isMissing,
+    pet.id
+  )
 
   return (
     <CustomCard
@@ -53,7 +57,7 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
       <div
         className={twMerge(
           'relative flex flex-col items-center p-2',
-          isMissing && 'animate-pulse'
+          optimisticMissing && 'animate-pulse'
         )}
       >
         <Avatar className=" size-24 border-2 border-primary shadow-md">
@@ -120,8 +124,12 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
             </DropdownMenuItem>
           </Link>
 
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-            <Switch id="is-missing" />
+          <DropdownMenuItem>
+            <Switch
+              id="is-missing"
+              checked={optimisticMissing}
+              onCheckedChange={toggleMissing}
+            />
             <label htmlFor="is-missing">Desaparecido</label>
           </DropdownMenuItem>
         </MoreOptionsMenu>
