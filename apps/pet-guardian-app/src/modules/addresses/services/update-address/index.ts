@@ -24,7 +24,7 @@ export const updateAddress = async ({
   })
 
   if (!error) {
-    revalidateTag('addresses')
+    revalidateTag(`address-${addressId}`)
   }
 
   return [error, response]
