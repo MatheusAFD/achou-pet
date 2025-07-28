@@ -13,17 +13,17 @@ export const updatePet = async (
 ): Promise<[ErrorResponse | null, Pet | null]> => {
   const { petId, data } = params
 
-  const [error, response] = await httpClientFetch<Pet, ErrorResponse>({
+  const [error, updatedPet] = await httpClientFetch<Pet, ErrorResponse>({
     url: `/pets/${petId}`,
     method: 'PATCH',
     data
   })
 
   if (!error) {
-    revalidateTag(`pet-${petId}`)
+    revalidateTag(`pet-${updatedPet?.id}`)
     revalidateTag('pets')
-    revalidateTag('pet-by-credential-id')
+    revalidateTag(`pet-by-credential-id-${updatedPet?.credentialId}`)
   }
 
-  return [error, response]
+  return [error, updatedPet]
 }

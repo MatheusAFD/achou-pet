@@ -5,16 +5,16 @@ import { Either, ErrorResponse } from '@user-app/modules/@shared/types'
 import { GetPetByCredentialIdResponse } from './types'
 
 export const getPetByCredentialId = async (
-  petId: string
+  credentialId: string
 ): Promise<Either<ErrorResponse, GetPetByCredentialIdResponse>> => {
   const [error, data] = await httpClientFetch<
     GetPetByCredentialIdResponse,
     ErrorResponse
   >({
-    url: `/credentials/details/${petId}`,
+    url: `/credentials/details/${credentialId}`,
     method: 'GET',
     next: {
-      tags: ['pet-by-credential-id'],
+      tags: [`pet-by-credential-id-${credentialId}`],
       revalidate: ONE_HOUR_IN_SECONDS
     }
   })
