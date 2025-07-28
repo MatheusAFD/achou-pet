@@ -56,11 +56,11 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/',
-    '/meus-enderecos/:path*',
-    '/meus-pets/:path*',
     '/auth/:path*',
     '/auth/sign-in',
     '/auth/sign-up',
+    '/meus-enderecos/:path*',
+    '/meus-pets/:path*',
     '/pet/:path*',
     '/termos-de-uso/:path*'
   ]
