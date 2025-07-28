@@ -3,29 +3,17 @@ pre-push:
   commands:
     test-e2e:
       run: |
-        # Fetch the latest state from the remote
-        git fetch origin
-
-        # Get the list of files changed between the remote and local branch
-        CHANGED_FILES=$(git diff --name-only FETCH_HEAD...HEAD)
-
-        echo "🔎 Changed files:"
-        echo "$CHANGED_FILES"
-
-        # Run e2e tests only if changes are in apps/pet-guardian-app
-        if echo "$CHANGED_FILES" | grep -E '^apps/pet-guardian-app/' > /dev/null; then
-          echo "🔍 Changes detected in pet-guardian-app. Running e2e tests..."
-          cd apps/pet-guardian-app
-          export $(grep -v '^#' .env.test | xargs)
-          pnpm dev:test &
-          DEV_PID=$!
-          sleep 10
-          export $(grep -v '^#' .env.test | xargs)
-          pnpm test:e2e
-          KILL_EXIT=$?
-          kill $DEV_PID
-          exit $KILL_EXIT
-        else
-          echo "✅ No changes in pet-guardian-app. Skipping e2e tests."
-          exit 0
-        fi
+        cd apps/pet-guardian-app
+        export $(grep -v '^#' .env.test | xargs)
+        pnpm dev:test &
+        DEV_PID=$!
+        sleep 10
+        export $(grep -v '^#' .env.test | xargs)
+        pnpm test:e2e
+        KILL_EXIT=$?
+        kill $DEV_PID
+        exit $KILL_EXIT
+    test:
+      run: |
+        cd apps/pet-guardian-app
+        pnpm test
