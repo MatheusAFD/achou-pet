@@ -9,8 +9,11 @@ pre-push:
         # Get the list of files changed between the remote and local branch
         CHANGED_FILES=$(git diff --name-only FETCH_HEAD...HEAD)
 
-        # If there are changes in the pet-guardian-app folder, run e2e tests
-        if echo "$CHANGED_FILES" | grep -q "apps/pet-guardian-app/"; then
+        echo "🔎 Changed files:"
+        echo "$CHANGED_FILES"
+
+        # Run e2e tests only if changes are in apps/pet-guardian-app
+        if echo "$CHANGED_FILES" | grep -E '^apps/pet-guardian-app/' > /dev/null; then
           echo "🔍 Changes detected in pet-guardian-app. Running e2e tests..."
           cd apps/pet-guardian-app
           export $(grep -v '^#' .env.test | xargs)
