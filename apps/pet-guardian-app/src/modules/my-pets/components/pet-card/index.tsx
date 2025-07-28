@@ -3,26 +3,26 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Edit, Mars, Venus, ExternalLink } from 'lucide-react'
+import { Edit, ExternalLink } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 
 import { Logo } from '@user-app/modules/@shared/assets'
 import {
   Avatar,
   AvatarFallback,
-  ChildTooltip,
-  Conditional,
   CustomCard,
   DropdownMenuItem,
   Skeleton,
-  Switch
+  Switch,
+  MoreOptionsMenu
 } from '@user-app/modules/@shared/components'
-import { MoreOptionsMenu } from '@user-app/modules/@shared/components/more-options-button'
+import {
+  PetBasicInfo,
+  PetHealthInfo
+} from '@user-app/modules/my-pets/components'
 
 import { useOptimisticMissing } from '../../hooks/use-optmistic-missing'
 import { Pet } from '../../services/get-pet/types'
-import { petSizeParser } from '../../utils'
-import { PetHealthInfo } from '../pet-health-info'
 
 interface PetCardProps {
   pet: Pet
@@ -51,7 +51,8 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
     <CustomCard
       as="li"
       className={twMerge(
-        'border-border/80 hover:border-primary/50 relative flex items-center gap-6 border p-4 transition-all duration-200 ease-in-out'
+        'border-border/80 hover:border-primary/50 relative flex items-center gap-6 border p-4 transition-all duration-200 ease-in-out',
+        optimisticMissing && 'opacity-100'
       )}
     >
       <div
@@ -63,12 +64,12 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
         <Avatar className="border-primary size-24 border-2 shadow-md">
           <Image
             src={photoUrl || Logo}
+            alt="Imagem de perfil do pet"
             width={112}
             height={112}
             quality={100}
-            priority
-            alt="Imagem de perfil do pet"
             className="object-cover"
+            priority
           />
           <AvatarFallback>
             <Skeleton className="size-28" />
@@ -80,35 +81,18 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
         </span>
       </div>
 
-      <div className="flex flex-col justify-center">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-gray-500">Gênero:</span>
-          <Conditional condition={gender === 'MALE'}>
-            <span className="flex items-center gap-1 text-sm font-normal text-blue-500">
-              <Mars size={15} /> Macho
-            </span>
-          </Conditional>
+      <PetBasicInfo
+        gender={gender}
+        isMissing={optimisticMissing}
+        size={size}
+        species={species}
+      />
 
-          <Conditional condition={gender === 'FEMALE'}>
-            <span className="flex items-center gap-1 text-sm font-normal text-pink-500">
-              <Venus size={15} /> Fêmea
-            </span>
-          </Conditional>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-gray-500">Espécie:</span>
-          <span className="text-sm font-normal text-gray-700 capitalize">
-            {species}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-gray-500">Porte:</span>
-          <ChildTooltip content={`${petSizeParser[size]} porte`} side="bottom">
-            <p className="text-sm text-gray-700">{petSizeParser[size]}</p>
-          </ChildTooltip>
-        </div>
-      </div>
+      <PetHealthInfo
+        hasAllergies={hasAllergies}
+        isVaccinated={isVaccinated}
+        needsMedication={needsMedication}
+      />
 
       <div className="absolute top-3 right-3 flex flex-col gap-2">
         <MoreOptionsMenu>
@@ -134,14 +118,6 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
           </DropdownMenuItem>
         </MoreOptionsMenu>
       </div>
-
-      <PetHealthInfo
-        healthData={{
-          isVaccinated,
-          needsMedication,
-          hasAllergies
-        }}
-      />
     </CustomCard>
   )
 }
