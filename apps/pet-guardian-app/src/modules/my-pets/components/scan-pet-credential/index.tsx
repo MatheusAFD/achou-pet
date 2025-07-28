@@ -139,8 +139,8 @@ export const ScanPetCredential = (props: ScanPetCredentialProps) => {
   }, [isScanning, updateFormStep])
 
   return (
-    <div className="relative w-full flex flex-col gap-8 justify-center items-center">
-      <h1 className="text-gray-600 text-lg font-semibold">
+    <div className="relative flex w-full flex-col items-center justify-center gap-8">
+      <h1 className="text-lg font-semibold text-gray-600">
         1. Aponte a câmera para o QR Code
       </h1>
 
@@ -167,16 +167,16 @@ export const ScanPetCredential = (props: ScanPetCredentialProps) => {
       </Button>
 
       <Conditional condition={!!cameraError}>
-        <div className="mt-4 p-4 bg-red-100 text-red-800 rounded">
+        <div className="mt-4 rounded bg-red-100 p-4 text-red-800">
           {cameraError}
         </div>
       </Conditional>
 
       <Conditional condition={isScanning && !cameraError}>
-        <div className="w-full fixed inset-0 top-14 flex justify-center items-center">
+        <div className="fixed inset-0 top-14 flex w-full items-center justify-center">
           <div className="relative">
-            <div className=" w-full max-w-md">
-              <video ref={videoRef} className="w-full h-auto" autoPlay muted />
+            <div className="w-full max-w-md">
+              <video ref={videoRef} className="h-auto w-full" autoPlay muted />
             </div>
 
             <Button

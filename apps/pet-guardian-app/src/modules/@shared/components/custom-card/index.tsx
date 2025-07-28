@@ -15,7 +15,7 @@ export const CustomCard = ({
     <Component
       {...props}
       className={cn(
-        'w-auto p-4 shadow-md rounded-lg bg-background',
+        'bg-background w-auto rounded-lg p-4 shadow-md',
         props.className
       )}
     >

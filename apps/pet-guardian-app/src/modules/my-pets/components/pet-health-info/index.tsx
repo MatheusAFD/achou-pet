@@ -14,7 +14,7 @@ export const PetHealthInfo = ({ healthData }: PetHealthInfoProps) => {
   const { isVaccinated, needsMedication, hasAllergies } = healthData
 
   return (
-    <div className="absolute bottom-3 right-3.5 flex gap-2">
+    <div className="absolute right-3.5 bottom-3 flex gap-2">
       <ChildTooltip content={isVaccinated ? 'Vacinado' : 'Não vacinado'}>
         <Syringe
           size={16}

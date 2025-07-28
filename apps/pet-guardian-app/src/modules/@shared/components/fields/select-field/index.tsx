@@ -71,9 +71,9 @@ export const SelectedField = ({
         )}
       />
       {errorMessage && (
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <CircleX size={20} className="fill-red-500 text-white" />
-          <p className="font-medium text-xs text-red-500">{errorMessage}</p>
+          <p className="text-xs font-medium text-red-500">{errorMessage}</p>
         </div>
       )}
     </fieldset>

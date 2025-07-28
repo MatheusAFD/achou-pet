@@ -275,7 +275,7 @@ function SidebarTrigger({
       {...props}
     >
       <PanelLeftIcon className="hidden md:block" />
-      <AlignJustify className="block md:hidden size-6" />
+      <AlignJustify className="block size-6 md:hidden" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

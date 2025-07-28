@@ -37,57 +37,57 @@ export default async function PetCredentialPage({
   }
 
   return (
-    <main className="min-h-lvh bg-tertiary flex flex-col items-center py-8 px-2">
-      <Container className="w-full max-w-2xl flex flex-col gap-8">
-        <CustomCard className="flex flex-col md:flex-row gap-6 items-center p-6 shadow-lg border border-primary/30 bg-white/95">
-          <div className="flex flex-col items-center md:items-start gap-4 w-full md:w-1/2">
-            <Avatar className="size-32 border-2 border-primary shadow-md bg-white">
+    <main className="bg-tertiary flex min-h-lvh flex-col items-center px-2 py-8">
+      <Container className="flex w-full max-w-2xl flex-col gap-8">
+        <CustomCard className="border-primary/30 flex flex-col items-center gap-6 border bg-white/95 p-6 shadow-lg md:flex-row">
+          <div className="flex w-full flex-col items-center gap-4 md:w-1/2 md:items-start">
+            <Avatar className="border-primary size-32 border-2 bg-white shadow-md">
               <Image
                 src={pet?.photoUrl || Logo}
                 width={128}
                 height={128}
                 quality={100}
                 alt="Foto do pet"
-                className="object-cover rounded-full"
+                className="rounded-full object-cover"
               />
             </Avatar>
-            <h2 className="text-2xl font-bold text-primary text-center md:text-left w-full">
+            <h2 className="text-primary w-full text-center text-2xl font-bold md:text-left">
               Me encontrou!
             </h2>
-            <p className="text-lg font-semibold text-tertiary text-center md:text-left w-full">
+            <p className="text-tertiary w-full text-center text-lg font-semibold md:text-left">
               {pet?.name}
             </p>
           </div>
-          <div className="flex flex-col gap-2 w-full md:w-1/2">
+          <div className="flex w-full flex-col gap-2 md:w-1/2">
             <div className="flex flex-wrap gap-2">
-              <span className="bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+              <span className="bg-primary rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm">
                 {pet?.species}
               </span>
               <Conditional condition={!!pet?.breed}>
-                <span className="bg-secondary/80 text-gray-900 px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+                <span className="bg-secondary/80 rounded-full px-3 py-1 text-xs font-semibold text-gray-900 shadow-sm">
                   {pet?.breed}
                 </span>
               </Conditional>
-              <span className="bg-tertiary text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+              <span className="bg-tertiary rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm">
                 {petSizeParser[pet.size]}
               </span>
-              <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+              <span className="rounded-full bg-gray-800 px-3 py-1 text-xs font-semibold text-white shadow-sm">
                 {pet?.gender === 'MALE' ? 'Macho' : 'Fêmea'}
               </span>
               <Conditional condition={!!pet?.color}>
-                <span className="bg-gray-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+                <span className="rounded-full bg-gray-600 px-3 py-1 text-xs font-semibold text-white shadow-sm">
                   {pet?.color}
                 </span>
               </Conditional>
             </div>
-            <div className="flex flex-col gap-1 mt-2">
+            <div className="mt-2 flex flex-col gap-1">
               <Conditional condition={!!pet?.isVaccinated}>
-                <span className="text-xs text-green-700 font-bold bg-green-100 rounded px-2 py-0.5 w-fit">
+                <span className="w-fit rounded bg-green-100 px-2 py-0.5 text-xs font-bold text-green-700">
                   Vacinado
                 </span>
               </Conditional>
               <Conditional condition={!!pet?.hasAllergies}>
-                <span className="text-xs text-yellow-800 font-bold bg-yellow-100 rounded px-2 py-0.5 w-fit">
+                <span className="w-fit rounded bg-yellow-100 px-2 py-0.5 text-xs font-bold text-yellow-800">
                   Possui alergias
                 </span>
               </Conditional>
@@ -95,18 +95,18 @@ export default async function PetCredentialPage({
                 condition={!!pet?.needsMedication || pet.hasAllergies}
               >
                 <Conditional condition={!!pet?.needsMedication}>
-                  <span className="text-xs text-pink-800 font-bold bg-pink-100 rounded px-2 py-0.5 w-fit">
+                  <span className="w-fit rounded bg-pink-100 px-2 py-0.5 text-xs font-bold text-pink-800">
                     Precisa de medicação
                   </span>
                 </Conditional>
 
                 <Conditional condition={!!pet?.hasAllergies}>
-                  <span className="text-xs text-pink-800 font-bold bg-pink-100 rounded px-2 py-0.5 w-fit">
+                  <span className="w-fit rounded bg-pink-100 px-2 py-0.5 text-xs font-bold text-pink-800">
                     Possui alergias
                   </span>
                 </Conditional>
                 <Conditional condition={true}>
-                  <span className="text-xs text-gray-800 bg-gray-100 rounded px-2 py-0.5 w-fit">
+                  <span className="w-fit rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-800">
                     {pet?.medicationDescription}
                   </span>
                 </Conditional>
@@ -115,30 +115,30 @@ export default async function PetCredentialPage({
           </div>
         </CustomCard>
 
-        <CustomCard className="flex flex-col gap-4 p-6 shadow-lg border-2 border-secondary bg-white/95">
-          <h2 className="text-xl font-bold text-primary mb-2">
+        <CustomCard className="border-secondary flex flex-col gap-4 border-2 bg-white/95 p-6 shadow-lg">
+          <h2 className="text-primary mb-2 text-xl font-bold">
             Quem você pode contactar
           </h2>
-          <div className="flex flex-col md:flex-row md:items-center gap-4">
-            <div className="flex-1 flex flex-col gap-1">
-              <span className="text-lg font-semibold text-tertiary">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center">
+            <div className="flex flex-1 flex-col gap-1">
+              <span className="text-tertiary text-lg font-semibold">
                 {user?.name} {user?.lastName}
               </span>
               <Link href={`tel:${user?.phone}`} target="_blank">
-                <span className="flex items-center gap-2 text-base text-primary font-bold">
+                <span className="text-primary flex items-center gap-2 text-base font-bold">
                   <Phone size={18} /> {phoneMask(user?.phone ?? '')}
                 </span>
               </Link>
             </div>
             <Conditional condition={!!primaryAddress}>
-              <div className="flex flex-col gap-1 bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 shadow-sm">
-                <span className="text-xs text-gray-700 font-semibold">
+              <div className="flex flex-col gap-1 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 shadow-sm">
+                <span className="text-xs font-semibold text-gray-700">
                   Localização aproximada
                 </span>
-                <span className="text-sm text-gray-900 font-bold">
+                <span className="text-sm font-bold text-gray-900">
                   {primaryAddress?.city} / {primaryAddress?.state}
                 </span>
-                <span className="text-xs text-gray-800 font-semibold">
+                <span className="text-xs font-semibold text-gray-800">
                   Bairro: {primaryAddress?.neighborhood}
                 </span>
               </div>

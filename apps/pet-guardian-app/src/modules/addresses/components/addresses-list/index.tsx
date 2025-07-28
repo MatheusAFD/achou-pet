@@ -30,7 +30,7 @@ export const AddressesList = (props: AddressesListProps) => {
   }
 
   return (
-    <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-items-center lg:place-items-start gap-8 mt-8">
+    <ul className="mt-8 grid grid-cols-1 place-items-center gap-8 lg:grid-cols-2 lg:place-items-start xl:grid-cols-3">
       {data?.map((address: Address) => {
         return (
           <AddressCard

@@ -18,18 +18,18 @@ export const Loading = ({
     return (
       <Portal>
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-white/70 pointer-events-auto transition-opacity duration-1000 animate-fade-in"
+          className="animate-fade-in pointer-events-auto fixed inset-0 z-50 flex items-center justify-center bg-white/70 transition-opacity duration-1000"
           style={{ pointerEvents: 'auto' }}
         >
-          <Loader2 className="animate-spin text-primary" size={48} />
+          <Loader2 className="text-primary animate-spin" size={48} />
         </div>
       </Portal>
     )
   }
   return (
     <Conditional condition={isLoading}>
-      <div className="w-full flex justify-center items-center">
-        <Loader2 className="animate-spin text-green-principal" size={48} />
+      <div className="flex w-full items-center justify-center">
+        <Loader2 className="text-green-principal animate-spin" size={48} />
       </div>
     </Conditional>
   )

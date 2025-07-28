@@ -20,18 +20,18 @@ export default async function TermsPage() {
   const [_, data] = await getPendingTerm()
 
   return (
-    <main className="bg-primary/50 w-full p-4 h-lvh flex md:items-center md:justify-center">
-      <CustomCard className="w-full md:w-[32rem] h-fit p-4">
+    <main className="bg-primary/50 flex h-lvh w-full p-4 md:items-center md:justify-center">
+      <CustomCard className="h-fit w-full p-4 md:w-[32rem]">
         <header>
           <LineBadge />
-          <h1 className="font-semibold text-xl">Termos de uso</h1>
+          <h1 className="text-xl font-semibold">Termos de uso</h1>
 
           <p className="text-sm">Leia com atenção os termos de uso abaixo</p>
         </header>
 
         <Conditional condition={!!data?.content}>
           <section
-            className="max-h-96 mt-4 text-sm text-foreground/50 overflow-y-scroll"
+            className="text-foreground/50 mt-4 max-h-96 overflow-y-scroll text-sm"
             dangerouslySetInnerHTML={{
               __html: data?.content ?? ''
             }}

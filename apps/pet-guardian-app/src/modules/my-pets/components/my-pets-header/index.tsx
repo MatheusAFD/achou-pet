@@ -20,7 +20,7 @@ export const MyPetsHeader = () => {
       <h1 className="text-3xl">Meus pets</h1>
       <StepsProvider initialStep={AttachCredentialFormSteps.ScanQrCode}>
         <AttachCredentialModal>
-          <Button className="w-fit mt-4">
+          <Button className="mt-4 w-fit">
             <PawPrint /> Cadastrar novo
           </Button>
         </AttachCredentialModal>

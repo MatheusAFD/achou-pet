@@ -8,10 +8,10 @@ export const NoDataBackground = (props: NoDataBackgroundProps) => {
   const { text, alt } = props
 
   return (
-    <div className="flex gap-8 flex-col items-center">
+    <div className="flex flex-col items-center gap-8">
       <Image width={320} height={320} {...props} alt={alt} />
 
-      <p className="text-primary text-3xl text-center font-medium animate-pulse">
+      <p className="text-primary animate-pulse text-center text-3xl font-medium">
         {text}
       </p>
     </div>

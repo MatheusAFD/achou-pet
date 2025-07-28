@@ -59,19 +59,19 @@ export const RegisterUserForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full animate-fade-render"
+      className="animate-fade-render w-full"
     >
       <div className="mb-4">
         <LineBadge />
         <h2 className="text-foreground/90 font-medium">
           Informe seus dados cadastrais
         </h2>
-        <p className="text-xs text-foreground/50">
+        <p className="text-foreground/50 text-xs">
           Esses dados serão utilizados para acessar sua conta
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <TextField
           {...register('name')}
           label="Nome"
@@ -109,12 +109,12 @@ export const RegisterUserForm = () => {
         />
       </div>
 
-      <footer className="flex flex-col items-end gap-2 mt-4">
+      <footer className="mt-4 flex flex-col items-end gap-2">
         <Link href={'/auth/sign-in'}>
           <Button variant="link">Já possui uma conta?</Button>
         </Link>
 
-        <div className="flex gap-4 w-full justify-end">
+        <div className="flex w-full justify-end gap-4">
           <Link href="/auth/sign-in">
             <Button variant="outline">Cancelar</Button>
           </Link>

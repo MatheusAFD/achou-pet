@@ -66,7 +66,7 @@ export const EditAddressModal = (props: EditAddressModalProps) => {
         onOpenChange(open)
       }}
     >
-      <DialogContent className="min-w-full h-full flex flex-col gap-4 justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
+      <DialogContent className="flex h-full min-w-full flex-col justify-start gap-4 overflow-auto md:h-auto md:min-w-[40rem]">
         <DialogHeader>
           <LineBadge hideOnMobile />
           <DialogTitle>Cadastrar novo endereço</DialogTitle>

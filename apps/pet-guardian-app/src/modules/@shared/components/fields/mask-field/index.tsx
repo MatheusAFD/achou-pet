@@ -51,7 +51,7 @@ export const MaskField = ({
   }
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="flex w-full flex-col">
       <Controller
         control={control}
         name={name}

@@ -32,8 +32,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <fieldset
-        className={cn('w-full flex flex-col font-medium transition-all', {
-          'animate-pulse duration-75 pointer-events-none': isLoading
+        className={cn('flex w-full flex-col font-medium transition-all', {
+          'pointer-events-none animate-pulse duration-75': isLoading
         })}
       >
         {hasLabel && (
@@ -57,14 +57,14 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
         <div
           className={cn(
-            'transition-all duration-300 ease-in-out overflow-hidden',
-            errorMessage ? 'max-h-10 mt-1' : 'max-h-0'
+            'overflow-hidden transition-all duration-300 ease-in-out',
+            errorMessage ? 'mt-1 max-h-10' : 'max-h-0'
           )}
         >
           {errorMessage && (
-            <div className="flex gap-1 items-center">
+            <div className="flex items-center gap-1">
               <CircleX size={20} className="fill-red-500 text-white" />
-              <p className="font-medium text-xs text-red-500">{errorMessage}</p>
+              <p className="text-xs font-medium text-red-500">{errorMessage}</p>
             </div>
           )}
         </div>

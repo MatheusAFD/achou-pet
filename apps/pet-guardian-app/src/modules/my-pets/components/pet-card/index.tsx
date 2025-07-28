@@ -51,7 +51,7 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
     <CustomCard
       as="li"
       className={twMerge(
-        'relative flex items-center gap-6 p-4 border border-border/80 hover:border-primary/50 transition-all duration-200 ease-in-out'
+        'border-border/80 hover:border-primary/50 relative flex items-center gap-6 border p-4 transition-all duration-200 ease-in-out'
       )}
     >
       <div
@@ -60,7 +60,7 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
           optimisticMissing && 'animate-pulse'
         )}
       >
-        <Avatar className=" size-24 border-2 border-primary shadow-md">
+        <Avatar className="border-primary size-24 border-2 shadow-md">
           <Image
             src={photoUrl || Logo}
             width={112}
@@ -75,42 +75,42 @@ export const PetCard = ({ pet, onEdit }: PetCardProps) => {
           </AvatarFallback>
         </Avatar>
 
-        <span className="mt-2 text-base font-medium text-tertiary text-center tracking-wide">
+        <span className="text-tertiary mt-2 text-center text-base font-medium tracking-wide">
           {name}
         </span>
       </div>
 
       <div className="flex flex-col justify-center">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500 font-medium">Gênero:</span>
+          <span className="text-xs font-medium text-gray-500">Gênero:</span>
           <Conditional condition={gender === 'MALE'}>
-            <span className="flex items-center gap-1 text-blue-500 font-normal text-sm">
+            <span className="flex items-center gap-1 text-sm font-normal text-blue-500">
               <Mars size={15} /> Macho
             </span>
           </Conditional>
 
           <Conditional condition={gender === 'FEMALE'}>
-            <span className="flex items-center gap-1 text-pink-500 font-normal text-sm">
+            <span className="flex items-center gap-1 text-sm font-normal text-pink-500">
               <Venus size={15} /> Fêmea
             </span>
           </Conditional>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500 font-medium">Espécie:</span>
-          <span className="text-gray-700 font-normal capitalize text-sm">
+          <span className="text-xs font-medium text-gray-500">Espécie:</span>
+          <span className="text-sm font-normal text-gray-700 capitalize">
             {species}
           </span>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500 font-medium">Porte:</span>
+          <span className="text-xs font-medium text-gray-500">Porte:</span>
           <ChildTooltip content={`${petSizeParser[size]} porte`} side="bottom">
             <p className="text-sm text-gray-700">{petSizeParser[size]}</p>
           </ChildTooltip>
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 absolute top-3 right-3">
+      <div className="absolute top-3 right-3 flex flex-col gap-2">
         <MoreOptionsMenu>
           <DropdownMenuItem onSelect={onEdit}>
             <Edit />

@@ -74,19 +74,19 @@ export const UserEmailConfirmationStep = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full animate-fade-render"
+      className="animate-fade-render w-full"
     >
       <div className="mb-4">
         <LineBadge />
         <h2 className="text-foreground/90 font-medium">
           Informe o código que enviamos para o seu e-mail
         </h2>
-        <p className="text-xs text-foreground/50">
+        <p className="text-foreground/50 text-xs">
           Caso não encontre, verifique a caixa de spam
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 items-center pt-4">
+      <div className="flex flex-col items-center gap-4 pt-4">
         <Controller
           name="pin"
           control={control}
@@ -107,15 +107,15 @@ export const UserEmailConfirmationStep = () => {
           )}
         />
         {errors.pin && (
-          <span className="text-red-500 text-sm">{errors.pin.message}</span>
+          <span className="text-sm text-red-500">{errors.pin.message}</span>
         )}
 
-        <p className="mb-4 text-xs text-foreground/80 font-medium">
+        <p className="text-foreground/80 mb-4 text-xs font-medium">
           O código é válido por 60 minutos
         </p>
       </div>
 
-      <footer className="flex gap-4 justify-center mt-4">
+      <footer className="mt-4 flex justify-center gap-4">
         <Button
           variant="outline"
           onClick={() => updateFormStep(RegisterUserStepsEnum.USER_DATA)}

@@ -25,7 +25,7 @@ export default async function PrivateLayout({
       >
         <SidebarProvider>
           <AppSidebar />
-          <div className="flex-auto flex flex-col">
+          <div className="flex flex-auto flex-col">
             <AppHeader />
             <main className="block">{children}</main>
           </div>

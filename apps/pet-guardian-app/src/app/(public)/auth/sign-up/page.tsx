@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <>
-      <section className="flex justify-center w-full md:mt-16 ">
-        <CustomCard className="w-full md:w-[34rem] h-lvh md:h-auto p-8 md:p-8">
+      <section className="flex w-full justify-center md:mt-16">
+        <CustomCard className="h-lvh w-full p-8 md:h-auto md:w-[34rem] md:p-8">
           <StepsProvider initialStep={RegisterUserStepsEnum.USER_DATA}>
             <RegisterUser />
           </StepsProvider>
