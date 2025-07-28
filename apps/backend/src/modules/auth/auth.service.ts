@@ -97,7 +97,7 @@ export class AuthService {
       .limit(1)
 
     if (!user) {
-      throw new NotFoundException('User not found')
+      throw new NotFoundException('User not founds')
     }
 
     const isValidPassword = await compareEncryptValue(user.password, password)
