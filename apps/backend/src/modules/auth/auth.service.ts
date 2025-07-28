@@ -110,6 +110,13 @@ export class AuthService {
       role: user.role
     })
 
+    await this.db
+      .update(users)
+      .set({
+        lastLogin: new Date()
+      })
+      .where(eq(users.id, user.id))
+
     return {
       accessToken,
       refreshToken
