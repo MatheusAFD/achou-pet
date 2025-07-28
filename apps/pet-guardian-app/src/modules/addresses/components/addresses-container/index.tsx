@@ -15,7 +15,7 @@ export const AddressesContainer = async () => {
 
   return (
     <>
-      <Conditional condition={hasData}>
+      <Conditional condition={hasData} withFadeRender>
         <AddressesList data={data} />
       </Conditional>
 
