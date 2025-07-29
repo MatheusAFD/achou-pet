@@ -26,16 +26,16 @@ export const SwitchField = (props: SwitchProps) => {
       render={({ field }) => (
         <label
           htmlFor={id}
-          className="flex items-center w-full justify-between p-4 rounded-md font-medium bg-primary-foreground outline outline-border cursor-pointer"
+          className="bg-primary-foreground outline-border flex w-full cursor-pointer items-center justify-between rounded-md p-4 font-medium outline"
         >
-          <div className="flex flex-col pointer-events-none">
+          <div className="pointer-events-none flex flex-col">
             <p
-              className="text-card-foreground text-sm font-medium pointer-events-none"
+              className="text-card-foreground pointer-events-none text-sm font-medium"
               onClick={(e) => e.stopPropagation()}
             >
               {label}
             </p>
-            <span className="text-xs text-muted-foreground">{description}</span>
+            <span className="text-muted-foreground text-xs">{description}</span>
           </div>
 
           <Switch

@@ -13,9 +13,9 @@ export const AppHeader = () => {
   const { session } = useSession()
 
   return (
-    <header className="w-full sticky top-0 z-10 md:relative bg-background flex justify-center items-center h-[72px] border-b border-sidebar-border">
+    <header className="bg-background border-sidebar-border sticky top-0 z-10 flex h-[72px] w-full items-center justify-center border-b md:relative">
       <SidebarTrigger className="ml-3" />
-      <Container className="w-full flex items-end">
+      <Container className="flex w-full items-end">
         <div className="flex items-center gap-3 md:p-4">
           <Link
             href="/auth/sign-out"
@@ -26,7 +26,7 @@ export const AppHeader = () => {
             Sair
           </Link>
 
-          <Avatar className="size-10 outline-2 outline-tertiary">
+          <Avatar className="outline-tertiary size-10 outline-2">
             <AvatarFallback>
               {getNameInitials(`${session?.name} ${session?.lastName}`)}
             </AvatarFallback>

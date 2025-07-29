@@ -15,7 +15,7 @@ export const PetsContainer = async () => {
 
   return (
     <>
-      <Conditional condition={hasData}>
+      <Conditional condition={hasData} withFadeRender>
         <PetsList data={data} />
       </Conditional>
 

@@ -11,7 +11,7 @@ export const getAddress = async (
     url: `/addresses/${id}`,
     method: 'GET',
     next: {
-      tags: ['addresses'],
+      tags: [`address-${id}`],
       revalidate: ONE_HOUR_IN_SECONDS
     }
   })

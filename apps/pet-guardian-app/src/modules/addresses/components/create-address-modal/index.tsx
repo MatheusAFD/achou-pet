@@ -45,7 +45,7 @@ export const CreateAddressModal = (props: PropsWithChildren) => {
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
-        className="min-w-full h-full flex flex-col gap-4 justify-start md:h-auto md:min-w-[40rem] overflow-auto "
+        className="flex h-full min-w-full flex-col justify-start gap-4 overflow-auto md:h-auto md:min-w-[40rem]"
         data-testid="create-address-modal"
       >
         <DialogHeader>

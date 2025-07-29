@@ -22,7 +22,7 @@ import {
 export const AppSidebar = () => {
   return (
     <Sidebar>
-      <SidebarHeader className="h-[72px]  border-b border-sidebar-border">
+      <SidebarHeader className="border-sidebar-border h-[72px] border-b">
         <Link href="/meus-pets">
           <Image
             src={Logo}

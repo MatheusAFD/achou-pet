@@ -53,7 +53,7 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
   return (
     <CustomCard
       as="li"
-      className="relative p-8 w-fit border border-border/80 hover:border-primary/50 transition-all duration-200 ease-in-out"
+      className="border-border/80 hover:border-primary/50 relative w-fit border p-8 transition-all duration-200 ease-in-out"
     >
       <section className="flex flex-col items-center gap-4">
         <Image
@@ -65,8 +65,8 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
           priority
         />
 
-        <div className="flex flex-col items-center gap-4 w-full">
-          <address className="not-italic font-medium text-sm text-gray-700">
+        <div className="flex w-full flex-col items-center gap-4">
+          <address className="text-sm font-medium text-gray-700 not-italic">
             <p>
               {street} {number}
             </p>
@@ -75,7 +75,7 @@ export const AddressCard = ({ address, onEdit }: AddressCardProps) => {
               {city}, {state} {zipCodeMask(zipCode)}
             </p>
           </address>
-          <footer className="flex items-center gap-2 ">
+          <footer className="flex items-center gap-2">
             <ChildTooltip content="Editar endereço">
               <Button
                 variant="outline"

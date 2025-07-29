@@ -77,7 +77,7 @@ const AttachCredentialModal = (props: PropsWithChildren) => {
       }}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="min-w-full h-full flex flex-col justify-start md:h-auto md:min-w-[40rem] overflow-auto ">
+      <DialogContent className="flex h-full min-w-full flex-col justify-start overflow-auto md:h-auto md:min-w-[40rem]">
         <DialogHeader className="h-fit">
           <LineBadge hideOnMobile />
           <DialogTitle>Cadastrar novo Pet</DialogTitle>

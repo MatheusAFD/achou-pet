@@ -60,7 +60,7 @@ export const AddressForm = (props: AddressFormProps) => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col justify-between gap-4"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <MaskField
           control={control}
           name="zipCode"
@@ -175,7 +175,7 @@ export const AddressForm = (props: AddressFormProps) => {
         />
       </div>
 
-      <footer className="flex flex-col-reverse md:flex-row justify-end gap-2 mt-4">
+      <footer className="mt-4 flex flex-col-reverse justify-end gap-2 md:flex-row">
         <DialogClose asChild>
           <Button variant="outline" size="lg">
             Cancelar

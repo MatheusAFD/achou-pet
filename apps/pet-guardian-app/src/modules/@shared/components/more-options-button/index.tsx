@@ -21,7 +21,7 @@ export const MoreOptionsMenu = (props: PropsWithChildren) => {
     >
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
-          <Ellipsis className="size-5 text-tertiary" />
+          <Ellipsis className="text-tertiary size-5" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">

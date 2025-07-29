@@ -75,7 +75,7 @@ export const UserPasswordStep = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full animate-fade-render"
+      className="animate-fade-render w-full"
     >
       <div className="mb-4">
         <LineBadge />
@@ -83,7 +83,7 @@ export const UserPasswordStep = () => {
           Crie sua senha de acesso
         </h2>
 
-        <p className="text-xs text-foreground/50">
+        <p className="text-foreground/50 text-xs">
           Senha utilizada para acessar sua conta
         </p>
       </div>
@@ -105,8 +105,8 @@ export const UserPasswordStep = () => {
           required
         />
 
-        <div className="text-xs text-foreground/70 font-medium">
-          <strong className="text-sm mb-.5">
+        <div className="text-foreground/70 text-xs font-medium">
+          <strong className="mb-.5 text-sm">
             A senha deve conter no mínimo
           </strong>
           <p className={hasUppercase ? 'text-green-700' : ''}>
@@ -122,7 +122,7 @@ export const UserPasswordStep = () => {
         </div>
       </div>
 
-      <footer className="flex gap-4 justify-end">
+      <footer className="flex justify-end gap-4">
         <Button
           variant="outline"
           onClick={() => updateFormStep(RegisterUserStepsEnum.TOKEN)}

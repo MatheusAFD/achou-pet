@@ -82,10 +82,10 @@ export const PetForm = (props: PetFormProps) => {
   return (
     <form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col justify-between h-full gap-4"
+      className="flex h-full flex-col justify-between gap-4"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="col-span-1 md:col-span-2 flex justify-center">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="col-span-1 flex justify-center md:col-span-2">
           <ImageField
             name="photo"
             control={control}
@@ -151,7 +151,7 @@ export const PetForm = (props: PetFormProps) => {
           errorMessage={errors.color?.message}
         />
 
-        <div className="flex flex-col md:flex-row col-span-1 md:col-span-2 gap-4">
+        <div className="col-span-1 flex flex-col gap-4 md:col-span-2 md:flex-row">
           <CheckboxField
             control={control}
             id="isVaccinated"
@@ -183,7 +183,7 @@ export const PetForm = (props: PetFormProps) => {
           </div>
         </Conditional>
       </div>
-      <footer className="flex flex-col-reverse md:flex-row justify-end gap-2 mt-4">
+      <footer className="mt-4 flex flex-col-reverse justify-end gap-2 md:flex-row">
         <DialogClose asChild>
           <Button variant="outline" size="lg">
             Cancelar

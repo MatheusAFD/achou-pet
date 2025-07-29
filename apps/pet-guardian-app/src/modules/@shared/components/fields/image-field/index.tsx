@@ -79,39 +79,39 @@ export function ImageField<T extends FieldValues>({
     <div className="flex flex-col items-center gap-2">
       <div
         className={cn(
-          'size-32 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer border border-dashed border-gray-300 relative',
+          'relative flex size-32 cursor-pointer items-center justify-center rounded-full border border-dashed border-gray-300 bg-gray-100',
           error && 'border-red-500'
         )}
         onClick={() => inputRef.current?.click()}
       >
         {imageSrc ? (
           <>
-            <Avatar className="w-full h-full outline-2 outline-primary">
+            <Avatar className="outline-primary h-full w-full outline-2">
               <AvatarImage
                 src={imageSrc}
                 width={128}
                 height={128}
                 alt="Avatar preview"
-                className="w-full h-full object-cover rounded-full"
+                className="h-full w-full rounded-full object-cover"
               />
             </Avatar>
             <ChildTooltip content="Remover foto">
               <Button
                 type="button"
                 size="icon"
-                className="absolute  -bottom-4 left-1/2 -translate-x-1/2 z-10 rounded-full"
+                className="absolute -bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full"
                 variant="destructive"
                 onClick={(e) => {
                   e.stopPropagation()
                   handleDelete()
                 }}
               >
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="h-4 w-4" />
               </Button>
             </ChildTooltip>
           </>
         ) : (
-          <span className="text-gray-400 text-xs text-center">
+          <span className="text-center text-xs text-gray-400">
             {label || 'Inserir foto'}
           </span>
         )}

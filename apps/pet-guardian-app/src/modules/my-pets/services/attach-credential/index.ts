@@ -22,7 +22,7 @@ export const attatchCredential = async (
 
   if (!error) {
     revalidateTag('pets')
-    revalidateTag('pet-by-credential-id')
+    revalidateTag(`pet-by-credential-id-${credentialId}`)
   }
 
   return [error, response]

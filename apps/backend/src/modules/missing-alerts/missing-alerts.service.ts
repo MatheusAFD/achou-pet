@@ -1,14 +1,16 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common'
 
-import { eq } from 'drizzle-orm'
+import { eq, getTableColumns } from 'drizzle-orm'
 
 import { DrizzleAsyncProvider } from '@db/drizzle/drizzle.provider'
-import { missingAlerts } from '@db/drizzle/schema/missing-alerts'
+import { pets } from '@db/drizzle/schema'
+import { missingAlerts } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { MissingAlertsStatusEnum } from '@common/enums/db-enums'
 
 import { MissingAlert } from './entities/missing-alert.entity'
+import { FindMissingAlertsResponse } from './types'
 
 @Injectable()
 export class MissingAlertsService {
@@ -31,10 +33,16 @@ export class MissingAlertsService {
     return activeAlert
   }
 
-  async findAllActive(): Promise<MissingAlert[]> {
+  async findAllActive(): Promise<FindMissingAlertsResponse> {
     const activeAlerts = await this.db
-      .select()
+      .select({
+        ...getTableColumns(missingAlerts),
+        pet: {
+          ...getTableColumns(pets)
+        }
+      })
       .from(missingAlerts)
+      .innerJoin(pets, eq(missingAlerts.petId, pets.id))
       .where(eq(missingAlerts.status, MissingAlertsStatusEnum.ACTIVE))
 
     return activeAlerts

@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
-    <main className="w-full bg-primary/50">
-      <section className="p-0 md:p-8 h-screen relative">{children}</section>
+    <main className="bg-primary/50 w-full">
+      <section className="relative h-screen p-0 md:p-8">{children}</section>
     </main>
   )
 }

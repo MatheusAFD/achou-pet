@@ -10,7 +10,7 @@ export const MyAddressesHeader = () => {
       <LineBadge />
       <h1 className="text-3xl">Meus endereços</h1>
       <CreateAddressModal>
-        <Button className="w-fit mt-4" data-testid="create-address">
+        <Button className="mt-4 w-fit" data-testid="create-address">
           <MapPinHouse /> Cadastrar novo
         </Button>
       </CreateAddressModal>

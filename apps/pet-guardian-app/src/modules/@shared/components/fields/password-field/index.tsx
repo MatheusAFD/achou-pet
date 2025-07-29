@@ -26,7 +26,7 @@ export const PasswordField = ({ ...props }: TextFieldProps) => {
       <Button
         size="icon"
         variant="outline"
-        className="absolute right-0.5 top-10 -translate-y-1/2 h-8"
+        className="absolute top-10 right-0.5 h-8 -translate-y-1/2"
         onClick={handleVisible}
       >
         {isVisible && (

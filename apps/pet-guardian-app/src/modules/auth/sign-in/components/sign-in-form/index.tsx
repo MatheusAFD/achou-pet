@@ -77,7 +77,7 @@ export const SignInForm = () => {
         required
       />
 
-      <footer className="flex flex-col gap-2 mt-5">
+      <footer className="mt-5 flex flex-col gap-2">
         <Button
           type="submit"
           size="lg"

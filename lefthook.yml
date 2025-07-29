@@ -3,20 +3,17 @@ pre-push:
   commands:
     test-e2e:
       run: |
-        # Check if there are changes in the pet-guardian-app folder
-        if git diff --name-only HEAD@{u} HEAD | grep -q "apps/pet-guardian-app/"; then
-          echo "🔍 Changes detected in pet-guardian-app. Running e2e tests..."
-          cd apps/pet-guardian-app
-          export $(grep -v '^#' .env.test | xargs)
-          pnpm dev:test &
-          DEV_PID=$!
-          sleep 10
-          export $(grep -v '^#' .env.test | xargs)
-          pnpm test:e2e
-          KILL_EXIT=$?
-          kill $DEV_PID
-          exit $KILL_EXIT
-        else
-          echo "✅ No changes in pet-guardian-app. Skipping e2e tests."
-          exit 0
-        fi
+        cd apps/pet-guardian-app
+        export $(grep -v '^#' .env.test | xargs)
+        pnpm dev:test &
+        DEV_PID=$!
+        sleep 10
+        export $(grep -v '^#' .env.test | xargs)
+        pnpm test:e2e
+        KILL_EXIT=$?
+        kill $DEV_PID
+        exit $KILL_EXIT
+    test:
+      run: |
+        cd apps/pet-guardian-app
+        pnpm test

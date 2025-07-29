@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 export default function SignInPage() {
   return (
     <>
-      <section className="flex justify-center w-full md:pt-16">
-        <CustomCard className="w-full md:w-[34rem] h-lvh md:h-auto p-8">
+      <section className="flex w-full justify-center md:pt-16">
+        <CustomCard className="h-lvh w-full p-8 md:h-auto md:w-[34rem]">
           <LineBadge size="lg" />
-          <h1 className="text-xl font-medium pb-6">Entrar</h1>
+          <h1 className="pb-6 text-xl font-medium">Entrar</h1>
 
           <SignInForm />
         </CustomCard>

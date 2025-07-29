@@ -2,19 +2,13 @@ import { BeanOff, Pill, Syringe } from 'lucide-react'
 
 import { ChildTooltip } from '@user-app/modules/@shared/components'
 
-interface PetHealthInfoProps {
-  healthData: {
-    isVaccinated: boolean
-    needsMedication: boolean
-    hasAllergies: boolean
-  }
-}
+import { PetHealthInfoProps } from './types'
 
-export const PetHealthInfo = ({ healthData }: PetHealthInfoProps) => {
-  const { isVaccinated, needsMedication, hasAllergies } = healthData
+export const PetHealthInfo = (props: PetHealthInfoProps) => {
+  const { isVaccinated, needsMedication, hasAllergies } = props
 
   return (
-    <div className="absolute bottom-3 right-3.5 flex gap-2">
+    <div className="absolute right-3.5 bottom-3 flex gap-2">
       <ChildTooltip content={isVaccinated ? 'Vacinado' : 'Não vacinado'}>
         <Syringe
           size={16}

@@ -11,6 +11,7 @@ import { eq } from 'drizzle-orm'
 import { env } from 'env'
 import { DrizzleAsyncProvider } from 'src/drizzle/drizzle.provider'
 
+import { users } from '@db/drizzle/schema'
 import { DrizzleSchema } from '@db/drizzle/types'
 
 import { RoleEnum } from '@common/enums'
@@ -89,11 +90,11 @@ export class AuthService {
   }
 
   async signin({ email, password }: SigninDTO) {
-    const user = await this.db.query.users.findFirst({
-      where: (user) => {
-        return eq(user.email, email)
-      }
-    })
+    const [user] = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1)
 
     if (!user) {
       throw new NotFoundException('User not found')
@@ -109,6 +110,13 @@ export class AuthService {
       id: user.id,
       role: user.role
     })
+
+    await this.db
+      .update(users)
+      .set({
+        lastLogin: new Date()
+      })
+      .where(eq(users.id, user.id))
 
     return {
       accessToken,

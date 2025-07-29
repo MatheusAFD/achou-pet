@@ -1,8 +1,10 @@
 import { Controller, Get, Body, Post } from '@nestjs/common'
 
+import { Public } from '@common/decorators/auth'
+
 import { ToggleMissingAlertDto } from './dto/toggle-missing-alert.dto'
-import { MissingAlert } from './entities/missing-alert.entity'
 import { MissingAlertsService } from './missing-alerts.service'
+import { FindMissingAlertsResponse } from './types'
 import { ToggleMissingAlertUseCase } from './use-cases/toggle-missing-alert.use-case'
 
 @Controller('missing-alerts')
@@ -12,8 +14,9 @@ export class MissingAlertsController {
     private readonly toggleMissingAlertUseCase: ToggleMissingAlertUseCase
   ) {}
 
+  @Public()
   @Get('active')
-  findAllActive(): Promise<MissingAlert[]> {
+  findAllActive(): Promise<FindMissingAlertsResponse> {
     return this.missingAlertsService.findAllActive()
   }
 
