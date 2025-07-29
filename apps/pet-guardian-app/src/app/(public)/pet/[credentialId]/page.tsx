@@ -37,7 +37,7 @@ export default async function PetCredentialPage({
   }
 
   return (
-    <main className="bg-tertiary flex min-h-lvh flex-col items-center px-2 py-8">
+    <main className="bg-primary/50 flex min-h-lvh flex-col items-center px-2 py-8">
       <Container className="flex w-full max-w-2xl flex-col gap-8">
         <CustomCard className="border-primary/30 flex flex-col items-center gap-6 border bg-white/95 p-6 shadow-lg md:flex-row">
           <div className="flex w-full flex-col items-center gap-4 md:w-1/2 md:items-start">
